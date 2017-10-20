@@ -1,6 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <<!DOCTYPE head PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ <!DOCTYPE head PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
  <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -27,7 +27,7 @@
 })
 </script>
 </head>
-<body class="index" ng-app="app">
+<body class="index" ng-app="app" ng-controller="sonController">
 <div class="top_ad"><div class="w1200"><a href="#" id="close"></a></div></div>
 
 <div class="top">
@@ -144,7 +144,7 @@ $(document).ready(function(e) {
                      
                             <!-- 图片列表 end -->
                            </div>
-                          
+                           <div id="List2" ></div>
                       </div>
                    </div>
                 </dd>
@@ -158,47 +158,11 @@ $(document).ready(function(e) {
     	<dl>
         	<dt>易易特色</dt>
             <dd>
-            	<div class="item big">
+            	<div class="item big" ng-repeat="v in srct2">
                 	<a href="#" class="title">苹果WATCH手表 智能穿戴 智能手表 Apple Watch</a>
                     <p><font>￥</font>2658.<font>00</font></p>
                     <a href="#" class="buy"></a>
-                    <img src="images/img/img4.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img6.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img6.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img9.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img10.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img7.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img8.jpg"/>
+                    <img src="../images/img/img4.jpg"/>
                 </div>
                 <div class="clear"></div>
             </dd>
@@ -550,6 +514,36 @@ $(function () {
 		}
     });
 </script>
+
+<script src="../angular.min.js"></script>
+<script src="../angular-ui-router.min.js"></script>
+<script>
+	var app=angular.module("app",["ui.router"]);
+	app.service("Service",function($http){
+		this.find=function($scope){
+			$http.get("/shopGGL/find2.sw").then(function(response){$scope.son1=response.data},function(response){console.log(response)})
+				
+		}
+		this.findsrc=function($scope){
+			$http.get("/shopGGL/find3.sw").then(function(response){$scope.srct=response.data},function(response){console.log(response)})
+				
+		}
+		this.findsrc2=function($scope){
+			$http.get("/shopGGL/find4.sw").then(function(response){$scope.srct2=response.data},function(response){console.log(response)})
+				
+		}
+	});
+	app.controller("sonController",function($scope,Service){
+		$scope.son1=[];
+		$scope.srct=[];
+		$scope.srct2=[];
+		Service.find($scope);
+		Service.findsrc($scope);
+		Service.findsrc2($scope);
+	});
+	
+
+</script>
 <script language="javascript" type="text/javascript">
 <!--//--><![CDATA[//><!--
 //图片滚动列表 mengjia 070816
@@ -575,7 +569,7 @@ AutoPlayObj = setInterval('ISL_GoDown();ISL_StopDown();',5000); //间隔时间
 }
 function ISL_GoUp(){ //上翻开始
 if(MoveLock) return;
-clearInterval(AutoPlayObj);
+clearInterval(AutoPlayObj); 
 MoveLock = true;
 MoveTimeObj = setInterval('ISL_ScrUp();',Speed);
 }
@@ -647,28 +641,5 @@ setTimeout('CompScr()',Speed);
 //--><!]]>
 </script>
 </body>
-<script src="../angular.min.js"></script>
-<script src="../angular-ui-router.min.js"></script>
-<script>
-	var app=angular.module("app",["ui.router"]);
-	app.service("Service",function($http){
-		this.find=function($scope){
-			$http.get("/shopGGL/find2.sw").then(function(response){$scope.son1=response.data},function(response){console.log(response)})
-				
-		}
-		this.findsrc=function($scope){
-			$http.get("/shopGGL/find3.sw").then(function(response){$scope.srct=response.data},function(response){console.log(response)})
-				
-		}
-	});
-	app.controller("sonController",function($scope,Service){
-		$scope.son1=[];
-		Service.find($scope);
-	});
-	
-	app.controller("srcController",function($scope,Service){
-		$scope.srct=[];
-		Service.findsrc($scope);
-	})
-</script>
+
 </html>

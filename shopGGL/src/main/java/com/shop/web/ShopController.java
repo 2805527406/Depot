@@ -35,4 +35,11 @@ public class ShopController {
 		System.out.println(bs.findAll("select p from Product p left join p.grou g where g.gname='限时抢购'", null));
 		return bs.findAll("select p from Product p left join p.grou g where g.gname='限时抢购'", null);
 	}
+	
+	@RequestMapping(value="/find4")
+	@ResponseBody
+	public Object find4(){
+		System.out.println(bs.findAll("select p from Product p left join p.grou g where g.gname='特色品牌'", null));
+		return bs.findAll("select p from Product p left join p.grou g where g.gname='特色品牌'", null);
+	}
 }

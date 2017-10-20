@@ -1,0 +1,59 @@
+（1）商品信息表product。
+	proid	商品id
+	proname	商品名字
+	salecount 	销售数量
+	image	商品图片
+	price	价格
+	decript	商品介绍
+	sorid	商品类型id
+
+	grou 商品热销分类
+	
+		
+（2）分类信息表sort。	
+	sorid	类型id
+	sorname	类型名称
+	sorimg	类型图片
+	sid     	子类型id
+	
+
+
+（3）用户基本信息表users。	
+	userid	用户id
+	username	账号
+	password  密码
+	phone 	用户电话
+	addredd	收获地址
+	img	用户头像
+	realname 	昵称
+	zip	邮政编码
+	role	角色
+	userlean	用户是否可用
+	
+	
+（4）订单信息表order。	
+	orderid	订单id 
+	orderno	订单编号
+	userid 	用户id
+	sendname收货人
+	sendaddress收货人地址
+	sendphone收获人电话
+	//payment	支付的方式
+	paymoney支付的金额
+	tag	有几个包裹
+	time	购买时间
+
+（5）订单条目描述表entry。	
+	entryid	订单id
+	orderno	订单
+	proid	商品id
+	price	订单总价
+	count	商品数量
+	creatime	 发货时间
+	
+	
+（6）系统管理员信息表admin。
+	adminid 管理员id
+	adminname 管理员名称
+	password 管理员密码
+	permissions 账号是否可用
