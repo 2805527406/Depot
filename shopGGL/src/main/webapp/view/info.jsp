@@ -1,11 +1,17 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>我的购物车</title>
-<link href="css/style.css" type="text/css" rel="stylesheet" />
-<script src="js/jquery-1.7.min.js" type="text/javascript"></script>
-<script src="js/common.js"  type="text/javascript"></script>
+<title>提交订单信息</title>
+<link href="/shopGGL/css/style.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="/shopGGL/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="/shopGGL/themes/default/easyui.css" />
+<script src="/shopGGL/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="/shopGGL/js/common.js"  type="text/javascript"></script>
+<script type="text/javascript" src="/shopGGL/jquery.easyui.min.js"></script>
 
 </head>
 <body class="index">
@@ -71,8 +77,32 @@
 	<div class="position"><a href="#">首页</a> > <a href="#">购物车</a></div>
     
     <div class="shopcar">
-    	<div class="shop_lc"><span class="sp01">我的购物车</span><span class="sp02">填写提交信息表单</span><span class="sp03">在线支付</span></div>
-      	<dl>
+    	<div class="info_lc"><span class="sp01">我的购物车</span><span class="sp02">填写提交信息表单</span><span class="sp03">在线支付</span></div>
+      	<h3><a href="javascript:void(0)" onclick="show_info()">添加新地址</a></h3>
+      	<div id="show_info">
+        	<dl class="info">
+        	<dt><span>确认收货地址</span></dt>
+            <dd>
+            	<div class="item"><span><font>*</font>所在地区：</span><select id="addres1"><option value="广东省">广东省</option></select><select id="addres2"><option value="深圳市">深圳市</option></select><input id="addres3" type="tex" class="txt"/></div>
+            	<div class="item"><span><font>*</font>邮政编码：</span><input type="tex" class="txt"/></div>
+                <div class="item">
+                	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td width="8%"><span><font>*</font>详细地址：</span></td>
+                        <td width="92%"><textarea id="addres4"></textarea></td>
+                      </tr>
+                    </table>
+                </div>
+                <div class="item"><span><font>*</font>收货人姓名：</span><input id="sendname" type="tex" class="txt"/></div>
+                <div class="item"><span><font>*</font>手机：</span><input id="sendphone" type="tex" class="txt"/></div>
+                <div class="item"><a href="javascript:void(0)" class="sub">保存收货人信息</a><a href="javascript:void(0)" class="sub">关闭</a></div>
+            </dd>
+        </dl>
+        
+        
+        </div> 
+        <div>
+        <dl>
         	<dt><span>我的购物车</span></dt>
             <dd>
             	<table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -85,43 +115,77 @@
                     <td width="14%">小计</td>
                     <td width="11%">操作</td>
                   </tr>
+                  <c:forEach items="${cart.cartItems}" var="cart">
                   <tr class="tr_c">
                     <td><input type="checkbox" checked="checked"/></td>
                     <td colspan="2">
                     	<table width="100%" border="0" cellspacing="0" cellpadding="0">
                           <tr>
-                            <td width="15%"><img src="images/ico23.jpg"/></td>
-                            <td width="85%"><a href="#" class="title">头层牛皮真皮沙发 客厅家具 FPSF0814 进口中厚皮 双人位+单人位+贵妃位</a></td>
+                            <td width="15%"><img src="${cart.product.image }"/></td>
+                            <td width="85%"><a href="javascript:void(0)" class="title">${cart.product.proname }</a></td>
                           </tr>
+
                         </table>
                     </td>
-                    <td class="price">￥3083.00</td>
-                    <td><span class="jian">-</span><input type="text" value="1"/><span class="jia">+</span></td>
-                    <td class="price">￥3083.00</td>
-                    <td><a href="#">删除</a></td>
+                    <td class="price">￥${cart.product.price }</td>
+                    <td>${cart.count }</td>
+                    <td class="price">￥${cart.subtatal }</td>
+                    <td><a href="/shopGGL/removeCart.sw?pid=${cart.product.proid }" onclick="return confirm('确定删除？');">删除</a></td>
                   </tr>
-                  <tr class="tr_c">
-                    <td><input type="checkbox" checked="checked"/></td>
-                    <td colspan="2">
-                    	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-                          <tr>
-                            <td width="15%"><img src="images/ico23.jpg"/></td>
-                            <td width="85%"><a href="#" class="title">头层牛皮真皮沙发 客厅家具 FPSF0814 进口中厚皮 双人位+单人位+贵妃位</a></td>
-                          </tr>
-                        </table>
-                    </td>
-                    <td class="price">￥3083.00</td>
-                    <td><span class="jian">-</span><input type="text" value="1"/><span class="jia">+</span></td>
-                    <td class="price">￥3083.00</td>
-                    <td><a href="#">删除</a></td>
-                  </tr>
+                  </c:forEach>
                   <tr class="tr_d">
                     <td colspan="7">
                     	<table width="100%" border="0" cellspacing="0" cellpadding="0">
                           <tr>
-                            <td width="75%"><span class="del"><a href="#">删除选中商品</a></span></td>
-                            <td width="11%">已选商品  <strong>1</strong>  件</td>
-                            <td width="14%" class="all_price">合计：<font>￥3083.00</font></td>
+                            <td width="75%"><span class="del"><a href="#"></a></span></td>
+                            <td width="11%">  <strong></strong>  件</td>
+                            <td width="14%" class="all_price">合计：<font>￥${cart.total }</font></td>
+                          </tr>
+                        </table>
+                    </td>
+                  </tr>
+                </table>
+                <div class="clear"></div>
+                
+   		  </dd>
+        </dl>
+    </div>
+        <dl>
+        	<dt><span>确认订单信息</span></dt>
+            <dd>
+            	<table width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tr class="tr_t">
+                  	<td width="2%">&nbsp;</td>
+                    <td width="48%">收货人</td>
+                    <td width="25%">电话</td>
+                    <td width="13%">地址</td>
+                    <td width="12%">小计</td>
+                  </tr>
+                  <c:forEach items="${cart.cartItems}" var="c">
+                  <tr class="tr_c">
+                  	<td>&nbsp;</td>
+                    <td>
+                    	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td width="15%"><img src="${c.product.image }"/></td>
+                            <td width="85%"><a href="#" class="title">${c.product.proname }</a></td>
+                          </tr>
+                        </table>
+                    </td>
+                    <td class="price">￥${c.product.price }</td>
+                    <td>${c.count }</td>
+                    <td class="price">￥${c.subtatal }</td>
+                  </tr>
+                  </c:forEach>
+                  <tr class="tr_d">
+                    <td colspan="7">
+                    	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                          	<td width="3%">&nbsp;</td>
+                            <td width="6%"></td>
+                            <td width="75%"></td>
+                            <td width="6%">应付金额：</td>
+                            <td width="10%" class="all_price"><font>￥${cart.total}</font></td>
                           </tr>
                         </table>
                     </td>
@@ -135,7 +199,7 @@
          <tr>
            <td width="20%"><a href="#" class="go_buy">继续购物</a></td>
            <td width="63%">&nbsp;</td>
-           <td width="17%" align="right"><a href="#" class="code">结 算</a></td>
+           <td width="17%" align="right"><a href="/shopGGL/code.sw" class="code">结 算</a></td>
          </tr>
         </table>
         <div class="clear"></div>
@@ -233,4 +297,7 @@
 
 
 </body>
+<script>
+
+</script>
 </html>

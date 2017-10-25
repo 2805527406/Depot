@@ -20,16 +20,17 @@ public class Product {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer proid;
 	private String proname;
-	private Integer salecount;
+	private Integer salecount;//ÏúÁ¿
 	private String image;
 	private Float price;
 	private String decript;
 	
 	@Column(insertable=false,updatable=false)
 	private Integer csorid;
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="csorid")
-	private Csort csort;
+	private Sort_2 csort;
+	
 	@Column(insertable=false,updatable=false)
 	private Integer grid;
 	@ManyToOne(cascade=CascadeType.ALL)
@@ -80,10 +81,10 @@ public class Product {
 	public void setCsorid(Integer csorid) {
 		this.csorid = csorid;
 	}
-	public Csort getCsort() {
+	public Sort_2 getCsort() {
 		return csort;
 	}
-	public void setCsort(Csort csort) {
+	public void setCsort(Sort_2 csort) {
 		this.csort = csort;
 	}
 	
@@ -103,8 +104,10 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [proid=" + proid + ", proname=" + proname + ", salecount=" + salecount + ", image=" + image
-				+ ", price=" + price + ", decript=" + decript + ", csorid=" + csorid + "]";
+				+ ", price=" + price + ", decript=" + decript + ", csorid=" + csorid + ", csort=" + csort + ", grid="
+				+ grid + ", grou=" + grou + "]";
 	}
+	
 	
 	
 }

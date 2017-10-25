@@ -1,11 +1,14 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>提交订单信息</title>
-<link href="css/style.css" type="text/css" rel="stylesheet" />
-<script src="js/jquery-1.7.min.js" type="text/javascript"></script>
-<script src="js/common.js"  type="text/javascript"></script>
+<title>产品列表</title>
+<link href="/shopGGL/css/style.css" type="text/css" rel="stylesheet" />
+<script src="/shopGGL/js/jquery-1.7.min.js" type="text/javascript"></script>
+<script src="/shopGGL/js/common.js"  type="text/javascript"></script>
 
 </head>
 <body class="index">
@@ -68,82 +71,41 @@
 
 
 <div class="w1200">
-	<div class="position"><a href="#">首页</a> > <a href="#">购物车</a></div>
+	<div class="position"><a href="/shopGGL/view/index.jsp">首页</a> > <a href="/shopGGL/jump.sw?sid=${product[0].sort.sorid}">${product[0].sort.sorname}</a></div>
     
-    <div class="shopcar">
-    	<div class="info_lc"><span class="sp01">我的购物车</span><span class="sp02">填写提交信息表单</span><span class="sp03">在线支付</span></div>
-      	
-        <dl class="info">
-        	<dt><span>确认收货地址</span></dt>
-            <dd>
-            	<div class="item"><span><font>*</font>所在地区：</span><select><option value="广东省">广东省</option></select><select><option value="深圳市">深圳市</option></select><input type="tex" class="txt"/></div>
-            	<div class="item"><span><font>*</font>邮政编码：</span><input type="tex" class="txt"/></div>
-                <div class="item">
-                	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-                      <tr>
-                        <td width="8%"><span><font>*</font>详细地址：</span></td>
-                        <td width="92%"><textarea></textarea></td>
-                      </tr>
-                    </table>
-                </div>
-                <div class="item"><span><font>*</font>收货人姓名：</span><input type="tex" class="txt"/></div>
-                <div class="item"><span><font>*</font>手机：</span><input type="tex" class="txt"/></div>
-                <div class="item"><span><font>*</font>电话：</span><input type="tex" class="txt"/></div>
-                <div class="item"><input type="submit" class="sub" value="保存收货人信息"/></div>
-            </dd>
-        </dl>
-        
-        <dl>
-        	<dt><span>确认订单信息</span></dt>
-            <dd>
-            	<table width="100%" cellpadding="0" cellspacing="0" border="0">
-                  <tr class="tr_t">
-                  	<td width="2%">&nbsp;</td>
-                    <td width="48%">商品</td>
-                    <td width="25%">单价</td>
-                    <td width="13%">数量</td>
-                    <td width="12%">小计</td>
-                  </tr>
-                  <tr class="tr_c">
-                  	<td>&nbsp;</td>
-                    <td>
-                    	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-                          <tr>
-                            <td width="15%"><img src="images/ico23.jpg"/></td>
-                            <td width="85%"><a href="#" class="title">头层牛皮真皮沙发 客厅家具 FPSF0814 进口中厚皮 双人位+单人位+贵妃位</a></td>
-                          </tr>
-                        </table>
-                    </td>
-                    <td class="price">￥3083.00</td>
-                    <td>1</td>
-                    <td class="price">￥3083.00</td>
-                  </tr>
-                  <tr class="tr_d">
-                    <td colspan="7">
-                    	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-                          <tr>
-                          	<td width="3%">&nbsp;</td>
-                            <td width="6%">买家留言：</td>
-                            <td width="75%"><input type="text" value="" class="msg"/></td>
-                            <td width="6%">应付金额：</td>
-                            <td width="10%" class="all_price"><font>￥3083.00</font></td>
-                          </tr>
-                        </table>
-                    </td>
-                  </tr>
-                </table>
-                <div class="clear"></div>
-                
-   		  </dd>
-        </dl>
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="go_tb">
-         <tr>
-           <td width="20%"><a href="#" class="go_buy">继续购物</a></td>
-           <td width="63%">&nbsp;</td>
-           <td width="17%" align="right"><a href="#" class="code">结 算</a></td>
-         </tr>
-        </table>
+    <div class="c_nav">
+   		<c:forEach items="${product}" var="p">
+        <div class="item"><span>${p.csorname}</span>
+        <p>
+        <c:forEach items="${p.sort2s}" var="s">
+        <a href="/shopGGL/jump.sw?csorid=${s.s2id}&sid=${product[0].sort.sorid}">${s.s2name}</a>
+        </c:forEach>
+        </p><div class="clear"></div>
+        </div>
+         </c:forEach>
+    </div>
+    
+    <div class="order"><a href="#" class="cur">综合排序</a><a href="#">销量</a><a href="#">价格</a><a href="#">评论数</a><span><font>共1889件商品  <strong><b>1</b>/50</strong></font><a href="#">></a><a href="#"><</a></span>
+    <div class="clear"></div>
+    </div>
+    <div class="pro_cont" id="asdf">
+    <c:forEach items="${pro}" var="p">
+    	<a href="/shopGGL/jump2.sw?proid=${p.proid }"><div class='item'><dt><img src='${p.image }'/></dt></dl><p class='p01'><font>￥</font><font>${p.price }</font></p><p class='p02'><a href='#'>${p.proname }</a></p></div></a>
+
+       </c:forEach>
         <div class="clear"></div>
+    </div>
+	<div class="page">
+    	<a href="#" class="pre">上一页</a>
+        <a href="#" class="on">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">6</a>
+        <span>...</span>
+        <a href="#" class="next">下一页></a>
+        共50页 到第<input type="text" value="1" />页  <a href="#" class="sub">确定</a>
     </div>
 </div>
 

@@ -1,11 +1,14 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" name="viewport"/>
 <title>产品详情</title>
-<link href="css/style.css" type="text/css" rel="stylesheet" />
-<script src="js/jquery-1.7.min.js" type="text/javascript"></script>
-<script src="js/common.js"  type="text/javascript"></script>
+<link href="/shopGGL/css/style.css" type="text/css" rel="stylesheet" />
+
+	
+<script src="/shopGGL/js/jquery-1.7.min.js" type="text/javascript"></script>
+<script src="/shopGGL/js/common.js"  type="text/javascript"></script>
+
 <SCRIPT LANGUAGE="JavaScript">
 <!-- Hide
 function killErrors() {
@@ -74,7 +77,7 @@ return true;
 
 
 <div class="w1200 product">
-	<div class="position"><a href="#">首页</a> > <a href="#">家居家访</a> > <a href="#">头层牛皮真皮沙发 客厅家具 FPSF0814 进口中厚皮 卡菲纳 沙发</a></div>
+	<div class="position"><a href="/shopGGL/view/index.jsp">首页</a> > <a href="/shopGGL/jump.sw?sid=${ppp.csort.parent_csort.sort.sorid}">${ppp.csort.parent_csort.sort.sorname}</a> > <a href="/shopGGL/jump.sw?sid=${ppp.csort.parent_csort.sort.sorid}&csorid=${ppp.csort.s2id}">${ppp.csort.s2name}</a></div>
     
     <link rel="stylesheet" href="css/detail.css" type="text/css" />
 	<script src="js/jquery-1.5.1.js" type="text/javascript"></script>
@@ -89,47 +92,47 @@ return true;
                     <!--放大镜-->
                 	<div class="pro_detail">
                         <div class="pro_detail_left">
-                            <div class="jqzoom"><img src="images/pro.jpg" class="fs" alt="" jqimg="images/pro.jpg" id="bigImg"/></div>
-                            <span>
-                                 <ul class="imgList">
-                                    <li class="on"><img src="images/pro.jpg" alt="" /></li>
-                                    <li><img src="images/pro2.jpg" alt="" /></li>
-                                    <li><img src="images/pro3.jpg" alt="" /></li>
-                                    <li><img src="images/pro4.jpg" alt="" /></li>
-                                    <li><img src="images/pro.jpg" alt="" /></li>
-                                    <li class="last"><img src="images/pro2.jpg" alt="" /></li>
-                                 </ul>
-                             </span>
+                            <div class="jqzoom"><img src="images/img/img39.jpg" class="fs" alt="" jqimg="<img src='images/img/img39.jpg' height='800' width='800'>" id="bigImg"/></div>
+             
                         </div>
                     </div>
                     <!--放大镜-->
                 </div>
                 <div class="right">
-                	<div class="title">2015新品李宁运动生活系列男装正品运动连帽卫衣套头衫AWDK307</div>
-                    <div class="info">运动鞋凭借完美的穿着性及性能表现，专为运动场上的你精心打造，为你带来出色的舒适性、缓震性和稳定性。</div>
+                	<div class="title">${ppp.proname}</div>
+                    <div class="info">${ppp.decript}</div>
                     
                     <div class="price">
                     	<table width="100%" height="61" border="0" cellpadding="0" cellspacing="0">
                           <tr>
                             <td width="8%">售价：</td>
-                            <td width="41%"><b>￥3083.00</b></td>
-                            <td width="7%">原价：</td>
-                            <td width="44%"><del>￥6599.00</del></td>
+                            <td width="41%"><b>￥${ppp.price}</b></td>
+
                           </tr>
                         </table>
                   	</div>
                     <div class="send"><small>配送至：</small><input value="北京朝阳区三环以内" name="" /><span>由 <u>奥凡尼旗舰店</u>从广东佛山市发货，并提供售后服务。</span><div class="clear"></div></div>
-                    <div class="size"><small>选择尺码：</small><p><span>进口厚皮 双人位+贵妃位+边几</span><span class="on">进口厚皮 双人位+贵妃位+边几</span><span>进口厚皮 全套系列</span><span>进口厚皮 双+贵+单+边几</span></p><div class="clear"></div></div>
+                    
+                	<div class="size"><small>选择尺码：</small><p><span>进口厚皮 双人位+贵妃位+边几</span><span class="on">进口厚皮 双人位+贵妃位+边几</span><span>进口厚皮 全套系列</span><span>进口厚皮 双+贵+单+边几</span></p><div class="clear"></div></div>
+                   <form method="get" action="/shopGGL/cart.sw" id="subcart">
+                    
                     <div class="number">
-                        <small>数量：</small><input type="text" class="num" value="1"/><span class="jian"></span><span class="jia"></span>
-                        <div class="ku"><p>件&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库存694件</p></div>
+                        <small>数量：</small>
+                        <input type="hidden" name="proid" value="${ppp.proid}"/>
+                       <input type="text" maxlength=3 value="1" name="total" class="num"/>
+                      
+        				<span class="jian"></span><span class="jia"></span>
+        					       <div class="ku"><p>件&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></div>
                         <div class="clear"></div>
                     </div>
-                    <div class="sale"><small>销量：</small><span class="on">21212</span><div class="clear"></div></div>
-                    <div class="sub"><a href="#" class="btn01"></a><a href="#" class="btn02"></a></div>
+                    <div class="sale"><small>销量：</small><span class="on">${ppp.salecount}</span><div class="clear"></div></div>
+                    <div class="sub"><a href="#" class="btn01"></a><a href="javascript:void(0)" onclick="subCart()" class="btn02"></a></div>
+               </form>
+               
                 </div>
                 <div class="clear"></div>
             </div>
+          
             
             <div class="share w1200">
                <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -405,6 +408,9 @@ return true;
 </div>
 
 <script type="text/javascript">
+function subCart(){
+	$("#subcart").submit();
+}
 $(function(){
 var imgWid = 0 ;
 var imgHei = 0 ; //变量初始化

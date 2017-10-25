@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,20 +12,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="order")
-public class Order {
+@Table(name="orders")
+public class Order {// ’ªıµÿ÷∑
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer orderid;
@@ -34,9 +29,8 @@ public class Order {
 	private String sendname;
 	private String sendaddress;
 	private String sendphone;
-	private String payment;
-	private Float paymoney;
-	private Integer tag;
+	private String zip;
+	
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	@JsonFormat(pattern="yyyy-MM-dd",locale="GTM+8")
 	private Date time;
@@ -91,30 +85,7 @@ public class Order {
 		this.sendphone = sendphone;
 	}
 
-	public String getPayment() {
-		return payment;
-	}
-
-	public void setPayment(String payment) {
-		this.payment = payment;
-	}
-
-	public Float getPaymoney() {
-		return paymoney;
-	}
-
-	public void setPaymoney(Float paymoney) {
-		this.paymoney = paymoney;
-	}
-
-	public Integer getTag() {
-		return tag;
-	}
-
-	public void setTag(Integer tag) {
-		this.tag = tag;
-	}
-
+	
 	public Date getTime() {
 		return time;
 	}
@@ -148,13 +119,23 @@ public class Order {
 		this.entry = entry;
 	}
 
+	
+	public String getZip() {
+		return zip;
+	}
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+
 	@Override
 	public String toString() {
 		return "Order [orderid=" + orderid + ", orderno=" + orderno + ", sendname=" + sendname + ", sendaddress="
-				+ sendaddress + ", sendphone=" + sendphone + ", payment=" + payment + ", paymoney=" + paymoney
-				+ ", tag=" + tag + ", time=" + time + ", userid=" + userid + ", users=" + users + ", entry=" + entry
-				+ "]";
+				+ sendaddress + ", sendphone=" + sendphone + ", time=" + time + ", userid=" + userid + ", users="
+				+ users + ", entry=" + entry + "]";
 	}
+
+	
 	
 	
 }

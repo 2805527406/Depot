@@ -24,12 +24,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="entry")
-public class Entry {
+public class Entry {//结算后的包裹
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer entryid;
+	private String payment;
+	private Float paymoney;
 	private Float price;
 	private Integer count;
+	private Integer tag;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	@JsonFormat(pattern="yyyy-MM-dd",locale="GTM+8")
 	private Date createtime;
@@ -40,10 +43,7 @@ public class Entry {
 	@JoinColumn(name="orid")
 	private Order or;
 	
-	@OneToMany(mappedBy="en",cascade=CascadeType.ALL)
-	@JsonIgnore
-	private Set<Csort> csorts=new HashSet<Csort>();
-
+	
 	public Integer getEntryid() {
 		return entryid;
 	}
@@ -94,21 +94,51 @@ public class Entry {
 	public void setOrid(Integer orid) {
 		this.orid = orid;
 	}
+//	@OneToMany(mappedBy="en",cascade=CascadeType.ALL)
+//	@JsonIgnore
+//	private Set<Sort_2> csorts=new HashSet<Sort_2>();
+//
+//
+//	public Set<Sort_2> getCsorts() {
+//		return csorts;
+//	}
+//
+//	public void setCsorts(Set<Sort_2> csorts) {
+//		this.csorts = csorts;
+//	}
 
-
-	public Set<Csort> getCsorts() {
-		return csorts;
+	public String getPayment() {
+		return payment;
 	}
 
-	public void setCsorts(Set<Csort> csorts) {
-		this.csorts = csorts;
+	public void setPayment(String payment) {
+		this.payment = payment;
+	}
+
+	public Float getPaymoney() {
+		return paymoney;
+	}
+
+	public void setPaymoney(Float paymoney) {
+		this.paymoney = paymoney;
+	}
+
+	public Integer getTag() {
+		return tag;
+	}
+
+	public void setTag(Integer tag) {
+		this.tag = tag;
 	}
 
 	@Override
 	public String toString() {
-		return "Entry [entryid=" + entryid + ", price=" + price + ", count=" + count + ", createtime=" + createtime
-				+ ", orid=" + orid + ", or=" + or + ", csorts=" + csorts + "]";
+		return "Entry [entryid=" + entryid + ", payment=" + payment + ", paymoney=" + paymoney + ", price=" + price
+				+ ", count=" + count + ", tag=" + tag + ", createtime=" + createtime + ", orid=" + orid + ", or=" + or
+				+ "]";
 	}
+
+	
 
 
 	

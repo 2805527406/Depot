@@ -1,7 +1,7 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <!DOCTYPE head PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
- <html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html ng-app="app">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>首页</title>
@@ -27,7 +27,7 @@
 })
 </script>
 </head>
-<body class="index" ng-app="app" ng-controller="sonController">
+<body class="index"  ng-controller="sonController">
 <div class="top_ad"><div class="w1200"><a href="#" id="close"></a></div></div>
 
 <div class="top">
@@ -61,19 +61,19 @@
 <div class="menu">
 	<div class="w1200">
     	<div class="item" id="nav"><a href="#" class="nav">全部商品分类</a>
-        	<div class="nav_son" ng-controller="sonController">
+        	<div class="nav_son" >
             	<ul>
-                	<li ng-repeat="v in son1" class="{{v.sorimg}}"><a href="#">{{v.sorname}}</a></li>
+                	<li ng-repeat="v in son1" class="{{v.sorimg}}"><a href="/shopGGL/jump.sw?sid={{v.sorid}}">{{v.sorname}}</a></li>
                 </ul>
 
             </div>
         </div>
    	  <div class="item"><a href="#" class="home">商城首页</a></div>
-        <div class="item"><a href="#">易易特色</a></div>
+       <!--  <div class="item"><a href="#">易易特色</a></div>
         <div class="item"><a href="#">热销产品</a></div>
         <div class="item"><a href="#">新品上市</a></div>
         <div class="item"><a href="#">精品推荐</a></div>
-        <div class="item"><a href="#">生活服务</a></div>
+        <div class="item"><a href="#">生活服务</a></div> -->
     </div>
 </div>
 
@@ -118,7 +118,7 @@ $(document).ready(function(e) {
     </div>
 </div>
 
-<div class="w1201">
+<div class="w1201" >
 	<a name="a01"></a>
 	<div class="idx01">
     	<div class="rollBox">
@@ -128,7 +128,7 @@ $(document).ready(function(e) {
                 <dd>
                     <div class="Cont" id="ISL_Cont">
                       <div class="ScrCont">
-                         <div id="List1" ng-controller="srcController">
+                         <div id="List1">
                             <!-- 图片列表 begin -->
                            <ul>
                                <li class="pic" ng-repeat="v in srct">
@@ -158,216 +158,47 @@ $(document).ready(function(e) {
     	<dl>
         	<dt>易易特色</dt>
             <dd>
-            	<div class="item big" ng-repeat="v in srct2">
-                	<a href="#" class="title">苹果WATCH手表 智能穿戴 智能手表 Apple Watch</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
+            	<div class="item big" ng-repeat="v in srct2" ng-if="$index==0">
+                	<a href="#" class="title">{{v.proname}} {{v.decript}}</a>
+                    <p><font>￥</font>{{v.price}}</p>
                     <a href="#" class="buy"></a>
-                    <img src="../images/img/img4.jpg"/>
+                    <img src="{{v.image}}"/>
+                </div>
+            	<div class="item" ng-repeat="v in srct2" ng-if="6>$index>0">
+                	<a href="#" class="title">{{v.proname}} {{v.decript}}</a>
+                    <p><font>￥</font>{{v.price}}</p>
+                    <a href="#" class="buy"></a>
+                    <img src="{{v.image}}"/>
                 </div>
                 <div class="clear"></div>
             </dd>
         </dl>
     </div>
-    <a name="a03"></a>
-    <div class="idx02" id="idx03">
-    	<dl>
-        	<dt>新品上市</dt>
-            <dd>
-            	<div class="item big">
-                    <a href="#"><img src="images/img/img11.jpg"/></a>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img13.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img12.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img5.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img14.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img16.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img17.jpg"/>
-                </div>
-                <div class="clear"></div>
-            </dd>
-        </dl>
-    </div>
-	
-    <div class="idx_ad"><img src="images/home/ico28.jpg"/></div>
-    <a name="a04"></a>
-     <div class="idx02" id="idx04">
-    	<dl>
-        	<dt>热销产品</dt>
-            <dd>
-            	<div class="item big">
-                	<a href="#" class="title">苹果WATCH手表 智能穿戴 智能手表 Apple Watch</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img18.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img20.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img19.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img23.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img24.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img21.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img22.jpg"/>
-                </div>
-                <div class="clear"></div>
-            </dd>
-        </dl>
-    </div>
+ 
+   
     <a name="a05"></a>
     <div class="idx02" id="idx05">
     	<dl>
         	<dt>精品推荐</dt>
             <dd>
-            	<div class="item big">
-                    <a href="#"><img src="images/img/img25.jpg"/></a>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
+            	<div class="item big" ng-repeat="v in srct3" ng-if="$index==0">
+                	<a href="#" class="title">{{v.proname}} {{v.decript}}</a>
+                    <p><font>￥</font>{{v.price}}</p>
                     <a href="#" class="buy"></a>
-                    <img src="images/img/img27.jpg"/>
+                    <img src="{{v.image}}"/>
                 </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
+            	<div class="item" ng-repeat="v in srct3" ng-if="6>$index>0">
+                	<a href="#" class="title">{{v.proname}} {{v.decript}}</a>
+                    <p><font>￥</font>{{v.price}}</p>
                     <a href="#" class="buy"></a>
-                    <img src="images/img/img26.jpg"/>
+                    <img src="{{v.image}}"/>
                 </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img29.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img30.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img31.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img28.jpg"/>
-                </div>
+                <div class="clear"></div>
                 <div class="clear"></div>
             </dd>
         </dl>
     </div>
-    <a name="a06"></a>
-     <div class="idx02" id="idx06">
-    	<dl>
-        	<dt>生活服务</dt>
-            <dd>
-            	<div class="item big">
-                	<a href="#" class="title">苹果WATCH手表 智能穿戴 智能手表 Apple Watch</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img32.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img33.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img34.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img35.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img36.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img37.jpg"/>
-                </div>
-                <div class="item">
-                	<a href="#" class="title">Apple/苹果ipad mini2 32GB银7.9英寸平板电脑</a>
-                    <p><font>￥</font>2658.<font>00</font></p>
-                    <a href="#" class="buy"></a>
-                    <img src="images/img/img38.jpg"/>
-                </div>
-                <div class="clear"></div>
-            </dd>
-        </dl>
-    </div>
+    
     
     <div class="idx_ad"><img src="images/home/ico28.jpg"/></div>
 </div>
@@ -532,14 +363,20 @@ $(function () {
 			$http.get("/shopGGL/find4.sw").then(function(response){$scope.srct2=response.data},function(response){console.log(response)})
 				
 		}
+		this.findsrc3=function($scope){
+			$http.get("/shopGGL/find5.sw").then(function(response){$scope.srct3=response.data},function(response){console.log(response)})
+				
+		}
 	});
 	app.controller("sonController",function($scope,Service){
 		$scope.son1=[];
 		$scope.srct=[];
 		$scope.srct2=[];
+		$scope.srct3=[];
 		Service.find($scope);
 		Service.findsrc($scope);
 		Service.findsrc2($scope);
+		Service.findsrc3($scope);
 	});
 	
 
