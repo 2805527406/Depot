@@ -1,15 +1,19 @@
 package com.shop.web;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.criteria.From;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 import org.hibernate.loader.custom.EntityFetchReturn;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -19,11 +23,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.shop.bean.Csort;
+import com.shop.bean.Entry;
+import com.shop.bean.Order;
 import com.shop.bean.Product;
 import com.shop.bean.Sort;
+import com.shop.bean.Users;
 import com.shop.service.BaseService;
 import com.shop.vo.Cart;
 import com.shop.vo.CartItem;
+import com.shop.vo.RandomCharData;
 
 @Controller
 public class ShopController {
@@ -34,35 +42,35 @@ public class ShopController {
 	public String find(){
 		return "forward:view/index.jsp";
 	}
-	
+	//æŸ¥è¯¢å¤§åˆ†ç±»
 	@RequestMapping(value="/find2")
 	@ResponseBody
 	public Object find2(){
 		System.out.println(bs.findAll("from Sort", null));
 		return bs.findAll("from Sort", null);
 	}
-	
+	//
 	@RequestMapping(value="/find3")
 	@ResponseBody
 	public Object find3(){
-		System.out.println(bs.findAll("select p from Product p left join p.grou g where g.gname='ÏŞÊ±ÇÀ¹º'", null));
-		return bs.findAll("select p from Product p left join p.grou g where g.gname='ÏŞÊ±ÇÀ¹º'", null);
+		System.out.println(bs.findAll("select p from Product p left join p.grou g where g.gname='é™æ—¶æŠ¢è´­'", null));
+		return bs.findAll("select p from Product p left join p.grou g where g.gname='é™æ—¶æŠ¢è´­'", null);
 	}
-	
+	//ï¿½ï¿½É«Æ·ï¿½ï¿½
 	@RequestMapping(value="/find4")
 	@ResponseBody
 	public Object find4(){
-		System.out.println(bs.findAll("select p from Product p left join p.grou g where g.gname='ÌØÉ«Æ·ÅÆ'", null));
-		return bs.findAll("select p from Product p left join p.grou g where g.gname='ÌØÉ«Æ·ÅÆ'", null);
+		System.out.println(bs.findAll("select p from Product p left join p.grou g where g.gname='æ˜“æ˜“ç‰¹è‰²'", null));
+		return bs.findAll("select p from Product p left join p.grou g where g.gname='æ˜“æ˜“ç‰¹è‰²'", null);
 	}
-	
+	//ï¿½ï¿½Æ·ï¿½Æ¼ï¿½
 	@RequestMapping(value="/find5")
 	@ResponseBody
 	public Object find5(){
-		System.out.println(bs.findAll("select p from Product p left join p.grou g where g.gname='¾«Æ·ÍÆ¼ö'", null));
-		return bs.findAll("select p from Product p left join p.grou g where g.gname='¾«Æ·ÍÆ¼ö'", null);
+		System.out.println(bs.findAll("select p from Product p left join p.grou g where g.gname='ç²¾å“æ¨è'", null));
+		return bs.findAll("select p from Product p left join p.grou g where g.gname='ç²¾å“æŠ¢è´­'", null);
 	}
-	
+	//ï¿½ï¿½Æ·Ò³ï¿½ï¿½
 	@RequestMapping(value="/jump")
 	public String jump(Csort cs,
 			HttpServletRequest request){
@@ -75,7 +83,7 @@ public class ShopController {
 		request.setAttribute("pro",bs.findAll(hql2, null));
 		return "forward:view/product.jsp";
 	}
-	
+	//ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½
 	@RequestMapping(value="/jump2")
 	public String jump2(Product p,
 			HttpServletRequest request){
@@ -85,11 +93,11 @@ public class ShopController {
 		System.out.println(bs.find(Product.class, p.getProid()));
 		return "forward:view/product_show.jsp";
 	}
-	
+	//ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½
 	@RequestMapping(value="cart")
 	public String Cart(@RequestParam(name="total")Integer total,@RequestParam(name="proid")Integer proid,
 			HttpSession session){
-		System.out.println("Äã½øÀ´ÁË°É£º"+total+","+proid);
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë°É£ï¿½"+total+","+proid);
 		Product p=(Product) bs.find(Product.class, proid);
 		CartItem cartItem=new CartItem(p, total);
 		Cart cart=getCart(session);
@@ -106,17 +114,7 @@ public class ShopController {
 		}
 		return cart;
 	}
-	
-	@RequestMapping(value="/test")
-	@ResponseBody
-	public Object test(Integer sid,
-			HttpServletRequest request){
-		System.out.println(sid);
-		String hql="select p from Product p where p.proid="+sid;
-		request.setAttribute("ppp",bs.find(Product.class, sid));
-		return bs.findAll(hql, null);
-	}
-	
+	//ï¿½ï¿½ï¿½ï³µÉ¾ï¿½ï¿½
 	@RequestMapping(value="/removeCart")
 	public String removeCart(@RequestParam(name="pid")Integer pid,HttpSession session){
 		System.out.println(pid);
@@ -124,17 +122,80 @@ public class ShopController {
 		cart.removeCart(pid);
 		return "redirect:view/shopcar.jsp";
 	}
-	
-	@RequestMapping(value="/code")
-	public String code(HttpSession session){
-		Cart cart=getCart(session);
-		
-		
+	//ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½
+	@RequestMapping(value="/addorder")
+	@ResponseBody
+	public String addOrder(Order order,HttpServletRequest request){
+		order.setTime(new Date());
+		order.setUsers((Users)bs.find(Users.class,1));
+		bs.add(order);
+		return "ok";
+	}
+	//Ö§ï¿½ï¿½Ò³ï¿½ï¿½
+	@RequestMapping(value="/jump3")
+	public String jump3(HttpServletRequest request){
+		request.setAttribute("order",bs.findAll("from Order o where o.userid=1", null));
+		return "forward:view/info.jsp";
+	}
+	//Ö§ï¿½ï¿½
+	@RequestMapping(value="/removeAddres")
+	public String removeAddres(Integer orderid,HttpServletRequest request){
+		bs.del((Order)bs.find(Order.class, orderid));
+		request.setAttribute("order",bs.findAll("from Order o where o.userid=1", null));
 		return "redirect:view/info.jsp";
 	}
+	//Ö§ï¿½ï¿½
+	@RequestMapping(value="/editAddres")
+	@ResponseBody
+	public Object editAddres(Integer orderid){
+		return bs.find(Order.class, orderid);
+	}
+	//Ö§ï¿½ï¿½
+	@RequestMapping(value="/editorder")
+	@ResponseBody
+	public String editorder(Order order){
+		Order or=(Order) bs.find(Order.class,order.getOrderid());
+		or.setTime(new Date());
+		or.setUsers((Users)bs.find(Users.class,1));
+		or.setSendaddress(order.getSendaddress());
+		or.setSendname(order.getSendname());
+		or.setSendphone(order.getSendphone());
+		or.setZip(order.getZip());
+		bs.update(or);
+		return "ok2";
+	}
 	
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	@RequestMapping(value="/code")
+	public String code(Integer orderid,HttpSession session){
+		Order or=(Order) bs.find(Order.class, orderid);
+		RandomCharData r=new RandomCharData();
+		String str=orderid+r.createRandomCharData(15);
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Å£ï¿½"+str);
+		session.setAttribute("ddss", str);
+		Entry en=new Entry();
+		en.setOrderno(str);
+		double f=getCart(session).getTotal();
+		en.setPaymoney((float)f);
+		en.setCreatetime(new Date());
+		en.setOr(or);
+		bs.add(en);
+		
+		
+		for (Map.Entry<Integer, CartItem> entry : getCart(session).getCart().entrySet()) {
+		Product p=(Product) bs.find(Product.class, entry.getKey());
+		p.setEn_pro(en);
+		bs.update(p);
+		}
+		
+		return "redirect:view/payply.jsp";
+	}
 	
-	
+	@RequestMapping(value="/removelogin")
+	public String removelogin(HttpSession session){
+		session.removeAttribute("qianlogin");
+		return "redirect:view/index.jsp";
+	}
 
 	
 }

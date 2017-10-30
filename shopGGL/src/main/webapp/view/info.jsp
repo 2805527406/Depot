@@ -2,89 +2,32 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="app">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>提交订单信息</title>
 <link href="/shopGGL/css/style.css" type="text/css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="/shopGGL/themes/icon.css" />
-<link rel="stylesheet" type="text/css" href="/shopGGL/themes/default/easyui.css" />
 <script src="/shopGGL/js/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="/shopGGL/js/common.js"  type="text/javascript"></script>
-<script type="text/javascript" src="/shopGGL/jquery.easyui.min.js"></script>
+
 
 </head>
-<body class="index">
+<body class="index" ng-controller="sonController">
 <div class="top_ad"><div class="w1200"><a href="#" id="close"></a></div></div>
-
-<div class="top">
-	<div class="w1200">
-		<div class="left">您好，欢迎光临易易城！<a href="#">[登录]</a> <a href="#">[注册]</a></div>
-        <div class="right"><a href="#">我的会员中心</a>|<a href="#">收藏夹</a>|<a href="#">服务中心</a>|<a href="#">在线客服</a>|<a href="#">购物车<b>0</b>件</a></div>
-        <div class="clear"></div>
-    </div>
-</div>
-
-<div class="head">
-	<div class="w1200">
-    	<div class="logo"><a href="#"></a></div>
-        <div class="search">
-        	<form action="#" class="form">
-        		<input type="text" value="输入商品关键字" name="keyword" class="txt" onfocus="if(value=='输入商品关键字') {value=''}" onblur="if(value=='') {value='输入商品关键字'}"/>
-                <input type="submit" value="搜索" class="sub"/>
-            </form>
-        	<p><a href="#">iphone6s</a>|<a href="#">面膜</a>|<a href="#">婚庆床品</a>|<a href="#">运动鞋</a>|<a href="#">眼霜</a>|<a href="#">月饼</a>|<a href="#">智能手机</a>|<a href="#">连衣裙</a></p>
-        </div>
-        <div class="s_r">
-        	<dl>
-            	<dt><p>购物车<span>0</span></p></dt>
-                <dd>客服电话：<b>400-0139-038</b></dd>
-            </dl>
-        </div>
-        <div class="clear"></div>
-    </div>
-</div>
-
-<div class="menu">
-	<div class="w1200">
-    	<div class="item" id="nav"><a href="#" class="nav">全部商品分类</a>
-        	<div class="nav_son">
-            	<ul>
-                	<li class="li01"><a href="#">功能产品</a></li>
-                    <li class="li02"><a href="#">服装箱包</a></li>
-                    <li class="li03"><a href="#">美妆护肤</a></li>
-                    <li class="li04"><a href="#">珠宝饰品</a></li>
-                    <li class="li05"><a href="#">数码家电</a></li>
-                    <li class="li06"><a href="#">食品茶酒</a></li>
-                    <li class="li07"><a href="#">运动体育</a></li>
-                    <li class="li08"><a href="#">家居家纺</a></li>
-                    <li class="li09"><a href="#">生活服务</a></li>
-                    <li class="li10"><a href="#">其他</a></li>
-                </ul>
-            </div>
-        </div>
-    	<div class="item"><a href="#" class="home">商城首页</a></div>
-        <div class="item"><a href="#">易易特色</a></div>
-        <div class="item"><a href="#">热销产品</a></div>
-        <div class="item"><a href="#">新品上市</a></div>
-        <div class="item"><a href="#">精品推荐</a></div>
-        <div class="item"><a href="#">生活服务</a></div>
-    </div>
-</div>
-
-
+<%@ include file="index_hand.jsp" %>
 <div class="w1200">
 	<div class="position"><a href="#">首页</a> > <a href="#">购物车</a></div>
     
     <div class="shopcar">
     	<div class="info_lc"><span class="sp01">我的购物车</span><span class="sp02">填写提交信息表单</span><span class="sp03">在线支付</span></div>
-      	<h3><a href="javascript:void(0)" onclick="show_info()">添加新地址</a></h3>
+      	<h3><a href="javascript:void(0)" id="showeee">添加新地址</a></h3>
       	<div id="show_info">
+      	
         	<dl class="info">
-        	<dt><span>确认收货地址</span></dt>
+        	<dt><span>添加收货地址</span></dt>
             <dd>
-            	<div class="item"><span><font>*</font>所在地区：</span><select id="addres1"><option value="广东省">广东省</option></select><select id="addres2"><option value="深圳市">深圳市</option></select><input id="addres3" type="tex" class="txt"/></div>
-            	<div class="item"><span><font>*</font>邮政编码：</span><input type="tex" class="txt"/></div>
+            	<div class="item"><span><font>*</font>所在地区：</span><select id="addres1"><option value="广东省">广东省</option></select><select id="addres2"><option value="深圳市">深圳市</option></select><input id="addres3" type="tex" class="txt"/><input type="hidden" id="orderid" value="0"/></div>
+            	<div class="item"><span><font>*</font>邮政编码：</span><input id="zip" type="tex" class="txt"/></div>
                 <div class="item">
                 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
                       <tr>
@@ -95,61 +38,47 @@
                 </div>
                 <div class="item"><span><font>*</font>收货人姓名：</span><input id="sendname" type="tex" class="txt"/></div>
                 <div class="item"><span><font>*</font>手机：</span><input id="sendphone" type="tex" class="txt"/></div>
-                <div class="item"><a href="javascript:void(0)" class="sub">保存收货人信息</a><a href="javascript:void(0)" class="sub">关闭</a></div>
+                <div class="item"><a href="javascript:void(0)" class="sub" onclick="saveor()">保存收货人信息</a><a href="javascript:void(0)" class="sub" onclick="guanbi()">关闭</a></div>
             </dd>
         </dl>
-        
-        
         </div> 
-        <div>
-        <dl>
-        	<dt><span>我的购物车</span></dt>
+        
+        
+        <div id="show_addres">
+       		 <dl>
+        	<dt><span>确认收货地址</span></dt>
             <dd>
+            <form id="form_or" method="post">
             	<table width="100%" cellpadding="0" cellspacing="0" border="0">
                   <tr class="tr_t">
-                    <td width="4%"><input type="checkbox" checked="checked"/></td>
-                    <td width="4%">全选</td>
-                    <td width="35%">商品</td>
-                    <td width="26%">单价</td>
-                    <td width="6%">数量</td>
-                    <td width="14%">小计</td>
-                    <td width="11%">操作</td>
+                    <td width="4%"><input type="radio" /></td>
+                    <td width="20%">姓名</td>
+                    <td width="17%">电话</td>
+                    <td width="12%">邮编</td>
+                    <td width="35%">地址</td>
+                    <td width="12%">操作</td>
                   </tr>
-                  <c:forEach items="${cart.cartItems}" var="cart">
-                  <tr class="tr_c">
-                    <td><input type="checkbox" checked="checked"/></td>
-                    <td colspan="2">
-                    	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-                          <tr>
-                            <td width="15%"><img src="${cart.product.image }"/></td>
-                            <td width="85%"><a href="javascript:void(0)" class="title">${cart.product.proname }</a></td>
-                          </tr>
-
-                        </table>
+                  <c:forEach items="${order}" var="ors">
+ 				<tr class="tr_c">
+                    <td><input type="radio"  name="orderid" value="${ors.orderid }"/></td>
+                 	<td>${ors.sendname }</td>
+                    <td>${ors.sendphone }</td>
+                    <td class="price">${ors.zip }</td>
+                    <td class="price">${ors.sendaddress }</td>
+                    <td><a href="/shopGGL/removeAddres.sw?orderid=${ors.orderid }">删除</a>&nbsp;
+                    	<a href="javascript:void(0)" onclick="editAddres(${ors.orderid})">编辑</a>
                     </td>
-                    <td class="price">￥${cart.product.price }</td>
-                    <td>${cart.count }</td>
-                    <td class="price">￥${cart.subtatal }</td>
-                    <td><a href="/shopGGL/removeCart.sw?pid=${cart.product.proid }" onclick="return confirm('确定删除？');">删除</a></td>
                   </tr>
                   </c:forEach>
-                  <tr class="tr_d">
-                    <td colspan="7">
-                    	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-                          <tr>
-                            <td width="75%"><span class="del"><a href="#"></a></span></td>
-                            <td width="11%">  <strong></strong>  件</td>
-                            <td width="14%" class="all_price">合计：<font>￥${cart.total }</font></td>
-                          </tr>
-                        </table>
-                    </td>
-                  </tr>
                 </table>
+                </form>
                 <div class="clear"></div>
                 
    		  </dd>
         </dl>
-    </div>
+   		</div>
+        
+        
         <dl>
         	<dt><span>确认订单信息</span></dt>
             <dd>
@@ -199,7 +128,7 @@
          <tr>
            <td width="20%"><a href="#" class="go_buy">继续购物</a></td>
            <td width="63%">&nbsp;</td>
-           <td width="17%" align="right"><a href="/shopGGL/code.sw" class="code">结 算</a></td>
+           <td width="17%" align="right"><a href="javascript:void(0)" onclick="subor()" class="code">结 算</a></td>
          </tr>
         </table>
         <div class="clear"></div>
@@ -298,6 +227,85 @@
 
 </body>
 <script>
+function showss(){
+	var div = $("#show_info");
+    if ( div.css("display") === "none" ) {
+        div.show();
+        $("#show_addres").hide();
+    } else {
+        div.hide();
+        $("#show_addres").show();
+    }
+    $("#sendphone").val("");
+	$("#sendname").val("");
+	$("#zip").val("");
+	$("#addres1").val("");
+	$("#addres2").val("");
+	$("#addres3").val("");
+	$("#addres4").val("");
+	$("#orderid").val("");
+}
+
+$("#showeee").click(function(){
+	 showss();
+
+});
+$(document).ready(function(){
+	$("#show_info").hide();
+});
+
+function guanbi(){
+	 showss();
+}
+
+function saveor(){
+	var addres=$("#addres1").val()+" "+$("#addres2").val()+" "+$("#addres3").val()+" "+$("#addres4").val();
+	var zip=$("#zip").val();
+	var sendname=$("#sendname").val();
+	var sendphone=$("#sendphone").val();
+	var orderid=$("#orderid").val();
+	var url="/shopGGL/addorder.sw";
+	if(orderid!=null && orderid!="0"){
+		url="/shopGGL/editorder.sw"
+	}
+	$.post(url,{
+		orderid:orderid,
+		sendaddress:addres,
+		sendname:sendname,
+		sendphone:sendphone,
+		zip:zip
+	},function(data){
+		alert(data);
+		window.location.reload();
+	});
+}
+
+function editAddres(orderid){
+	$.get("/shopGGL/editAddres.sw",{
+		orderid:orderid
+	},function(data){
+		console.log(data);
+		showss();
+		var str=data.sendaddress;
+		var strs=new Array();
+		strs=str.split(" ");
+		for(var i=0;i<strs.length;i++){
+			var s=i+1;
+			var st="#addres"+s;
+			$(st).val(strs[i]);
+		}
+		$("#sendphone").val(data.sendphone);
+		$("#sendname").val(data.sendname);
+		$("#zip").val(data.zip);
+		$("#orderid").val(data.orderid);
+	});
+}
+
+function subor(){
+	$("#form_or").attr("action","/shopGGL/code.sw").submit();
+}
+
+
 
 </script>
 </html>

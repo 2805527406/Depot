@@ -24,19 +24,45 @@ public class Product {
 	private String image;
 	private Float price;
 	private String decript;
-	
+	private Integer count;
+	public Integer getCount() {
+		return count;
+	}
+	public void setCount(Integer count) {
+		this.count = count;
+	}
 	@Column(insertable=false,updatable=false)
 	private Integer csorid;
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@ManyToOne(cascade={CascadeType.REFRESH,CascadeType.MERGE})
 	@JoinColumn(name="csorid")
 	private Sort_2 csort;
 	
 	@Column(insertable=false,updatable=false)
 	private Integer grid;
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade={CascadeType.REFRESH,CascadeType.MERGE})
 	@JoinColumn(name="grid")
 	private Grou grou;
 	
+	@Column(insertable=false,updatable=false)
+	private Integer enid;
+	@ManyToOne
+	@JoinColumn(name="enid")
+	private Entry en_pro;
+	
+	
+	
+	public Integer getEnid() {
+		return enid;
+	}
+	public void setEnid(Integer enid) {
+		this.enid = enid;
+	}
+	public Entry getEn_pro() {
+		return en_pro;
+	}
+	public void setEn_pro(Entry en_pro) {
+		this.en_pro = en_pro;
+	}
 	public Integer getProid() {
 		return proid;
 	}

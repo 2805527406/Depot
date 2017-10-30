@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,10 +29,10 @@ public class Entry {//结算后的包裹
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer entryid;
+	private String orderno;
 	private String payment;
 	private Float paymoney;
 	private Float price;
-	private Integer count;
 	private Integer tag;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	@JsonFormat(pattern="yyyy-MM-dd",locale="GTM+8")
@@ -43,7 +44,9 @@ public class Entry {//结算后的包裹
 	@JoinColumn(name="orid")
 	private Order or;
 	
-	
+	@OneToMany(mappedBy="en_pro",fetch=FetchType.EAGER)
+	@JsonIgnore
+	private Set<Product> pro_en=new HashSet<Product>();
 	public Integer getEntryid() {
 		return entryid;
 	}
@@ -60,13 +63,7 @@ public class Entry {//结算后的包裹
 		this.price = price;
 	}
 
-	public Integer getCount() {
-		return count;
-	}
 
-	public void setCount(Integer count) {
-		this.count = count;
-	}
 
 	public Date getCreatetime() {
 		return createtime;
@@ -94,18 +91,26 @@ public class Entry {//结算后的包裹
 	public void setOrid(Integer orid) {
 		this.orid = orid;
 	}
-//	@OneToMany(mappedBy="en",cascade=CascadeType.ALL)
-//	@JsonIgnore
-//	private Set<Sort_2> csorts=new HashSet<Sort_2>();
-//
-//
-//	public Set<Sort_2> getCsorts() {
-//		return csorts;
-//	}
-//
-//	public void setCsorts(Set<Sort_2> csorts) {
-//		this.csorts = csorts;
-//	}
+	
+	
+
+
+
+	public Set<Product> getPro_en() {
+		return pro_en;
+	}
+
+	public void setPro_en(Set<Product> pro_en) {
+		this.pro_en = pro_en;
+	}
+
+	public String getOrderno() {
+		return orderno;
+	}
+
+	public void setOrderno(String orderno) {
+		this.orderno = orderno;
+	}
 
 	public String getPayment() {
 		return payment;
@@ -134,8 +139,8 @@ public class Entry {//结算后的包裹
 	@Override
 	public String toString() {
 		return "Entry [entryid=" + entryid + ", payment=" + payment + ", paymoney=" + paymoney + ", price=" + price
-				+ ", count=" + count + ", tag=" + tag + ", createtime=" + createtime + ", orid=" + orid + ", or=" + or
-				+ "]";
+				+ ", tag=" + tag + ", createtime=" + createtime + ", orid=" + orid + ", or=" + or
+				+ "pro_en="+pro_en+ "]";
 	}
 
 	

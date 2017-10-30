@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="../Css/style.css" />
+    <script type="text/javascript" src="../Js/jquery.js"></script>
+    <script type="text/javascript" src="../Js/jquery.sorted.js"></script>
+    <script type="text/javascript" src="../Js/bootstrap.js"></script>
+    <script type="text/javascript" src="../Js/ckform.js"></script>
+    <script type="text/javascript" src="../Js/common.js"></script>
+
+    <style type="text/css">
+        body {
+            padding-bottom: 40px;
+        }
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+
+
+    </style>
+</head>
+<body ng-controller="proController">
+<form class="form-inline definewidth m20" action="index.html" method="get">
+
+    商品名称：
+    <input type="text" name="rolename" ng-model="rolename" id="rolename"class="abc input-default" placeholder="" value="">&nbsp;&nbsp;<br>
+ 类别1：<select ng-model="sdo" ng-options="v.sorid as v.sorname for v in sort" ng-click="csor()"><option value="0" >请选择</></select>&nbsp;  类别2：<select ng-options="v.gid as v.gname for v in grou" ng-model="sdo2"><option value="0">请选择</></select>&nbsp;
+  <br> 类别3：<select ng-model="sdo3" ng-options="v.csorid as v.csorname for v in csort" ng-click="csor2()"><option value="0">请选择</></select>&nbsp;  类别4：<select ng-options="v.s2id as v.s2name for v in sort2" ng-model="sdo4"><option value="0">请选择</></select>&nbsp;
+     <input type="button" class="btn btn-primary" ng-click="mhcx()" value="查询">&nbsp;&nbsp; <button type="button" class="btn btn-success" id="addnew">新增机构</button>
+</form>
+
+<div>
+<table class="table table-bordered table-hover definewidth m10" >
+    <thead>
+    <tr>
+        <th>商品编号</th>
+        <th>商品名称</th>
+        <th>商品图片</th>
+        <th>商品价格</th>
+        <th>详细信息</th>
+        <th>商品类别</th>
+        <th>首页类别</th>
+        <th>商品数量</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+	     <tr ng-repeat="v in product">
+            <td>{{v.proid}}</td>
+            <td>{{v.proname}}</td>
+            <td><img src="{{v.image}}" width="70" height=70></td>
+			<td>￥{{v.price}}</td>
+			<td>{{v.decript}}</td>
+			<td>{{v.csort.s2name}}</td>
+			<td>{{v.grou.gname}}</td>
+			<td>{{v.count}}</td>
+            <td>
+                  <a href="add.jsp?proid={{v.proid}}">修改</a><br>
+                  <a href="javascript:void(0)" ng-click="removePro(v.proid)">删除</a>
+            </td>
+        </tr></table>
+        </div>
+<div class="inline pull-right page">
+         10122 条记录 1/507 页  <a href='#'>下一页</a>     <span class='current'>1</span><a href='#'>2</a><a href='/chinapost/index.php?m=Label&a=index&p=3'>3</a><a href='#'>4</a><a href='#'>5</a>  <a href='#' >下5页</a> <a href='#' >最后一页</a>    </div>
+</body>
+</html>
+
+<script>
+    $(function () {
+		$('#addnew').click(function(){
+				window.location.href="add.jsp";
+		 });
+    });
+
+	function del(id)
+	{
+		if(confirm("确定要删除吗？"))
+		{
+			var url = "index.html";
+			window.location.href=url;		
+		}
+	}
+</script>
+
+<script src="/shopGGL/angular.min.js"></script>
+<script src="/shopGGL/angular-ui-router.min.js"></script>
+<script>
+var app=angular.module("app",["ui.router"]);
+app.service("Service",function($http){
+	this.cx1=function(){
+		return $http.get("/shopGGL/admin/find2.sw");
+	}
+	this.cx2=function(){
+		return $http.get("/shopGGL/admin/find3.sw");
+	}
+	this.csor=function(id){
+		return $http.get("/shopGGL/admin/find4.sw",{params: {  
+	        "id":id  
+	    }} );
+	}
+	
+	this.csor2=function(id){
+		return $http.get("/shopGGL/admin/find5.sw",{params: {  
+	        "id":id
+	    } });
+	}
+	postCfg = {
+		    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+		    transformRequest: function (data) {
+		        return $.param(data);
+		    }
+		};
+	this.pro=function($scope){
+		return $http.post("/shopGGL/admin/pro.sw",{
+				proname:$scope.rolename,sorid:$scope.sdo,gid:$scope.sdo2,csorid:$scope.sdo3,s2id:$scope.sdo4
+			},postCfg).then(function(response){$scope.product=response.data},function(response){console.log("ERROR:",response)});
+	}
+	this.removePro=function(id){
+		return $http.get("/shopGGL/admin/removePro.sw",{params: {  
+	        "id":id
+	    } });
+	}
+})
+
+app.controller("proController",function($scope,Service){
+	$scope.sort=[];//大分类
+	$scope.grou=[];//热门分类
+	$scope.csort=[];//二级分类
+	$scope.sort2=[];//三级分类
+	$scope.product=[];//商品分类
+	Service.cx1().then(function(response){
+		$scope.sort=response.data;
+		$scope.sdo=0;
+	},function(response){console.log("ERROR:",response)});
+	Service.cx2().then(function(response){
+		$scope.grou=response.data;
+		$scope.sdo2=0;
+	},function(response){console.log("ERROR:",response)});
+	Service.pro($scope);
+	$scope.csor=function(){
+		$scope.csort=[];
+		$scope.sort2=[];
+		Service.csor($scope.sdo).then(function(response){
+			$scope.csort=response.data;
+			$scope.sdo3=0;
+		},function(response){console.log("ERROR:",response)});
+	}
+	
+	$scope.csor2=function(){
+		$scope.sort2=[];
+		Service.csor2($scope.sdo3).then(function(response){
+			$scope.sort2=response.data;
+			$scope.sdo4=0;
+		},function(response){console.log("ERROR:",response)});
+	}
+	
+	$scope.removePro=function(id){
+		Service.removePro(id).then(function(response){Service.pro($scope);},function(response){console.log("ERROR:",response)});
+	}
+	$scope.mhcx=function(){
+		Service.pro($scope);
+	}
+});
+
+	
+</script>
