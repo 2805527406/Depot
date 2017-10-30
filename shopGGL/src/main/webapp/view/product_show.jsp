@@ -358,7 +358,11 @@ return true;
 
 <script type="text/javascript">
 function subCart(){
-	$("#subcart").submit();
+	<%-- var s="<%=Session[]%>";
+	if(){
+		$("#subcart").submit();
+	} --%>
+	
 }
 $(function(){
 var imgWid = 0 ;
