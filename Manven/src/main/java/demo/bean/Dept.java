@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +30,7 @@ public class Dept {
 	@JoinColumn(name="deid")
 	private Dept d;
 	
-	@OneToMany(mappedBy="dept")
+	@OneToMany(mappedBy="dept",fetch=FetchType.EAGER)
 	@JsonIgnore
 	private Set<Emp> emps=new HashSet<Emp>();
 
@@ -75,7 +76,8 @@ public class Dept {
 
 	@Override
 	public String toString() {
-		return "Dept [did=" + did + ", dname=" + dname + ", deid=" + deid + ", d=" + d + "]";
+		return "Dept [did=" + did + ", dname=" + dname + ", deid=" + deid + ", d=" + d +
+				" ,emps"+emps+"]";
 	}
 	
 }

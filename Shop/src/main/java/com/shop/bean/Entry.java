@@ -42,7 +42,7 @@ public class Entry {
 	
 	@OneToMany(mappedBy="en",cascade=CascadeType.ALL)
 	@JsonIgnore
-	private Set<Sort> sorts=new HashSet<Sort>();
+	private Set<Csort> csorts=new HashSet<Csort>();
 
 	public Integer getEntryid() {
 		return entryid;
@@ -95,18 +95,19 @@ public class Entry {
 		this.orid = orid;
 	}
 
-	public Set<Sort> getSorts() {
-		return sorts;
+	
+	public Set<Csort> getCsorts() {
+		return csorts;
 	}
 
-	public void setSorts(HashSet<Sort> sorts) {
-		this.sorts = sorts;
+	public void setCsorts(Set<Csort> csorts) {
+		this.csorts = csorts;
 	}
 
 	@Override
 	public String toString() {
 		return "Entry [entryid=" + entryid + ", price=" + price + ", count=" + count + ", createtime=" + createtime
-				+ ", orid=" + orid + ", or=" + or + ", sorts=" + sorts + "]";
+				+ ", orid=" + orid + ", or=" + or + ", csorts=" + csorts + "]";
 	}
 
 

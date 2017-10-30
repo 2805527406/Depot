@@ -24,21 +24,11 @@ public class Sort {
 	private Integer sorid;
 	private String sorname;
 	private String sorimg;
-	@Column(insertable=false,updatable=false)
-	private Integer sid;
-	@ManyToOne
-	@JoinColumn(name="sid")
-	private Sort parent_sort;
 	
-	@OneToMany(mappedBy="sort")
+	@OneToMany(mappedBy="parent_sort")
 	@JsonIgnore
-	private Set<Product> products=new HashSet<Product>();
-
-	@Column(insertable=false,updatable=false)
-	private Integer enid;
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="enid")
-	private Entry en;
+	private Set<Csort> csorts=new HashSet<Csort>();
+	
 	
 	public Integer getSorid() {
 		return sorid;
@@ -63,54 +53,22 @@ public class Sort {
 	public void setSorimg(String sorimg) {
 		this.sorimg = sorimg;
 	}
-
-	public Integer getSid() {
-		return sid;
-	}
-
-	public void setSid(Integer sid) {
-		this.sid = sid;
-	}
-
-	public Sort getParent_sort() {
-		return parent_sort;
-	}
-
-	public void setParent_sort(Sort parent_sort) {
-		this.parent_sort = parent_sort;
-	}
-
-	public Set<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(HashSet<Product> products) {
-		this.products = products;
-	}
 	
 	
 
-	public Integer getEnid() {
-		return enid;
+	public Set<Csort> getCsorts() {
+		return csorts;
 	}
 
-	public void setEnid(Integer enid) {
-		this.enid = enid;
-	}
-
-	public Entry getEn() {
-		return en;
-	}
-
-	public void setEn(Entry en) {
-		this.en = en;
+	public void setCsorts(Set<Csort> csorts) {
+		this.csorts = csorts;
 	}
 
 	@Override
 	public String toString() {
-		return "Sort [sorid=" + sorid + ", sorname=" + sorname + ", sorimg=" + sorimg + ", sid=" + sid
-				+ ", parent_sort=" + parent_sort + ", products=" + products + "]";
+		return "Sort [sorid=" + sorid + ", sorname=" + sorname + ", sorimg=" + sorimg + "]";
 	}
-	
+
+
 	
 }

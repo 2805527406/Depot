@@ -23,10 +23,10 @@ public class Product {
 	private String decript;
 	
 	@Column(insertable=false,updatable=false)
-	private Integer sorid;
+	private Integer csorid;
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="sorid")
-	private Sort sort;
+	@JoinColumn(name="csorid")
+	private Csort csort;
 	
 	
 	
@@ -66,24 +66,25 @@ public class Product {
 	public void setDecript(String decript) {
 		this.decript = decript;
 	}
-	public Integer getSorid() {
-		return sorid;
-	}
-	public void setSorid(Integer sorid) {
-		this.sorid = sorid;
-	}
-	public Sort getSort() {
-		return sort;
-	}
-	public void setSort(Sort sort) {
-		this.sort = sort;
-	}
 	
+
 	
+	public Integer getCsorid() {
+		return csorid;
+	}
+	public void setCsorid(Integer csorid) {
+		this.csorid = csorid;
+	}
+	public Csort getCsort() {
+		return csort;
+	}
+	public void setCsort(Csort csort) {
+		this.csort = csort;
+	}
 	@Override
 	public String toString() {
 		return "Product [proid=" + proid + ", proname=" + proname + ", salecount=" + salecount + ", image=" + image
-				+ ", price=" + price + ", decript=" + decript + ", sorid=" + sorid + "]";
+				+ ", price=" + price + ", decript=" + decript + ", csorid=" + csorid + "]";
 	}
 	
 	
