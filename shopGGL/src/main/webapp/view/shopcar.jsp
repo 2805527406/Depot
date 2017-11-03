@@ -16,7 +16,7 @@
 <%@ include file="index_hand.jsp" %>
 
 <div class="w1200">
-	<div class="position"><a href="#">首页</a> > <a href="#">购物车</a></div>
+	<div class="position"><a href="/shopGGL/view/index.jsp">首页</a> > <a href="#">购物车</a></div>
     
     <div class="shopcar">
     	<div class="shop_lc"><span class="sp01">我的购物车</span><span class="sp02">填写提交信息表单</span><span class="sp03">在线支付</span></div>
@@ -69,7 +69,7 @@
         </dl>
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="go_tb">
          <tr>
-           <td width="20%"><a href="#" class="go_buy">继续购物</a></td>
+           <td width="20%"><a href="/shopGGL/view/index.jsp" class="go_buy">继续购物</a></td>
            <td width="63%">&nbsp;</td>
            <td width="17%" align="right"><a href="/shopGGL/jump3.sw" class="code">结 算</a></td>
          </tr>

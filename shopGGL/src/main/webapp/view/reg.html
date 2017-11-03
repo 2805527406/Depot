@@ -3,7 +3,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>注册</title>
-<link href="css/style.css" type="text/css" rel="stylesheet" />
+<link href="/shopGGL/css/style.css" type="text/css" rel="stylesheet" />
+<link href="/shopGGL/css/style2.css" type="text/css" rel="stylesheet" />
+<link href="/shopGGL/css/demo.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" src="/shopGGL/js/jquery1.42.min.js"></script>
+<script type="text/javascript" src="/shopGGL/js/jquery.SuperSlide.js"></script>
+<script type="text/javascript" src="/shopGGL/js/Validform_v5.3.2_min.js"></script>
+<style>
+.Validform_checktip{margin:4px 0 12px 92px;}
+.formsub label{display:inline-block; width:70px;}
+.action{padding-left:92px;}
+</style>
 </head>
 <body class="member">
 
@@ -25,18 +35,40 @@
 	<div class="w1185">
     	<div class="left">
         	<p><b>免费注册</b></p>
-            <form action="#" class="form">
-                <ul>
-                     <li><span><font>*</font> 用户名/手机号：</span><input type="text" name="" class="txt"/></li>
-                     <li><span><font>*</font> 请设置密码：</span><input type="text" name="" class="txt"/></li>
-                     <li><span><font>*</font> 请确认密码：</span><input type="text" name="" class="txt"/></li>
-                     <li class="li03"><span><font>*</font> 验证码：</span><input type="text" name="" class="txt txt2"/><img src="images/code.jpg"/><a href="#">看不清?换一张</a></li>
-                     <li class="li01"><input type="checkbox" value="" name=""/>我已阅并同意<a rel="#">《易易城用户注册协议》</a></li>
-                     <li class="li02"><input type="submit" value="立即注册" class="sub"/></li>
+        	 <div class="wraper">
+            <form class="registerform" method="post"  action="/shopGGL/addUsers.sw">
+            <div class="formsub">
+            	<ul>
+                	<li>
+                    	<label><font>*</font> 账号：</label>
+                    	<input type="text" value="" name="name" class="inputxt" datatype="s5-18" nullmsg="请输入账号" ajaxurl="/shopGGL/boolname.sw"  errormsg="昵称至少5个字符,最多18个字符！" />
+                        <div class="Validform_checktip">昵称为5~18个字符</div>
+                    </li>
+                    <li>
+                    	<label><font>*</font>密码：</label>
+                    	<input type="password" value="" name="userpassword" class="inputxt" datatype="*6-16" nullmsg="请设置密码！" errormsg="密码范围在6~16位之间！" />
+                        <div class="Validform_checktip">密码范围在6~16位之间</div>
+                    </li>
+                    <li>
+                    	<label><font>*</font>确认密码：</label>
+                    	<input type="password" value="" name="userpassword2" class="inputxt" datatype="*" recheck="userpassword" nullmsg="请再输入一次密码！" errormsg="您两次输入的账号密码不一致！" />
+                        <div class="Validform_checktip">两次输入密码需一致</div>
+                    </li>
+       				<li>
+       				<label><font>*</font>手机号：</label>
+       				<input type="text" name="mobile" id="moblie" class="inputxt" datatype="m" nullmsg="请填写手机" errormsg="请填写正确的手机号码！" />  
+                    <div class="Validform_checktip">请输入11为手机号码</div> 
+       				</li>
                 </ul>
-            </form>
+				 <div class="action">
+                	<input type="submit" value="提 交" /> <input type="reset" value="重 置" />
+                </div>
+
+            </div>
+        </form>
+</div>
         </div>
-        <div class="right">我经注册，马上<a rel="#">登录</a></div>
+        <div class="right">我经注册，马上<a href="/shopGGL/view/login3.jsp">登录</a></div>
         <div class="clear"></div>
     </div>
 </div>
@@ -46,5 +78,24 @@
    
     <p>网络文化经营许可证：粤网文[2015]0295-065号<br />© 2015 深圳易易城科技网络有限公司. 粤ICP备15042543号</p>
 </div>
+<script>
+$(function(){
+	//$(".registerform").Validform();  //就这一行代码！;
+		
+	$(".registerform").Validform({
+		tiptype:function(msg,o,cssctl){
+			//msg：提示信息;
+			//o:{obj:*,type:*,curform:*}, obj指向的是当前验证的表单元素（或表单对象），type指示提示的状态，值为1、2、3、4， 1：正在检测/提交数据，2：通过验证，3：验证失败，4：提示ignore状态, curform为当前form对象;
+			//cssctl:内置的提示信息样式控制函数，该函数需传入两个参数：显示提示信息的对象 和 当前提示的状态（既形参o中的type）;
+			if(!o.obj.is("form")){//验证表单元素时o.obj为该表单元素，全部验证通过提交表单时o.obj为该表单对象;
+				var objtip=o.obj.siblings(".Validform_checktip");
+				cssctl(objtip,o.type);
+				objtip.text(msg);
+			}
+		}
+	});
+})
+
+</script>
 </body>
 </html>

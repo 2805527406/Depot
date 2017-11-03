@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head>
     <title></title>
     <meta charset="UTF-8">
@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="../Css/bootstrap-responsive.css" />
     <link rel="stylesheet" type="text/css" href="../Css/style.css" />
     <script type="text/javascript" src="../Js/jquery.js"></script>
-    <script type="text/javascript" src="../Js/jquery.sorted.js"></script>
+	<script type="text/javascript" src="../Js/jquery.sorted.js"></script>
     <script type="text/javascript" src="../Js/bootstrap.js"></script>
     <script type="text/javascript" src="../Js/ckform.js"></script>
     <script type="text/javascript" src="../Js/common.js"></script>
@@ -34,61 +34,89 @@
 
     </style>
 </head>
-<body>
+<body ng-controller="userController">
 <form class="form-inline definewidth m20" action="index.html" method="get">    
-    用户名称：
-    <input type="text" name="username" id="username"class="abc input-default" placeholder="" value="">&nbsp;&nbsp;  
-    <button type="submit" class="btn btn-primary">查询</button>&nbsp;&nbsp; <button type="button" class="btn btn-success" id="addnew">新增用户</button>
+    用户昵称：
+    <input type="text"  ng-model="realname" name="realname" id="realname"class="abc input-default" placeholder="" value="">&nbsp;&nbsp;  
+    <button type="button" class="btn btn-primary" ng-click="yhcx();" >查询</button>
 </form>
 <table class="table table-bordered table-hover definewidth m10">
     <thead>
     <tr>
         <th>用户id</th>
-        <th>用户名称</th>
-        <th>真实姓名</th>
-        <th>最后登录时间</th>
+        <th>用户账号</th>
+        <th>用户密码</th>
+        <th>用户昵称</th>
+        <th>用户电话</th>
+        <th>用户地址</th>
+        <th>邮编</th>
+        <th>黑名单</th>
         <th>操作</th>
     </tr>
     </thead>
-	     <tr>
-            <td>2</td>
-            <td>admin</td>
-            <td>管理员</td>
-            <td></td>
+	     <tr ng-repeat="u in useryh">
+        <td>{{u.userid}}</td>
+        <td>{{u.username}}</td>
+        <td>{{u.password}}</td>
+        <td>{{u.realname}}</td>
+        <td>{{u.phone}}</td>
+        <td>{{u.address}}</td>
+        <td>{{u.zip}}</td>
+        <td>
+        <a  href="javascript:void(0)" ng-click="hmd(u.userid)"> {{u.userlean=="Y"? "用户正常":"用户黑名单"}}</a>
+      	</td>
             <td>
                 <a href="edit.html">编辑</a>                
             </td>
         </tr>	
 </table>
+
+
 </body>
 </html>
-<script>
-    $(function () {
-        
 
-		$('#addnew').click(function(){
+   <script src="/shopGGL/angular.min.js"></script>
+   <script src="/shopGGL/angular-ui-router.min.js"></script>
+<script type="text/javascript">
+   var myapp=angular.module("myApp",[]);
+   
+   myapp.service("Service",function($http){
+	   postCfg = {
+			    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			    transformRequest: function (data) {
+			        return $.param(data);
+			    }
+			};
+	   this.hmd2=function(userid){
+		   return $http.get("/shopGGL/admin/yhfind.sw",{params: {  
+		        "userid":userid  
+		    }});
+	   }
+	   this.cxyh=function($scope){
+		 //  alert($scope.realname);
+		   return  $http.post("/shopGGL/admin/yonghu.sw",{  
+		        "realname": $scope.realname
+		    },postCfg).then(function(response){
+				 $scope.useryh = response.data;
+				 $scope.realname="";//用户的名字清零
+			 }, function(response){
+				 console.log("ERROR:" , response);
+			 });
+	   }
+   });
 
-				window.location.href="add.html";
-		 });
-
-
-    });
-
-	function del(id)
-	{
-		
-		
-		if(confirm("确定要删除吗？"))
-		{
-		
-			var url = "index.html";
-			
-			window.location.href=url;		
-		
+   myapp.controller("userController",function($scope,Service){
+	   Service.cxyh($scope);//全部查询
+	   
+	   $scope.hmd=function(userid){//用户修改
+		   Service.hmd2(userid).then(function(response){Service.cxyh($scope);},function(response){console.log("ERROR:",response)});
 		}
-	
-	
-	
-	
-	}
+	   $scope.yhcx=function(){//模糊查询
+		   Service.cxyh($scope);
+		}
+	  
+   });
+   
+
+   
 </script>

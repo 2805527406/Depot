@@ -4,11 +4,11 @@
 <div class="top">
 	<div class="w1200">
 	<c:if test="${empty qianlogin}">
-		<div class="left">您好，欢迎光临易易城！<a href="/shopGGL/view/login3.jsp">[登录]</a> <a href="#">[注册]</a></div>
+		<div class="left">您好，欢迎光临易易城！<a href="/shopGGL/view/login3.jsp">[登录]</a> <a href="/shopGGL/view/reg.html">[注册]</a></div>
 	</c:if>
 	<c:if test="${not empty qianlogin }">
-	<div class="left">您好，欢迎光临易易城！<a href="/shopGGL/view/login3.jsp">[${qianlogin.realname}]</a> <a href="/shopGGL/removelogin.sw">[退出]</a></div>
-        <div class="right"><a href="#">我的会员中心</a>|<a href="#">收藏夹</a>|<a href="#">服务中心</a>|<a href="#">在线客服</a>|<a href="#">购物车<b>0</b>件</a></div>
+	<div class="left">您好，欢迎光临易易城！<a href="/shopGGL/view/member.html">[${qianlogin.realname}]</a> <a href="/shopGGL/removelogin.sw">[退出]</a></div>
+        <div class="right"><a href="/shopGGL/view/member.html">我的会员中心</a>|<a href="#">收藏夹</a>|<a href="#">服务中心</a>|<a href="#">在线客服</a>|<a href="shopcar.jsp">购物车<b>0</b>件</a></div>
         <div class="clear"></div></c:if>
     </div>	
 </div>
@@ -40,9 +40,9 @@
             	<ul>
                 	<li ng-repeat="v in son1" class="{{v.sorimg}}"><a href="/shopGGL/jump.sw?sid={{v.sorid}}">{{v.sorname}}</a></li>
                 </ul>
-
             </div>
         </div>
+        
    	  <div class="item"><a href="#" class="home">商城首页</a></div>
        <!--  <div class="item"><a href="#">易易特色</a></div>
         <div class="item"><a href="#">热销产品</a></div>
@@ -51,7 +51,34 @@
         <div class="item"><a href="#">生活服务</a></div> -->
     </div>
 </div>
+<script type="text/javascript">
+$(document).ready(function(e) {
 
+    $('#slider li').eq(0).show();
+	var lenThumb = $('#slider li').length;
+	for(var i=1;i<=lenThumb;i++){
+		$('#num').append('<span>'+i+'</span>');
+	}
+	$('#num span').eq(0).addClass('on');
+	var len = $('#num span').length;
+	var index = 0;
+
+	$('#num span').click(function(){
+		index = $('#num span').index(this);
+		picShow(index);
+	});
+	var playPic = setInterval(function(){
+		picShow(index);
+		index++;
+		if(index==len){index=0}
+	},3000);
+	function picShow(i){
+		$('#slider li').eq(i).stop(true,true).fadeIn().siblings().fadeOut();
+		$('#num > span').eq(i).addClass('on').siblings().removeClass('on');
+	}
+
+});
+</script>
 
 <script src="/shopGGL/angular.min.js"></script>
 <script src="/shopGGL/angular-ui-router.min.js"></script>

@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>产品列表</title>
+<link rel="stylesheet" href="/shopGGL/css/paging.css"  />
 <link href="/shopGGL/css/style.css" type="text/css" rel="stylesheet" />
 <script src="/shopGGL/js/jquery-1.7.min.js" type="text/javascript"></script>
 <script src="/shopGGL/js/common.js"  type="text/javascript"></script>
@@ -19,7 +20,7 @@
 	<div class="position"><a href="/shopGGL/view/index.jsp">首页</a> > <a href="/shopGGL/jump.sw?sid=${product[0].sort.sorid}">${product[0].sort.sorname}</a></div>
     
     <div class="c_nav">
-   		<c:forEach items="${product}" var="p">
+   		<c:forEach items="${product}" var="p" >
         <div class="item"><span>${p.csorname}</span>
         <p>
         <c:forEach items="${p.sort2s}" var="s">
@@ -34,29 +35,20 @@
     <div class="clear"></div>
     </div>
     <div class="pro_cont" id="asdf">
-    <c:forEach items="${pro}" var="p">
-    	<a href="/shopGGL/jump2.sw?proid=${p.proid }"><div class='item'><dt><img src='${p.image }'/></dt></dl><p class='p01'><font>￥</font><font>${p.price }</font></p><p class='p02'><a href='#'>${p.proname }</a></p></div></a>
+    <c:forEach items="${pro}" var="p" begin="${pagebean.startindex}" end="${pagebean.endindex}">
+    	<a href="/shopGGL/jump2.sw?proid=${p.proid }"><div class='item'><dt><img src='${p.image }' height=230 width=215/></dt></dl><p class='p01'><font>￥</font><font>${p.price }</font></p><p class='p02'><a href='#'>${p.proname }</a></p></div></a>
 
        </c:forEach>
         <div class="clear"></div>
     </div>
-	<div class="page">
-    	<a href="#" class="pre">上一页</a>
-        <a href="#" class="on">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">5</a>
-        <a href="#">6</a>
-        <span>...</span>
-        <a href="#" class="next">下一页></a>
-        共50页 到第<input type="text" value="1" />页  <a href="#" class="sub">确定</a>
-    </div>
+	
 </div>
 
 <!--footer-->
 <div class="footer">
+
 	<div class="f_bz">
+
     	<div class="w1200">
             <dl class="dl01">
                 <dt>正品保证</dt>
@@ -135,14 +127,9 @@
 </div>
 <!--float_right-->
 <div class="float">
-	<ul>
-    	<li><a href="#" class="a01"></a></li>
-        <li><a href="#" class="a02"></a></li>
-        <li><a href="#" class="a03"></a></li>
-        <li><a href="#" class="a04"></a></li>
-    </ul>
+	<%@ include file="index_foot.jsp" %>
 </div>
 
 
-</body>
+</body> 
 </html>

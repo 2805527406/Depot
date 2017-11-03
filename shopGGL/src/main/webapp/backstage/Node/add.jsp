@@ -34,15 +34,18 @@
     </style>
 </head>
 <body ng-controller="addProController">
-<form>
-<table class="table table-bordered table-hover definewidth m10">
+<form enctype="multipart/form-data">
+<table class="table table-bordered table-hover definewidth m10" >
     <tr>
         <td width="10%" class="tableleft">商品名称</td>
         <td><input type="text" ng-model="proname"/></td>
     </tr>
     <tr>
         <td class="tableleft">商品图片</td>
-        <td><input type="text" ng-model="image"/></td>
+        <td>   <input type="file" file-model="myFile"/>
+<div class="col-md-12">
+    <img ng-src="{{imageSrc}}" style="max-width:300px;max-height:300px;margin:0 auto;display:block;" />
+</div>     </td>
     </tr>  
     <tr>
         <td class="tableleft">商品价格</td>
@@ -97,6 +100,60 @@
 <script src="/shopGGL/angular-ui-router.min.js"></script>
 <script>
 	var app=angular.module("app",["ui.router"]);
+	app.directive('fileModel', ['$parse', function ($parse) {
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs, ngModel) {
+                var model = $parse(attrs.fileModel);
+                var modelSetter = model.assign;
+                element.bind('change', function(event){
+                    scope.$apply(function(){
+                        modelSetter(scope, element[0].files[0]);
+                    });
+                    //附件预览
+                         scope.file = (event.srcElement || event.target).files[0];
+                    scope.getFile();
+                });
+            }
+        };
+    }]);
+	
+	 app.factory('fileReader', ["$q", "$log", function($q, $log){
+         var onLoad = function(reader, deferred, scope) {
+             return function () {
+                 scope.$apply(function () {
+                     deferred.resolve(reader.result);
+                 });
+             };
+         };
+  
+         var onError = function (reader, deferred, scope) {
+             return function () {
+                 scope.$apply(function () {
+                     deferred.reject(reader.result);
+                 });
+             };
+         };
+  
+         var getReader = function(deferred, scope) {
+             var reader = new FileReader();
+             reader.onload = onLoad(reader, deferred, scope);
+             reader.onerror = onError(reader, deferred, scope);
+             return reader;
+         };
+  
+         var readAsDataURL = function (file, scope) {
+             var deferred = $q.defer();
+             var reader = getReader(deferred, scope);         
+             reader.readAsDataURL(file);
+             return deferred.promise;
+         };
+  
+         return {
+             readAsDataUrl: readAsDataURL  
+         };
+     }])
+
 	 app.config(['$locationProvider', function($locationProvider) {  
          // $locationProvider.html5Mode(true);  
          $locationProvider.html5Mode({
@@ -123,28 +180,42 @@
 		    } });
 		}
 		postCfg = {
-			    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			    transformRequest: function (data) {
-			        return $.param(data);
-			    }
+				 headers: {'Content-Type': undefined},
+			        transformRequest: angular.identity
 			};
 		
 		this.tjp=function($scope,proid){
+			var postData={
+					proid:proid,
+					csorid:$scope.csorid,
+					decript:$scope.decript,
+					grid:$scope.grid,
+					image:$scope.imageSrc,
+					price:$scope.price,
+					proname:$scope.proname,
+					count:$scope.count	
+			};
+
 			var url="/shopGGL/admin/addProduct.sw";
 			if(proid){
 				url="/shopGGL/admin/editProduct.sw";
 			}
-			$http.post(url,{
-				proid:proid,csorid:$scope.csorid,decript:$scope.decript,grid:$scope.grid,image:$scope.image,price:$scope.price,proname:$scope.proname,count:$scope.count
-			},postCfg).then(function(response){window.location.href="index.html";},function(response){alert("添加成功！！！")});
+			 var fd = new FormData();
+			 angular.forEach(postData, function(val, key) {
+                 fd.append(key, val);
+             });
+			$http.post(url,fd,postCfg).then(function(response){window.location.href="index.html";
+			},function(response){alert("添加失败！！！")});
 		}
 		this.edit=function(id){
 			return $http.get("/shopGGL/admin/edit.sw",{params: {  
 		        "id":id
 		    } });
 		}
+		
+		 
 	});
-	app.controller("addProController",function($scope,Service,$location){
+	app.controller("addProController",function($scope,Service,$location,fileReader){
 		$scope.sort=[];//大分类
 		$scope.grou=[];//热门分类
 		$scope.csort=[];//二级分类
@@ -177,7 +248,7 @@
 		var proid=$location.search().proid;
 		if(proid){
 			Service.edit(proid).then(function(response){
-				$scope.decript=response.data.decript;$scope.grid=response.data.grid;$scope.image=response.data.image;$scope.price=response.data.price;$scope.proname=response.data.proname;$scope.count=response.data.count;
+				$scope.decript=response.data.decript;$scope.grid=response.data.grid;$scope.myFile=response.data.image;$scope.price=response.data.price;$scope.proname=response.data.proname;$scope.count=response.data.count;
 				$scope.sdo=response.data.csort.parent_csort.sort.sorid;//大类别
 				var sdo3=response.data.csort.parent_csort.csorid;
 				Service.csor($scope.sdo).then(function(response){
@@ -196,5 +267,13 @@
 			console.log("我调用了没");
 			Service.tjp($scope,proid);
 		}
+//*----------------------------------------------------------------------------------------------
+		 $scope.getFile = function () {
+             fileReader.readAsDataUrl($scope.file, $scope)
+                           .then(function(result) {
+                               $scope.imageSrc = result;
+                           });
+         };
+	  
 	});
 </script>

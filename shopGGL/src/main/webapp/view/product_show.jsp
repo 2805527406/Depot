@@ -23,8 +23,6 @@ return true;
 <body class="index" ng-controller="sonController">
 <div class="top_ad"><div class="w1200"><a href="#" id="close"></a></div></div>
 <%@ include file="index_hand.jsp" %>
-
-
 <div class="w1200 product">
 	<div class="position"><a href="/shopGGL/view/index.jsp">首页</a> > <a href="/shopGGL/jump.sw?sid=${ppp.csort.parent_csort.sort.sorid}">${ppp.csort.parent_csort.sort.sorname}</a> > <a href="/shopGGL/jump.sw?sid=${ppp.csort.parent_csort.sort.sorid}&csorid=${ppp.csort.s2id}">${ppp.csort.s2name}</a></div>
     
@@ -41,7 +39,7 @@ return true;
                     <!--放大镜-->
                 	<div class="pro_detail">
                         <div class="pro_detail_left">
-                            <div class="jqzoom"><img src="images/img/img39.jpg" class="fs" alt="" jqimg="<img src='images/img/img39.jpg' height='800' width='800'>" id="bigImg"/></div>
+                            <div class="jqzoom"><img src="${ppp.image}" class="fs" alt="" jqimg="<img src='images/img/img39.jpg' height='800' width='800'>" id="bigImg"/></div>
              
                         </div>
                     </div>
@@ -63,7 +61,7 @@ return true;
                     <div class="send"><small>配送至：</small><input value="北京朝阳区三环以内" name="" /><span>由 <u>奥凡尼旗舰店</u>从广东佛山市发货，并提供售后服务。</span><div class="clear"></div></div>
                     
                 	<div class="size"><small>选择尺码：</small><p><span>进口厚皮 双人位+贵妃位+边几</span><span class="on">进口厚皮 双人位+贵妃位+边几</span><span>进口厚皮 全套系列</span><span>进口厚皮 双+贵+单+边几</span></p><div class="clear"></div></div>
-                   <form method="get" action="/shopGGL/cart.sw" id="subcart">
+                   <form method="get" id="subcart">
                     
                     <div class="number">
                         <small>数量：</small>
@@ -75,7 +73,7 @@ return true;
                         <div class="clear"></div>
                     </div>
                     <div class="sale"><small>销量：</small><span class="on">${ppp.salecount}</span><div class="clear"></div></div>
-                    <div class="sub"><a href="#" class="btn01"></a><a href="javascript:void(0)" onclick="subCart()" class="btn02"></a></div>
+                    <div class="sub"><a href="javascript:void(0)" onclick="subCart()" class="btn02"></a></div>
                </form>
                
                 </div>
@@ -348,22 +346,20 @@ return true;
 </div>
 <!--float_right-->
 <div class="float">
-	<ul>
-    	<li><a href="#" class="a01"></a></li>
-        <li><a href="#" class="a02"></a></li>
-        <li><a href="#" class="a03"></a></li>
-        <li><a href="#" class="a04"></a></li>
-    </ul>
+	<%@ include file="index_foot.jsp" %>
 </div>
 
 <script type="text/javascript">
 function subCart(){
-	<%-- var s="<%=Session[]%>";
-	if(){
-		$("#subcart").submit();
-	} --%>
-	
+	var s='<%=session.getAttribute("qianlogin")==null ?"":"aa"%>';
+	console.log(s);
+	if(!s){
+		alert("请先登录");
+	}else{
+		$("#subcart").attr("action","/shopGGL/cart.sw").submit();
+	}
 }
+
 $(function(){
 var imgWid = 0 ;
 var imgHei = 0 ; //变量初始化

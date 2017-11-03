@@ -1,80 +1,39 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>修改密码</title>
-<link href="css/style.css" type="text/css" rel="stylesheet" />
-<script src="js/jquery-1.7.min.js" type="text/javascript"></script>
-<script src="js/common.js"  type="text/javascript"></script>
+<link href="/shopGGL/css/style.css" type="text/css" rel="stylesheet" />
+<link href="/shopGGL/css/style2.css" type="text/css" rel="stylesheet" />
+<link href="/shopGGL/css/demo.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" src="/shopGGL/js/jquery1.42.min.js"></script>
+<script type="text/javascript" src="/shopGGL/js/jquery.SuperSlide.js"></script>
+<script src="/shopGGL/js/jquery-1.7.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/shopGGL/js/Validform_v5.3.2_min.js"></script>
 
+<script src="/shopGGL/js/common.js"  type="text/javascript"></script>
+<style>
+.Validform_checktip{margin:4px 0 12px 92px;}
+.formsub label{display:inline-block; width:70px;}
+.action{padding-left:92px;}
+</style>
 </head>
 <body class="index">
 <div class="top_ad"><div class="w1200"><a href="#" id="close"></a></div></div>
 
-<div class="top">
-	<div class="w1200">
-		<div class="left">您好，欢迎光临易易城！<a href="#">[登录]</a> <a href="#">[注册]</a></div>
-        <div class="right"><a href="#">我的会员中心</a>|<a href="#">收藏夹</a>|<a href="#">服务中心</a>|<a href="#">在线客服</a>|<a href="#">购物车<b>0</b>件</a></div>
-        <div class="clear"></div>
-    </div>
-</div>
-
-<div class="head">
-	<div class="w1200">
-    	<div class="logo"><a href="#"></a></div>
-        <div class="search">
-        	<form action="#" class="form">
-        		<input type="text" value="输入商品关键字" name="keyword" class="txt" onfocus="if(value=='输入商品关键字') {value=''}" onblur="if(value=='') {value='输入商品关键字'}"/>
-                <input type="submit" value="搜索" class="sub"/>
-            </form>
-        	<p><a href="#">iphone6s</a>|<a href="#">面膜</a>|<a href="#">婚庆床品</a>|<a href="#">运动鞋</a>|<a href="#">眼霜</a>|<a href="#">月饼</a>|<a href="#">智能手机</a>|<a href="#">连衣裙</a></p>
-        </div>
-        <div class="s_r">
-        	<dl>
-            	<dt><p>购物车<span>0</span></p></dt>
-                <dd>客服电话：<b>400-0139-038</b></dd>
-            </dl>
-        </div>
-        <div class="clear"></div>
-    </div>
-</div>
-
-<div class="menu">
-	<div class="w1200">
-    	<div class="item" id="nav"><a href="#" class="nav">全部商品分类</a>
-        	<div class="nav_son">
-            	<ul>
-                	<li class="li01"><a href="#">功能产品</a></li>
-                    <li class="li02"><a href="#">服装箱包</a></li>
-                    <li class="li03"><a href="#">美妆护肤</a></li>
-                    <li class="li04"><a href="#">珠宝饰品</a></li>
-                    <li class="li05"><a href="#">数码家电</a></li>
-                    <li class="li06"><a href="#">食品茶酒</a></li>
-                    <li class="li07"><a href="#">运动体育</a></li>
-                    <li class="li08"><a href="#">家居家纺</a></li>
-                    <li class="li09"><a href="#">生活服务</a></li>
-                    <li class="li10"><a href="#">其他</a></li>
-                </ul>
-            </div>
-        </div>
-    	<div class="item"><a href="#" class="home">商城首页</a></div>
-        <div class="item"><a href="#">易易特色</a></div>
-        <div class="item"><a href="#">热销产品</a></div>
-        <div class="item"><a href="#">新品上市</a></div>
-        <div class="item"><a href="#">精品推荐</a></div>
-        <div class="item"><a href="#">生活服务</a></div>
-    </div>
-</div>
+<%@ include file="index_hand.jsp" %>
 
 
 <div class="w1200">
-	<div class="position"><a href="#">首页</a> > <a href="#">会员中心</a> > <a href="#">个人资料</a></div>
+	<div class="position"><a href="/shopGGL/view/index.jsp">首页</a> > <a href="#">会员中心</a> > <a href="#">个人资料</a></div>
     
     <div class="m_d">
     	<div class="left">
         	<dl><dt>账户管理</dt>
             <dd>
-            	<a href="#">个人资料</a>
+            	<a href="/shopGGL/view/member.html">个人资料</a>
                 <a href="#" class="on">修改密码</a>
                 <a href="#">绑定会员卡</a>
                 <a href="#">绑定银行卡</a>
@@ -121,10 +80,14 @@
                 	<span>修改密码</span>
                 </dt>
                 <dd>
-                	<div class="item"><span><font>*</font>原密码：</span><input type="tex" class="txt"/></div>
-                    <div class="item"><span><font>*</font>新密码：</span><input type="tex" class="txt"/></div>
-                    <div class="item"><span><font>*</font>确认密码：</span><input type="tex" class="txt"/></div>
-                    <div class="item"><input type="submit" class="sub" value="确认修改"/></div>
+                 <form class="registerform" method="post"  action="/shopGGL/updatepass.sw">
+                	<div class="item"><span><font>*</font>原密码：</span><input type="text" value="" name="name" class="inputxt" datatype="s5-18" nullmsg="请输入密码" ajaxurl="/shopGGL/boolpass.sw"  errormsg="昵称至少5个字符,最多18个字符！" />
+                        <div class="Validform_checktip">昵称为5~18个字符</div></div>
+                    <div class="item"><span><font>*</font>新密码：</span><input type="password" value="" name="userpassword" class="inputxt" datatype="*6-16" nullmsg="请设置密码！" errormsg="密码范围在6~16位之间！" />
+                        <div class="Validform_checktip">密码范围在6~16位之间</div></div>
+                    <div class="item"><span><font>*</font>确认密码：</span><input type="password" value="" name="userpassword2" class="inputxt" datatype="*" recheck="userpassword" nullmsg="请再输入一次密码！" errormsg="您两次输入的账号密码不一致！" />
+                        <div class="Validform_checktip">两次输入密码需一致</div></div>
+                    <div class="item"><input type="submit" class="sub" value="确认修改"/></div></form>
                 </dd>
             </dl>
         </div>
@@ -220,7 +183,24 @@
         <li><a href="#" class="a04"></a></li>
     </ul>
 </div>
-
+<script>
+$(function(){
+	//$(".registerform").Validform();  //就这一行代码！;
+		
+	$(".registerform").Validform({
+		tiptype:function(msg,o,cssctl){
+			//msg：提示信息;
+			//o:{obj:*,type:*,curform:*}, obj指向的是当前验证的表单元素（或表单对象），type指示提示的状态，值为1、2、3、4， 1：正在检测/提交数据，2：通过验证，3：验证失败，4：提示ignore状态, curform为当前form对象;
+			//cssctl:内置的提示信息样式控制函数，该函数需传入两个参数：显示提示信息的对象 和 当前提示的状态（既形参o中的type）;
+			if(!o.obj.is("form")){//验证表单元素时o.obj为该表单元素，全部验证通过提交表单时o.obj为该表单对象;
+				var objtip=o.obj.siblings(".Validform_checktip");
+				cssctl(objtip,o.type);
+				objtip.text(msg);
+			}
+		}
+	});
+})
+</script>
 
 </body>
 </html>

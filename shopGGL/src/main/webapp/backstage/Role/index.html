@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head>
     <title></title>
     <meta charset="UTF-8">
@@ -32,55 +32,85 @@
 
     </style>
 </head>
-<body>
-<form class="form-inline definewidth m20" action="index.html" method="get">  
-    角色名称：
-    <input type="text" name="rolename" id="rolename"class="abc input-default" placeholder="" value="">&nbsp;&nbsp;  
-    <button type="submit" class="btn btn-primary">查询</button>&nbsp;&nbsp; <button type="button" class="btn btn-success" id="addnew">新增角色</button>
+<body ng-controller="orderController">
+<form class="form-inline definewidth m20">  
+    用户名称：
+    <input type="text" ng-model="sendname" name="sendname" id="sendname"class="abc input-default" placeholder="" value="">&nbsp;&nbsp;  
+     订单编号：
+    <input type="text" ng-model="orderno" name="orderno" id="orderno"class="abc input-default" placeholder="" value="">&nbsp;&nbsp;
+    <input type="button" class="btn btn-primary" ng-click="encx()" value="查询">
 </form>
 <table class="table table-bordered table-hover definewidth m10" >
     <thead>
     <tr>
-        <th>角色id</th>
-        <th>角色名称</th>
-        <th>状态</th>
-        <th>操作</th>
+        <th>编号</th>
+        <th>订单编号</th>
+        <th>数量</th>
+        <th>下单时间</th>
+        <th>应付价钱</th>
+        <th>实付价钱</th>
+        <th>收货人地址</th>
+        <th>收货人姓名</th>
+        <th>收货人电话</th>
+        <th>收货人邮编</th>
+        <th>商品名称</th>
+        <th>订单状态</th>
     </tr>
     </thead>
-	     <tr>
-            <td>5</td>
-            <td>管理员</td>
-            <td>1</td>
-            <td>
-                  <a href="edit.html">编辑</a>
-                  
-            </td>
+	     <tr ng-repeat="p in dingdan">
+            <td>{{$index+1}}</td>
+            <td>{{p.orderno}}</td>
+            <td>{{p.count}}</td>
+            <td>{{p.createtime}}</td>
+            <td>{{p.payment}}</td>
+            <td>{{p.paymoney}}</td>
+            <td>{{p.or.sendaddress}}</td>
+            <td>{{p.or.sendname}}</td>
+            <td>{{p.or.sendphone}}</td>
+            <td>{{p.or.zip}}</td>
+            <td>{{p.proname}}</td>
+            <td>{{ p.price=="1"? "未发货":p.price=="2"?"货到付款":"已发货"}}</td>
         </tr></table>
 		</body>
 		</html>
 
-<script>
-    $(function () {
-        
-		$('#addnew').click(function(){
 
-				window.location.href="add.html";
-		 });
+<script src="/shopGGL/angular.min.js"></script>
+   <script src="/shopGGL/angular-ui-router.min.js"></script>
+<script type="text/javascript">
+   var myapp=angular.module("myApp",[]);
+   
+   myapp.service("Service",function($http){
+	   postCfg = {
+			    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			    transformRequest: function (data) {
+			        return $.param(data);
+			    }
+			};
+	   this.cxen=function($scope){
+		  // alert($scope.sendname+$scope.orderno);
+		   return  $http.post("/shopGGL/admin/entry.sw",{  
+		        "sendname": $scope.sendname,
+		        "orderno": $scope.orderno
+		    },postCfg).then(function(response){
+				 $scope.dingdan = response.data;
+				 $scope.sendname="";//用户的名字清零
+				 $scope.orderno="";//用户的名字清零
+			 }, function(response){
+				 console.log("ERROR:" , response);
+			 });
+	   }
+   });
 
-
-    });
-
-	function del(id)
-	{
-		
-		
-		if(confirm("确定要删除吗？"))
-		{
-		
-			var url = "index.html";
-			
-			window.location.href=url;		
-		
+   myapp.controller("orderController",function($scope,Service){
+	   Service.cxen($scope);//全部查询
+	   
+	   $scope.encx=function(){//模糊查询
+		   Service.cxen($scope);
 		}
-	}
+	  
+   });
+   
+
+   
 </script>

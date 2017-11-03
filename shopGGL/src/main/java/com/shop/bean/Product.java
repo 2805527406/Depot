@@ -20,7 +20,8 @@ public class Product {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer proid;
 	private String proname;
-	private Integer salecount;//ÏúÁ¿
+	private Integer salecount;//è´­ä¹°çš„æ•°é‡
+	@Column(length=20000)
 	private String image;
 	private Float price;
 	private String decript;

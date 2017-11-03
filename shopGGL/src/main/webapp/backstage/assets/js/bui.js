@@ -67,7 +67,6 @@ seajs._config = {
     return val === Object(val)
   }
 
-
   util.isArray = Array.isArray || function(val) {
     return toString.call(val) === '[object Array]'
   }

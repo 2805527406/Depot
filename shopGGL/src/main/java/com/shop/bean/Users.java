@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +29,7 @@ public class Users {
 	private String zip;
 	private String role;
 	private String userlean;
-	@OneToMany(mappedBy="users",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="users",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JsonIgnore
 	private Set<Order> orders=new HashSet<Order>();
 	public Integer getUserid() {

@@ -1,5 +1,6 @@
 package com.shop.web;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.mysql.jdbc.util.Base64Decoder;
 import com.shop.bean.Admin;
 import com.shop.bean.Csort;
 import com.shop.bean.Entry;
@@ -21,7 +24,10 @@ import com.shop.bean.Grou;
 import com.shop.bean.Product;
 import com.shop.bean.Sort;
 import com.shop.bean.Sort_2;
+import com.shop.bean.Users;
 import com.shop.service.BaseService;
+
+import sun.misc.BASE64Decoder;
 
 
 @Controller
@@ -33,6 +39,7 @@ public class AdminController {
 		@RequestMapping(value="/admin/find2")
 		@ResponseBody
 		public Object find2(){
+			System.out.println("为什么我进不来");
 			List<Sort> list=bs.findAll("from Sort", null);
 			Sort s=new Sort();
 			s.setSorid(0);
@@ -44,6 +51,7 @@ public class AdminController {
 		@RequestMapping(value="/admin/find3")
 		@ResponseBody
 		public Object find3(){
+			System.out.println("为什么我进不来");
 			List<Grou> list=bs.findAll("from Grou", null);
 			Grou s=new Grou();
 			s.setGid(0);
@@ -77,6 +85,7 @@ public class AdminController {
 		@RequestMapping(value="/admin/pro")
 		@ResponseBody
 		public Object find5(String proname,Integer sorid,Integer gid,Integer csorid,Integer s2id){
+			System.out.println("为什么我进不来");
 			String hql="select p from Product p left join p.csort s2 left join p.csort.parent_csort cs left join p.csort.parent_csort.sort s left join p.grou g where 1=1";
 			List list=new ArrayList<Object>();
 			if(proname!=null&&!proname.equals("")){
@@ -112,17 +121,54 @@ public class AdminController {
 		
 		@RequestMapping(value="/admin/addProduct")
 		@ResponseBody
-		public Object addPro(Product pro){
-			if(pro!=null&&pro.getCsorid()!=null&&pro.getCsorid()!=0&&!pro.getCsorid().equals("")&&
-					pro.getDecript()!=null&&!pro.getDecript().equals("")&&
-					pro.getImage()!=null&&!pro.getImage().equals("")&&
-					pro.getPrice()!=null&&pro.getPrice()!=0&&!pro.getPrice().equals("")&&
-					pro.getProname()!=null&&!pro.getProname().equals("")&&
-					pro.getCount()!=null&&pro.getCount()!=0&&!pro.getCount().equals("")){
-				pro.setCsort((Sort_2)bs.find(Sort_2.class, pro.getCsorid()));
-				if(pro.getGrid()!=null&&pro.getGrid()!=0&&!pro.getGrid().equals("")){
-					pro.setGrou((Grou)bs.find(Grou.class,pro.getGrid()));
+		public Object addPro(HttpServletRequest request){
+			try {
+				request.setCharacterEncoding("utf-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			String proname=request.getParameter("proname");
+			String csorid2=request.getParameter("csorid");
+			String decript=request.getParameter("decript");
+			String grid2=request.getParameter("grid");
+			String image2=request.getParameter("image");
+			String price2=request.getParameter("price");
+			String proid2=request.getParameter("proid");
+			String count2=request.getParameter("count");
+			System.out.println("image2:"+image2);
+			if(proname!=null&&proname!="0"&&!proname.equals("")&&
+					csorid2!=null&&!csorid2.equals("")&&
+							decript!=null&&!decript.equals("")&&
+									count2!=null&&count2!="0"&&!count2.equals("")&&
+											image2!=null&&!image2.equals("")&&
+													price2!=null&&price2!="0"&&!price2.equals("")){
+				Product pro=new Product();
+				Integer csorid=Integer.parseInt(csorid2);
+				Float price=Float.parseFloat(price2);
+				try {
+					Integer proid=Integer.parseInt(proid2);
+					pro.setProid(proid);
+				} catch (Exception e) {
+					
 				}
+				
+				Integer count=Integer.parseInt(count2);
+				pro.setCsorid(csorid);
+				pro.setDecript(decript);
+		
+				pro.setImage(image2);
+				pro.setPrice(price);
+				pro.setProname(proname);
+				pro.setCount(count);
+				pro.setCsort((Sort_2)bs.find(Sort_2.class, csorid));
+				
+				if(grid2!=null&&grid2!="0"&&!grid2.equals("")){
+					Integer grid=Integer.parseInt(grid2);
+					pro.setGrou((Grou)bs.find(Grou.class,grid));
+					
+				}
+				System.out.println("添加商品："+pro);
 				bs.add(pro);
 				Map<String , Object> map=new HashMap<String, Object>();
 				return map;
@@ -191,5 +237,60 @@ public class AdminController {
 			return "redirect:/backstage/Public/login.jsp";
 		}
 
+		
+		//用户管理
+				//查询全部用户信息
+				
+				
+				//查询用户信息
+				@RequestMapping(value="/admin/yonghu")//查询用户信息
+				@ResponseBody
+				public Object findyonghu(String realname){
+					String hql="select u from Users u where 1=1";
+					System.out.println("用户查询"+realname);
+					List list=new ArrayList<Object>();
+					if(realname!=null&&!realname.equals("")){
+						hql+=" and u.realname like '%"+realname+"%'";
+					}
+					System.out.println(hql);
+					return bs.findAll(hql, list.toArray());
+				}
+				///管理员修改用户状态
+				@RequestMapping(value="/admin/yhfind")
+				@ResponseBody  
+				public Object yhfind(Integer userid){
+					System.out.println("id:"+userid);
+					Users oldu =(Users)bs.find(Users.class,userid);
+					System.out.println("用户id"+userid+"用户数组："+oldu);
+					
+					if (oldu.getUserlean().equals("Y")){
+						oldu.setUserlean("N");
+					}else {
+						oldu.setUserlean("Y");
+					}
+					bs.update(oldu);
+					Map<String,Object> map=new HashMap<String, Object>();
+					map.put("ss","map");
+					return map;
+				}
+				
+				///订单的查询
+				@RequestMapping(value="/admin/entry")
+				@ResponseBody
+				public Object finddingdan(String sendname,String orderno){
+					String hql="select e from Entry e where 1=1";
+					
+					System.out.println("订单查询:"+sendname+orderno);
+					List list=new ArrayList<Object>();
+					if(sendname!=null&&!sendname.equals("")){
+						hql+=" and e.or.sendname like '%"+sendname+"%'";
+					}
+					if(orderno!=null&&!orderno.equals("")){
+						hql+=" and e.orderno like '%"+orderno+"%'";
+					}
+					System.out.println(hql);
+//					System.out.println("商品输出："+bs.findAll(hql, list.toArray()));
+					return bs.findAll(hql, list.toArray());
+				}
 		
 }

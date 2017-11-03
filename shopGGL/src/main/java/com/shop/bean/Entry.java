@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="entry")
-public class Entry {//½áËãºóµÄ°ü¹ü
+public class Entry {//ï¿½ï¿½ï¿½ï¿½ï¿½Ä°ï¿½ï¿½
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer entryid;
@@ -40,7 +40,7 @@ public class Entry {//½áËãºóµÄ°ü¹ü
 	
 	@Column(insertable=false,updatable=false)
 	private Integer orid;
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="orid")
 	private Order or;
 	
@@ -80,10 +80,6 @@ public class Entry {//½áËãºóµÄ°ü¹ü
 	public void setOr(Order or) {
 		this.or = or;
 	}
-	
-	
-
-	
 	public Integer getOrid() {
 		return orid;
 	}
@@ -139,7 +135,7 @@ public class Entry {//½áËãºóµÄ°ü¹ü
 	@Override
 	public String toString() {
 		return "Entry [entryid=" + entryid + ", payment=" + payment + ", paymoney=" + paymoney + ", price=" + price
-				+ ", tag=" + tag + ", createtime=" + createtime + ", orid=" + orid + ", or=" + or
+				+ ", tag=" + tag + ", createtime=" + createtime + ", orid=" + orid 
 				+ "pro_en="+pro_en+ "]";
 	}
 

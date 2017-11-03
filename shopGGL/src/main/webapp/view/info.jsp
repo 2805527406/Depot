@@ -16,7 +16,7 @@
 <div class="top_ad"><div class="w1200"><a href="#" id="close"></a></div></div>
 <%@ include file="index_hand.jsp" %>
 <div class="w1200">
-	<div class="position"><a href="#">首页</a> > <a href="#">购物车</a></div>
+	<div class="position"><a href="/shopGGL/view/index.jsp">首页</a> > <a href="#">购物车</a></div>
     
     <div class="shopcar">
     	<div class="info_lc"><span class="sp01">我的购物车</span><span class="sp02">填写提交信息表单</span><span class="sp03">在线支付</span></div>
@@ -126,7 +126,7 @@
         </dl>
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="go_tb">
          <tr>
-           <td width="20%"><a href="#" class="go_buy">继续购物</a></td>
+           <td width="20%"><a href="index.jsp" class="go_buy">继续购物</a></td>
            <td width="63%">&nbsp;</td>
            <td width="17%" align="right"><a href="javascript:void(0)" onclick="subor()" class="code">结 算</a></td>
          </tr>
@@ -243,7 +243,7 @@ function showss(){
 	$("#addres2").val("");
 	$("#addres3").val("");
 	$("#addres4").val("");
-	$("#orderid").val("");
+	$("#orderid").val(0);
 }
 
 $("#showeee").click(function(){
@@ -302,7 +302,14 @@ function editAddres(orderid){
 }
 
 function subor(){
-	$("#form_or").attr("action","/shopGGL/code.sw").submit();
+	var orderid=$("#from_or input[name='orderid']:chceked").val();
+	alert(orderid);
+	if(orderid){
+		$("#form_or").attr("action","/shopGGL/code.sw").submit();
+	}else{
+		alert("请选择地址");
+	}
+	
 }
 
 

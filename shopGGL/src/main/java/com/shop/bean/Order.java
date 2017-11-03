@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="orders")
-public class Order {//收货地址
+public class Order {//锟秸伙拷锟斤拷址
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer orderid;
@@ -41,7 +42,7 @@ public class Order {//收货地址
 	@JoinColumn(name="userid")
 	private Users users;
 	
-	@OneToMany(mappedBy="or")
+	@OneToMany(mappedBy="or",fetch=FetchType.EAGER)
 	@JsonIgnore
 	private Set<Entry> entry=new HashSet<Entry>();
 
@@ -132,7 +133,7 @@ public class Order {//收货地址
 	public String toString() {
 		return "Order [orderid=" + orderid + ", orderno=" + orderno + ", sendname=" + sendname + ", sendaddress="
 				+ sendaddress + ", sendphone=" + sendphone + ", time=" + time + ", userid=" + userid + ", users="
-				+ users + ", entry=" + entry + "]";
+				 + ", entry=" + entry + "]";
 	}
 
 	

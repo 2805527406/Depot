@@ -32,34 +32,7 @@
 <div class="top_ad"><div class="w1200"><a href="#" id="close"></a></div></div>
 
 <%@ include file="index_hand.jsp" %>
-<script type="text/javascript">
-$(document).ready(function(e) {
 
-    $('#slider li').eq(0).show();
-	var lenThumb = $('#slider li').length;
-	for(var i=1;i<=lenThumb;i++){
-		$('#num').append('<span>'+i+'</span>');
-	}
-	$('#num span').eq(0).addClass('on');
-	var len = $('#num span').length;
-	var index = 0;
-
-	$('#num span').click(function(){
-		index = $('#num span').index(this);
-		picShow(index);
-	});
-	var playPic = setInterval(function(){
-		picShow(index);
-		index++;
-		if(index==len){index=0}
-	},3000);
-	function picShow(i){
-		$('#slider li').eq(i).stop(true,true).fadeIn().siblings().fadeOut();
-		$('#num > span').eq(i).addClass('on').siblings().removeClass('on');
-	}
-
-});
-</script>
 <div class="banner">
 	<ul id="slider">
         <li style="background:url(../images/home/banner.jpg) no-repeat center;"><a href="#"></a></li>
@@ -91,9 +64,9 @@ $(document).ready(function(e) {
                                    <p class="p02">
                                       <font>￥</font><b>{{v.price}}</b><br />
                                       <span>{{v.decript}}</span>
-                                      <a href="#" class="buy">立即抢购 ></a>
+                                      <a href="/shopGGL/jump2.sw?proid={{v.proid}}" class="buy">立即抢购 ></a>
                                    </p>
-                                   <img src="{{v.image}}"/>
+                                   <img src="{{v.image}}" width=200  height=200/>
                                </li>
                            </ul>
                      
@@ -116,13 +89,13 @@ $(document).ready(function(e) {
             	<div class="item big" ng-repeat="v in srct2" ng-if="$index==0">
                 	<a href="#" class="title">{{v.proname}} {{v.decript}}</a>
                     <p><font>￥</font>{{v.price}}</p>
-                    <a href="#" class="buy"></a>
+                    <a href="/shopGGL/jump2.sw?proid={{v.proid}}" class="buy"></a>
                     <img src="{{v.image}}" width=250 height=250/>
                 </div>
-            	<div class="item" ng-repeat="v in srct2" ng-if="6>$index>0">
+            	<div class="item" ng-repeat="v in srct2" ng-if="7>$index>1">
                 	<a href="#" class="title">{{v.proname}} {{v.decript}}</a>
                     <p><font>￥</font>{{v.price}}</p>
-                    <a href="#" class="buy"></a>
+                    <a href="/shopGGL/jump2.sw?proid={{v.proid}}" class="buy"></a>
                     <img src="{{v.image}}" width=150 height=150/>
                 </div>
                 <div class="clear"></div>
@@ -139,14 +112,14 @@ $(document).ready(function(e) {
             	<div class="item big" ng-repeat="v in srct3" ng-if="$index==0">
                 	<a href="#" class="title">{{v.proname}} {{v.decript}}</a>
                     <p><font>￥</font>{{v.price}}</p>
-                    <a href="#" class="buy"></a>
-                    <img src="{{v.image}}"/>
+                    <a href="/shopGGL/jump2.sw?proid={{v.proid}}" class="buy"></a>
+                    <img src="{{v.image}}"  width=250 height=250/>
                 </div>
-            	<div class="item" ng-repeat="v in srct3" ng-if="6>$index>0">
+            	<div class="item" ng-repeat="v in srct3" ng-if="7>$index>1">
                 	<a href="#" class="title">{{v.proname}} {{v.decript}}</a>
                     <p><font>￥</font>{{v.price}}</p>
-                    <a href="#" class="buy"></a>
-                    <img src="{{v.image}}"/>
+                    <a href="/shopGGL/jump2.sw?proid={{v.proid}}" class="buy"></a>
+                    <img src="{{v.image}}"  width=200 height=200/>
                 </div>
                 <div class="clear"></div>
                 <div class="clear"></div>
@@ -239,22 +212,17 @@ $(document).ready(function(e) {
 </div>
 <!--float_right-->
 <div class="float">
-	<ul>
-    	<li><a href="#" class="a01"></a></li>
-        <li><a href="#" class="a02"></a></li>
-        <li><a href="#" class="a03"></a></li>
-        <li><a href="#" class="a04"></a></li>
-    </ul>
+	<%@ include file="index_foot.jsp" %>
 </div>
 <!--float_left-->
 <div class="float2">
 	<ul>
     	<li><a href="#a01" class="a01 on" id="idx01">限时抢购</a></li>
         <li><a href="#a02" class="a02" id="idx02"></a></li>
-        <li><a href="#a03" class="a03" id="idx03"></a></li>
-        <li><a href="#a04" class="a04" id="idx04"></a></li>
+      <!--   <li><a href="#a03" class="a03" id="idx03"></a></li>
+        <li><a href="#a04" class="a04" id="idx04"></a></li> -->
         <li><a href="#a05" class="a05" id="idx05"></a></li>
-        <li><a href="#a06" class="a06" id="idx06"></a></li>
+       <!--  <li><a href="#a06" class="a06" id="idx06"></a></li> -->
     </ul>
 </div>
 <script language="javascript" type="text/javascript">
@@ -299,6 +267,8 @@ $(function () {
 			}
 		}
     });
+    
+  
 </script>
 
 

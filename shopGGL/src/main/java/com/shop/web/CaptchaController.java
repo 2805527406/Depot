@@ -81,7 +81,6 @@ public class CaptchaController {
     public void checkCaptchaCode(HttpServletRequest request, HttpServletResponse response,String captchaCode
     		,String username,String password){
         System.out.println("页面输入验证码===="+captchaCode);
-        System.out.println(username+","+password);
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Pragma", "No-cache");
         response.setHeader("Cache-Control", "no-cache");
@@ -95,7 +94,11 @@ public class CaptchaController {
 			if(a.size()>0){
 					Users ad=(Users) a.get(0);
 					request.getSession().setAttribute("qianlogin",ad);
-					result="ok";
+					if(ad.getUserlean().equals("Y")){
+						result="ok";
+					}else{
+						result="该用户已被禁用";
+					}
 			}else{
 				result="no";
 			}
