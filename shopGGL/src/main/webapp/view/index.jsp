@@ -10,7 +10,7 @@
 <script src="../js/jquery-1.7.min.js" type="text/javascript"></script>
 <script src="../js/common.js"  type="text/javascript"></script>
 <script>
-    $(function(){   
+    $(function(){
     $('a[href*=#],area[href*=#]').click(function() {
         if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
             var $target = $(this.hash);
@@ -31,13 +31,90 @@
 <body class="index"  ng-controller="sonController">
 <div class="top_ad"><div class="w1200"><a href="#" id="close"></a></div></div>
 
-<%@ include file="index_hand.jsp" %>
+<div class="top">
+	<div class="w1200">
+	<c:if test="${empty qianlogin}">
+		<div class="left">您好，欢迎光临易易城！<a href="/shopGGL/view/login3.jsp">[登录]</a> <a href="/shopGGL/view/reg.html">[注册]</a></div>
+	</c:if>
+	<c:if test="${not empty qianlogin }">
+	<div class="left">您好，欢迎光临易易城！<a href="/shopGGL/view/member.html">[${qianlogin.realname}]</a> <a href="/shopGGL/removelogin.sw">[退出]</a></div>
+        <div class="right"><a href="/shopGGL/view/member.html">我的会员中心</a>|<a href="#">收藏夹</a>|<a href="#">服务中心</a>|<a href="#">在线客服</a>|<a href="shopcar.jsp">购物车<b>0</b>件</a></div>
+        <div class="clear"></div></c:if>
+    </div>	
+</div>
+
+<div class="head">
+	<div class="w1200">
+    	<div class="logo"><a href="#"></a></div>
+        <div class="search">
+        	<form action="#" class="form">
+        		<input type="text" value="输入商品关键字" name="keyword" class="txt" onfocus="if(value=='输入商品关键字') {value=''}" onblur="if(value=='') {value='输入商品关键字'}"/>
+                <input type="submit" value="搜索" class="sub"/>
+            </form>
+        	<p><a href="#">iphone6s</a>|<a href="#">面膜</a>|<a href="#">婚庆床品</a>|<a href="#">运动鞋</a>|<a href="#">眼霜</a>|<a href="#">月饼</a>|<a href="#">智能手机</a>|<a href="#">连衣裙</a></p>
+        </div>
+        <div class="s_r">
+        	<dl>
+            	<dt><p>购物车<span>0</span></p></dt>
+                <dd>客服电话：<b>400-0139-038</b></dd>
+            </dl>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div class="menu">
+	<div class="w1200">
+    	<div class="item" id="nav"><a href="#" class="nav">全部商品分类</a>
+        	<div class="nav_son" >
+            	<ul>
+                	<li ng-repeat="v in son1" class="{{v.sorimg}}"><a href="/shopGGL/jump.sw?sid={{v.sorid}}">{{v.sorname}}</a></li>
+                </ul>
+            </div>
+        </div>
+        
+   	  <div class="item"><a href="#" class="home">商城首页</a></div>
+       <!--  <div class="item"><a href="#">易易特色</a></div>
+        <div class="item"><a href="#">热销产品</a></div>
+        <div class="item"><a href="#">新品上市</a></div>
+        <div class="item"><a href="#">精品推荐</a></div>
+        <div class="item"><a href="#">生活服务</a></div> -->
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(e) {
+
+    $('#slider li').eq(0).show();
+	var lenThumb = $('#slider li').length;
+	for(var i=1;i<=lenThumb;i++){
+		$('#num').append('<span>'+i+'</span>');
+	}
+	$('#num span').eq(0).addClass('on');
+	var len = $('#num span').length;
+	var index = 0;
+
+	$('#num span').click(function(){
+		index = $('#num span').index(this);
+		picShow(index);
+	});
+	var playPic = setInterval(function(){
+		picShow(index);
+		index++;
+		if(index==len){index=0}
+	},3000);
+	function picShow(i){
+		$('#slider li').eq(i).stop(true,true).fadeIn().siblings().fadeOut();
+		$('#num > span').eq(i).addClass('on').siblings().removeClass('on');
+	}
+
+});
+</script>
 
 <div class="banner">
-	<ul id="slider">
-        <li style="background:url(../images/home/banner.jpg) no-repeat center;"><a href="#"></a></li>
-        <li style="background:url(../images/home/banner.jpg) no-repeat center;"><a href="#"></a></li>
-        <li style="background:url(../images/home/banner.jpg) no-repeat center;"><a href="#"></a></li>
+	<ul id="slider" >
+        <li ng-repeat="v in srct4" ng-if="$index<4" style="background:url({{v.image}}) no-repeat center;background-size:1920px 450px;" ><a href="/shopGGL/jump2.sw?proid={{v.proid}}"></a></li>
+          <li style="background:url(images/home/banner.jpg) no-repeat center;"><a href="#"></a></li>
+        <li style="background:url(images/home/banner.jpg) no-repeat center;"><a href="#"></a></li>
     </ul>
     
     <div class="w_auto">
@@ -57,7 +134,7 @@
                     <div class="Cont" id="ISL_Cont">
                       <div class="ScrCont">
                          <div id="List1">
-                            <!-- 图片列表 begin -->
+                            <!-- 图片列表 begin --> 
                            <ul>
                                <li class="pic" ng-repeat="v in srct">
                                    <p class="p01">{{v.proname}}</p>
@@ -80,7 +157,7 @@
         </div>
     </div>
     
-    <div class="idx_ad"><img src="../images/home/ico39.jpg"/></div>
+    <div class="idx_ad"><img src="/shopGGL/images/home/ico39.jpg"/></div>
     <a name="a02"></a>
     <div class="idx02">
     	<dl>
@@ -92,7 +169,7 @@
                     <a href="/shopGGL/jump2.sw?proid={{v.proid}}" class="buy"></a>
                     <img src="{{v.image}}" width=250 height=250/>
                 </div>
-            	<div class="item" ng-repeat="v in srct2" ng-if="7>$index>1">
+            	<div class="item" ng-repeat="v in srct2"  ng-if="$index>0 && $index<7">
                 	<a href="#" class="title">{{v.proname}} {{v.decript}}</a>
                     <p><font>￥</font>{{v.price}}</p>
                     <a href="/shopGGL/jump2.sw?proid={{v.proid}}" class="buy"></a>
@@ -115,7 +192,7 @@
                     <a href="/shopGGL/jump2.sw?proid={{v.proid}}" class="buy"></a>
                     <img src="{{v.image}}"  width=250 height=250/>
                 </div>
-            	<div class="item" ng-repeat="v in srct3" ng-if="7>$index>1">
+            	<div class="item" ng-repeat="v in srct3" c>
                 	<a href="#" class="title">{{v.proname}} {{v.decript}}</a>
                     <p><font>￥</font>{{v.price}}</p>
                     <a href="/shopGGL/jump2.sw?proid={{v.proid}}" class="buy"></a>
@@ -128,7 +205,7 @@
     </div>
     
     
-    <div class="idx_ad"><img src="images/home/ico28.jpg"/></div>
+    <div class="idx_ad"><img src="/shopGGL/images/home/ico28.jpg"/></div>
 </div>
 
 <!--footer-->
@@ -225,6 +302,48 @@
        <!--  <li><a href="#a06" class="a06" id="idx06"></a></li> -->
     </ul>
 </div>
+
+
+<script src="/shopGGL/angular.min.js"></script>
+<script src="/shopGGL/angular-ui-router.min.js"></script>
+<script type="text/javascript">
+var app=angular.module("app",["ui.router"]);
+app.service("Service",function($http){
+	this.find=function($scope){
+		$http.get("/shopGGL/find2.sw").then(function(response){$scope.son1=response.data},function(response){console.log(response)})
+			
+	}
+	this.findsrc=function($scope){
+		$http.get("/shopGGL/find3.sw").then(function(response){$scope.srct=response.data},function(response){console.log(response)})
+			
+	}
+	this.findsrc2=function($scope){
+		$http.get("/shopGGL/find4.sw").then(function(response){$scope.srct2=response.data},function(response){console.log(response)})
+			
+	}
+	this.findsrc3=function($scope){
+		$http.get("/shopGGL/find5.sw").then(function(response){$scope.srct3=response.data;console.log($scope.srct3)},function(response){console.log(response)})
+			
+	}
+	this.findsrc4=function($scope){
+		$http.get("/shopGGL/find6.sw").then(function(response){$scope.srct4=response.data;},function(response){console.log(response)})
+			
+	}
+});
+app.controller("sonController",function($scope,Service){
+	$scope.son1=[];
+	$scope.srct=[];//限时抢购
+	$scope.srct2=[];//易易特色
+	$scope.srct3=[];//精品推荐
+	$scope.srct4=[];//轮播图
+	Service.findsrc($scope);//
+	Service.findsrc2($scope);//
+	Service.findsrc3($scope);//
+	Service.findsrc4($scope);//
+	Service.find($scope);
+});
+
+</script>
 <script language="javascript" type="text/javascript">
 $(function () {
         var dv = $(".idx01").offset().top;
@@ -271,8 +390,9 @@ $(function () {
   
 </script>
 
-
 <script language="javascript" type="text/javascript">
+
+
 <!--//--><![CDATA[//><!--
 //图片滚动列表 mengjia 070816
 var Speed = 10; //速度(毫秒)
@@ -369,5 +489,7 @@ setTimeout('CompScr()',Speed);
 //--><!]]>
 </script>
 </body>
+
+
 
 </html>

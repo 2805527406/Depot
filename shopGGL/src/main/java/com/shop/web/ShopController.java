@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Table;
 import javax.persistence.criteria.From;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +33,6 @@ import com.shop.bean.Users;
 import com.shop.service.BaseService;
 import com.shop.vo.Cart;
 import com.shop.vo.CartItem;
-import com.shop.vo.PageBean;
 import com.shop.vo.RandomCharData;
 
 @Controller
@@ -55,22 +55,30 @@ public class ShopController {
 	@RequestMapping(value="/find3")
 	@ResponseBody
 	public Object find3(){
-		System.out.println(bs.findAll("select p from Product p left join p.grou g where g.gname='限时抢购'", null));
+		System.out.println("限时抢购："+bs.findAll("select p from Product p left join p.grou g where g.gname='限时抢购'", null));
 		return bs.findAll("select p from Product p left join p.grou g where g.gname='限时抢购'", null);
 	}
 	//��ɫƷ��
 	@RequestMapping(value="/find4")
 	@ResponseBody
 	public Object find4(){
-		System.out.println(bs.findAll("select p from Product p left join p.grou g where g.gname='易易特色'", null));
+		System.out.println("易易特色："+bs.findAll("select p from Product p left join p.grou g where g.gname='易易特色'", null));
 		return bs.findAll("select p from Product p left join p.grou g where g.gname='易易特色'", null);
 	}
 	//��Ʒ�Ƽ�
 	@RequestMapping(value="/find5")
 	@ResponseBody
 	public Object find5(){
-		System.out.println(bs.findAll("select p from Product p left join p.grou g where g.gname='精品推荐'", null));
+		System.out.println("精品推荐："+bs.findAll("select p from Product p left join p.grou g where g.gname='精品推荐'", null));
 		return bs.findAll("select p from Product p left join p.grou g where g.gname='精品推荐'", null);
+	}
+	
+	@RequestMapping(value="/find6")
+	@ResponseBody
+	public Object find6(){
+		System.out.println("轮播图进不来卧槽");
+		System.out.println("轮播图："+bs.findAll("select p from Product p left join p.grou g where g.gname='轮播图'", null));
+		return bs.findAll("select p from Product p left join p.grou g where g.gname='轮播图'", null);
 	}
 	//��Ʒҳ��
 	@RequestMapping(value="/jump")
@@ -84,16 +92,6 @@ public class ShopController {
 		}
 		List list=bs.findAll(hql2, null);
 		/***以下是分页信息***-/-//********************************************************/
-		PageBean pageBean=new PageBean();
-		pageBean.setPagesize(8);
-		pageBean.setTotal(list.size());
-		try {
-			int page = Integer.parseInt(request.getParameter("page"));
-			pageBean.setPage(page);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		request.setAttribute("pagebean", pageBean);
 		request.setAttribute("pro",list);
 		return "forward:view/product.jsp";
 	}
@@ -115,8 +113,19 @@ public class ShopController {
 		CartItem cartItem=new CartItem(p, total);
 		Cart cart=getCart(session);
 		cart.addcart(cartItem);
-		
 		return "redirect:view/shopcar.jsp";
+	}
+	
+	@RequestMapping(value="/editCart")
+	@ResponseBody
+	public Object editCart(Integer count,Integer proid,Double total,HttpSession session){
+		System.out.println("(●'◡'●)："+count+","+proid+","+total);
+		Cart c=getCart(session);
+		c.setTotal(total);
+		Map<Integer, CartItem> map=c.getCart();
+		CartItem pro=map.get(proid);
+		pro.setCount(count);
+		return "OK";
 	}
 	
 	private Cart getCart(HttpSession session){

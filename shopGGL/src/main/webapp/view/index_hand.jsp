@@ -98,19 +98,19 @@ $(document).ready(function(e) {
 				
 		}
 		this.findsrc3=function($scope){
-			$http.get("/shopGGL/find5.sw").then(function(response){$scope.srct3=response.data},function(response){console.log(response)})
+			$http.get("/shopGGL/find5.sw").then(function(response){$scope.srct3=response.data;},function(response){console.log(response)})
 				
 		}
 	});
 	app.controller("sonController",function($scope,Service){
 		$scope.son1=[];
-		$scope.srct=[];
-		$scope.srct2=[];
-		$scope.srct3=[];
+		$scope.srct=[];//限时抢购
+		$scope.srct2=[];//易易特色
+		$scope.srct3=[];//精品推荐
+		Service.findsrc($scope);//
+		Service.findsrc2($scope);//
+		Service.findsrc3($scope);//
 		Service.find($scope);
-		Service.findsrc($scope);
-		Service.findsrc2($scope);
-		Service.findsrc3($scope);
 	});
 	
 

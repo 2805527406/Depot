@@ -66,10 +66,9 @@ return true;
                     <div class="number">
                         <small>数量：</small>
                         <input type="hidden" name="proid" value="${ppp.proid}"/>
-                       <input type="text" maxlength=3 value="1" name="total" class="num"/>
-                      
-        				<span class="jian"></span><span class="jia"></span>
-        					       <div class="ku"><p>件&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></div>
+                     <input type="text" maxlength=3 value="1" id="total" name="total" class="num"/>
+        				<input type="button" class="jian" onclick="jia()"/><input type="button" class="jia" onclick="jian()"/>
+        					       <div class="ku">件<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></div>
                         <div class="clear"></div>
                     </div>
                     <div class="sale"><small>销量：</small><span class="on">${ppp.salecount}</span><div class="clear"></div></div>
@@ -360,6 +359,29 @@ function subCart(){
 	}
 }
 
+function jia(){
+	var jia=parseInt($("#total").val());
+	var to=null;
+	if(jia<=998){
+		to=jia+1;
+		
+	}else{
+		to=999;
+	}
+	$("#total").val(to);
+}
+
+function jian(){
+	var jia=parseInt($("#total").val());
+	var to=null;
+	if(jia>=2){
+		to=jia-1;
+		
+	}else{
+		to=1;
+	}
+	$("#total").val(to);
+}
 $(function(){
 var imgWid = 0 ;
 var imgHei = 0 ; //变量初始化

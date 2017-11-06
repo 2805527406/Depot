@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
  <head>
-  <title>åå°ç®¡çç³»ç»www.777moban.com</title>
+  <title>后台管理</title>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    <link href="assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
   <link href="assets/css/bui-min.css" rel="stylesheet" type="text/css" />

@@ -43,9 +43,7 @@ public class Cart {
 	}
 	
 	public void removeCart(Integer pid){
-		System.out.println("进入方法");
 		CartItem item=cart.remove(pid);
-		System.out.println("删除的商品："+item);
 		this.total-=item.getSubtatal();
 	}
 	

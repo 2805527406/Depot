@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="product")
 public class Product {
@@ -34,13 +36,13 @@ public class Product {
 	}
 	@Column(insertable=false,updatable=false)
 	private Integer csorid;
-	@ManyToOne(cascade={CascadeType.REFRESH,CascadeType.MERGE})
+	@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE})
 	@JoinColumn(name="csorid")
 	private Sort_2 csort;
 	
 	@Column(insertable=false,updatable=false)
 	private Integer grid;
-	@ManyToOne(cascade={CascadeType.REFRESH,CascadeType.MERGE})
+	@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE})
 	@JoinColumn(name="grid")
 	private Grou grou;
 	
@@ -48,6 +50,7 @@ public class Product {
 	private Integer enid;
 	@ManyToOne
 	@JoinColumn(name="enid")
+	@JsonIgnore
 	private Entry en_pro;
 	
 	

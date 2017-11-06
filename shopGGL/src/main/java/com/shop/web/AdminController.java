@@ -1,7 +1,9 @@
 package com.shop.web;
 
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +29,7 @@ import com.shop.bean.Sort;
 import com.shop.bean.Sort_2;
 import com.shop.bean.Users;
 import com.shop.service.BaseService;
+import com.shop.vo.Base;
 
 import sun.misc.BASE64Decoder;
 
@@ -134,43 +138,44 @@ public class AdminController {
 			String grid2=request.getParameter("grid");
 			String image2=request.getParameter("image");
 			String price2=request.getParameter("price");
-			String proid2=request.getParameter("proid");
 			String count2=request.getParameter("count");
 			System.out.println("image2:"+image2);
+			Map<String , Object> map=new HashMap<String, Object>();
+			
 			if(proname!=null&&proname!="0"&&!proname.equals("")&&
 					csorid2!=null&&!csorid2.equals("")&&
 							decript!=null&&!decript.equals("")&&
 									count2!=null&&count2!="0"&&!count2.equals("")&&
 											image2!=null&&!image2.equals("")&&
 													price2!=null&&price2!="0"&&!price2.equals("")){
+				System.out.println("进来代表添加成功");
 				Product pro=new Product();
 				Integer csorid=Integer.parseInt(csorid2);
 				Float price=Float.parseFloat(price2);
-				try {
-					Integer proid=Integer.parseInt(proid2);
-					pro.setProid(proid);
-				} catch (Exception e) {
-					
-				}
-				
 				Integer count=Integer.parseInt(count2);
-				pro.setCsorid(csorid);
 				pro.setDecript(decript);
-		
-				pro.setImage(image2);
+				String image = image2.substring(image2.indexOf(",") + 1);//获取开始截取的位置
+				String[] strings=image2.split(",");
+				String[] strings2=strings[0].split("/|;");
+				String suffix=strings2[1];
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
+				String sr=sdf.format(new Date());
+				String str=proname+sr+"."+suffix;
+				String path="D:/java ee/eclipse/workspace/Depot/shopGGL/src/main/webapp/images/product/"+str;
+				Base.generateImage(image, path);
+				pro.setImage("/product/"+str);
 				pro.setPrice(price);
 				pro.setProname(proname);
 				pro.setCount(count);
 				pro.setCsort((Sort_2)bs.find(Sort_2.class, csorid));
-				
-				if(grid2!=null&&grid2!="0"&&!grid2.equals("")){
+				if(grid2!=null&&grid2!="0"&&!grid2.equals("")&&!grid2.equals("null")){
 					Integer grid=Integer.parseInt(grid2);
 					pro.setGrou((Grou)bs.find(Grou.class,grid));
-					
 				}
 				System.out.println("添加商品："+pro);
 				bs.add(pro);
-				Map<String , Object> map=new HashMap<String, Object>();
+				
+				map.put("result","ok");
 				return map;
 			}else{
 				return "ok";
@@ -179,25 +184,66 @@ public class AdminController {
 		
 		@RequestMapping(value="/admin/editProduct")
 		@ResponseBody
-		public Object editPro(Product pro){
-			if(pro!=null&&pro.getCsorid()!=null&&pro.getCsorid()!=0&&!pro.getCsorid().equals("")&&
-					pro.getDecript()!=null&&!pro.getDecript().equals("")&&
-					pro.getImage()!=null&&!pro.getImage().equals("")&&
-					pro.getPrice()!=null&&pro.getPrice()!=0&&!pro.getPrice().equals("")&&
-					pro.getProname()!=null&&!pro.getProname().equals("")&&
-					pro.getCount()!=null&&pro.getCount()!=0&&!pro.getCount().equals("")){
-				pro.setCsort((Sort_2)bs.find(Sort_2.class, pro.getCsorid()));
-				Product p=(Product) bs.find(Product.class, pro.getProid());
-				p.setProname(pro.getProname());
-				p.setCsorid(pro.getCsorid());
-				p.setDecript(pro.getDecript());
-				p.setImage(pro.getImage());
-				p.setPrice(pro.getPrice());
-				p.setCount(pro.getCount());
-				if(pro.getGrid()!=null&&pro.getGrid()!=0&&!pro.getGrid().equals("")){
-					p.setGrou((Grou)bs.find(Grou.class,pro.getGrid()));
+		public Object editPro(HttpServletRequest request){
+			try {
+				request.setCharacterEncoding("utf-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			String proname=request.getParameter("proname");
+			String csorid2=request.getParameter("csorid");
+			String decript=request.getParameter("decript");
+			String grid2=request.getParameter("grid");
+			String image2=request.getParameter("image");
+			String price2=request.getParameter("price");
+			String proid2=request.getParameter("proid");
+			String count2=request.getParameter("count");
+			System.out.println("image2:"+image2);
+			if(proname!=null&&proname!="0"&&!proname.equals("")&&
+					csorid2!=null&&!csorid2.equals("")&&
+							decript!=null&&!decript.equals("")&&
+									count2!=null&&count2!="0"&&!count2.equals("")&&
+											image2!=null&&!image2.equals("")&&
+													price2!=null&&price2!="0"&&!price2.equals("")&&
+													proid2!=null&&proid2!="0"&&!proid2.equals("")){
+					Integer proid=Integer.parseInt(proid2);
+				Product pro=(Product) bs.find(Product.class,proid);
+				Integer csorid=Integer.parseInt(csorid2);
+				Float price=Float.parseFloat(price2);
+				
+				
+				Integer count=Integer.parseInt(count2);
+
+				pro.setDecript(decript);
+				System.out.println(image2);
+				if(image2!=null&&!image2.equals("")&&!image2.equals("null")&&!image2.equals("undefined")){
+					String image = image2.substring(image2.indexOf(",") + 1);//获取开始截取的位置
+					String[] strings=image2.split(",");
+					String[] strings2=strings[0].split("/|;");
+					String suffix=strings2[1];
+					SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
+					String sr=sdf.format(new Date());
+					String str=proname+sr+"."+suffix;
+					String path="D:/java ee/eclipse/workspace/Depot/shopGGL/src/main/webapp/images/product/"+str;
+					
+					pro.setImage("/product/"+str);
+					Base.generateImage(image, path);
 				}
-				bs.update(p);
+				
+				pro.setPrice(price);
+				pro.setProname(proname);
+				pro.setCount(count);
+				pro.setCsort((Sort_2)bs.find(Sort_2.class, csorid));
+				System.out.println("热门id："+grid2);
+				if(grid2!=null&&grid2!="0"&&!grid2.equals("")&&!grid2.equals("null")){
+					Integer grid=Integer.parseInt(grid2);
+					pro.setGrou((Grou)bs.find(Grou.class,grid));
+					
+				}
+				System.out.println("添加商品："+pro);
+				bs.update(pro);
+				
 				Map<String , Object> map=new HashMap<String, Object>();
 				return map;
 			}else{
@@ -279,8 +325,6 @@ public class AdminController {
 				@ResponseBody
 				public Object finddingdan(String sendname,String orderno){
 					String hql="select e from Entry e where 1=1";
-					
-					System.out.println("订单查询:"+sendname+orderno);
 					List list=new ArrayList<Object>();
 					if(sendname!=null&&!sendname.equals("")){
 						hql+=" and e.or.sendname like '%"+sendname+"%'";
@@ -289,8 +333,7 @@ public class AdminController {
 						hql+=" and e.orderno like '%"+orderno+"%'";
 					}
 					System.out.println(hql);
-//					System.out.println("商品输出："+bs.findAll(hql, list.toArray()));
+					System.out.println("商品输出："+bs.findAll(hql, list.toArray()));
 					return bs.findAll(hql, list.toArray());
-				}
-		
+				}		
 }

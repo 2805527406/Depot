@@ -45,8 +45,10 @@ public class Entry {//�����İ��
 	private Order or;
 	
 	@OneToMany(mappedBy="en_pro",fetch=FetchType.EAGER)
-	@JsonIgnore
+	
 	private Set<Product> pro_en=new HashSet<Product>();
+	
+	
 	public Integer getEntryid() {
 		return entryid;
 	}
@@ -62,8 +64,6 @@ public class Entry {//�����İ��
 	public void setPrice(Float price) {
 		this.price = price;
 	}
-
-
 
 	public Date getCreatetime() {
 		return createtime;
@@ -92,13 +92,7 @@ public class Entry {//�����İ��
 
 
 
-	public Set<Product> getPro_en() {
-		return pro_en;
-	}
-
-	public void setPro_en(Set<Product> pro_en) {
-		this.pro_en = pro_en;
-	}
+	
 
 	public String getOrderno() {
 		return orderno;
@@ -130,6 +124,14 @@ public class Entry {//�����İ��
 
 	public void setTag(Integer tag) {
 		this.tag = tag;
+	}
+	
+	public Set<Product> getPro_en() {
+		return pro_en;
+	}
+
+	public void setPro_en(Set<Product> pro_en) {
+		this.pro_en = pro_en;
 	}
 
 	@Override

@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>提交订单信息</title>
 <link href="/shopGGL/css/style.css" type="text/css" rel="stylesheet" />
-<script src="/shopGGL/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="/shopGGL/js/jquery-1.9.1.min.js" type="text/javascript"></script>
 <script src="/shopGGL/js/common.js"  type="text/javascript"></script>
 
 
@@ -72,8 +72,7 @@
                   </c:forEach>
                 </table>
                 </form>
-                <div class="clear"></div>
-                
+                <div class="clear"></div>   
    		  </dd>
         </dl>
    		</div>
@@ -85,9 +84,9 @@
             	<table width="100%" cellpadding="0" cellspacing="0" border="0">
                   <tr class="tr_t">
                   	<td width="2%">&nbsp;</td>
-                    <td width="48%">收货人</td>
-                    <td width="25%">电话</td>
-                    <td width="13%">地址</td>
+                    <td width="48%">商品</td>
+                    <td width="25%">单价</td>
+                    <td width="13%">数量</td>
                     <td width="12%">小计</td>
                   </tr>
                   <c:forEach items="${cart.cartItems}" var="c">
@@ -302,8 +301,7 @@ function editAddres(orderid){
 }
 
 function subor(){
-	var orderid=$("#from_or input[name='orderid']:chceked").val();
-	alert(orderid);
+	var orderid=$("#form_or input:radio[name='orderid']:checked").val();
 	if(orderid){
 		$("#form_or").attr("action","/shopGGL/code.sw").submit();
 	}else{

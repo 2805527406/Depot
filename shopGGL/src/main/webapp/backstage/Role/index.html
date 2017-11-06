@@ -68,8 +68,8 @@
             <td>{{p.or.sendname}}</td>
             <td>{{p.or.sendphone}}</td>
             <td>{{p.or.zip}}</td>
-            <td>{{p.proname}}</td>
-            <td>{{ p.price=="1"? "未发货":p.price=="2"?"货到付款":"已发货"}}</td>
+            <td><p ng-repeat="vs in p.pro_en">{{vs.proname}}</p></td>
+            <td>{{ p.price=="2"? "货到付款":p.price=="1"?"已发货":"未发货"}}</td>
         </tr></table>
 		</body>
 		</html>
@@ -93,6 +93,7 @@
 		        "sendname": $scope.sendname,
 		        "orderno": $scope.orderno
 		    },postCfg).then(function(response){
+		    	console.log(response.data);
 				 $scope.dingdan = response.data;
 				 $scope.sendname="";//用户的名字清零
 				 $scope.orderno="";//用户的名字清零

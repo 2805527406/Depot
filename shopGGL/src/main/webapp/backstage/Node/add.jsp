@@ -71,13 +71,6 @@
         <td><input ng-model="count" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/></td>
     </tr> 
     <tr>
-        <td class="tableleft">状态</td>
-        <td>
-            <input type="radio" name="status" value="1" checked/> 启用
-            <input type="radio" name="status" value="0"/> 禁用
-        </td>
-    </tr>
-    <tr>
         <td class="tableleft"></td>
         <td>
             <input type="button" class="btn btn-primary" ng-click="tj()" value="保存">&nbsp;&nbsp;<button type="button" class="btn btn-success" name="backid" id="backid">返回列表</button>

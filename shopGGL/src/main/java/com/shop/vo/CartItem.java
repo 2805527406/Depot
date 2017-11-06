@@ -7,8 +7,6 @@ public class CartItem {
 	private Double subtatal;
 	private Integer count;
 	
-	
-	
 	public CartItem(Product product, Integer count) {
 		super();
 		this.product = product;

@@ -35,19 +35,18 @@
                   </tr>
                   <c:forEach items="${cart.cartItems}" var="cart">
                   <tr class="tr_c">
-                    <td><input type="checkbox" checked="checked"/></td>
+                    <td><input type="checkbox" id="proid" value="${cart.product.proid }" checked="checked"/></td>
                     <td colspan="2">
                     	<table width="100%" border="0" cellspacing="0" cellpadding="0">
                           <tr>
                             <td width="15%"><img src="${cart.product.image }"/></td>
                             <td width="85%"><a href="javascript:void(0)" class="title">${cart.product.proname }</a></td>
                           </tr>
-
                         </table>
                     </td>
-                    <td class="price">￥${cart.product.price }</td>
-                    <td>${cart.count }</td>
-                    <td class="price">￥${cart.subtatal }</td>
+                    <td class="price">￥<font id="pricess_${cart.product.proid}">${cart.product.price }</font></td>
+                    <td><input type="button" class="jian" value="+" onclick="jia(${cart.product.proid})"/><input type="text" value="${cart.count }" readonly="readonly" id="count_${cart.product.proid}" /><input type="button" class="jia" value="-" onclick="jian(${cart.product.proid})"/></td>
+                    <td class="price" >￥<font id="subtatal_${cart.product.proid}" >${cart.subtatal}</font></td>
                     <td><a href="/shopGGL/removeCart.sw?pid=${cart.product.proid }" onclick="return confirm('确定删除？');">删除</a></td>
                   </tr>
                   </c:forEach>
@@ -57,7 +56,7 @@
                           <tr>
                             <td width="75%"><span class="del"><a href="#"></a></span></td>
                             <td width="11%">  <strong></strong>  件</td>
-                            <td width="14%" class="all_price">合计：<font>￥${cart.total }</font></td>
+                            <td width="14%" class="all_price">合计：￥<font id="total">${cart.total }</font></td>
                           </tr>
                         </table>
                     </td>
@@ -166,7 +165,48 @@
         <li><a href="#" class="a04"></a></li>
     </ul>
 </div>
+<script>
 
+function jia(pid){
+	var jia=parseInt($("#count_"+pid).val());
+	var price=$("#pricess_"+pid).html();
+	var to=null;
+	if(jia<=998){
+		to=jia+1;
+	}else{
+		to=999;
+	}
+	var total=$("#total").html();//得到总计
+	var subtatal=$("#subtatal_"+pid).text();//得到小计
+	$("#count_"+pid).val(to);
+	var nsubtatal=parseFloat(subtatal)+parseFloat(price);//计算后的小计
+	$("#subtatal_"+pid).text(nsubtatal);
+	var ntotal=parseFloat(total)+parseFloat(price);//计算后的总计
+	$("#total").html(ntotal);
+	$.get("/shopGGL/editCart.sw",{count:to,proid:pid,total:ntotal})
+}
+
+function jian(pid){
+	var jia=parseInt($("#count_"+pid).val());
+	var price=$("#pricess_"+pid).html();
+	var to=null;
+	if(jia>=2){
+		to=jia-1;
+		
+	}else{
+		to=1;
+	}
+	var total=$("#total").html();//得到总计
+	var subtatal=$("#subtatal_"+pid).text();//得到小计
+	$("#count_"+pid).val(to);
+	var nsubtatal=subtatal-price;//计算后的小计
+	$("#subtatal_"+pid).html(nsubtatal);
+	var ntotal=total-price;//计算后的总计
+	$("#total").html(ntotal);
+	$.get("/shopGGL/editCart.sw",{count:to,proid:pid,total:ntotal})
+}
+
+</script>
 
 </body>
 </html>

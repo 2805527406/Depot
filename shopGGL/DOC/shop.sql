@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50634
 File Encoding         : 65001
 
-Date: 2017-10-25 08:47:30
+Date: 2017-11-06 11:13:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,11 +25,12 @@ CREATE TABLE `admin` (
   `password` varchar(255) DEFAULT NULL,
   `permissions` varchar(36) DEFAULT NULL,
   PRIMARY KEY (`adminid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
+INSERT INTO `admin` VALUES ('1', 'admin', 'admin', 'Y');
 
 -- ----------------------------
 -- Table structure for csort
@@ -58,8 +59,8 @@ INSERT INTO `csort` VALUES ('3', null, '家具', '1');
 DROP TABLE IF EXISTS `entry`;
 CREATE TABLE `entry` (
   `entryid` int(11) NOT NULL AUTO_INCREMENT,
-  `count` int(11) DEFAULT NULL,
   `createtime` datetime DEFAULT NULL,
+  `orderno` varchar(255) DEFAULT NULL,
   `orid` int(11) DEFAULT NULL,
   `payment` varchar(255) DEFAULT NULL,
   `paymoney` float DEFAULT NULL,
@@ -82,11 +83,15 @@ CREATE TABLE `grou` (
   `gid` int(11) NOT NULL AUTO_INCREMENT,
   `gname` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`gid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of grou
 -- ----------------------------
+INSERT INTO `grou` VALUES ('1', '限时抢购');
+INSERT INTO `grou` VALUES ('2', '精品推荐');
+INSERT INTO `grou` VALUES ('3', '易易特色');
+INSERT INTO `grou` VALUES ('4', '轮播图');
 
 -- ----------------------------
 -- Table structure for orders
@@ -116,31 +121,27 @@ CREATE TABLE `orders` (
 DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `proid` int(11) NOT NULL AUTO_INCREMENT,
+  `count` int(11) DEFAULT NULL,
   `csorid` int(11) DEFAULT NULL,
   `decript` varchar(255) DEFAULT NULL,
+  `enid` int(11) DEFAULT NULL,
   `grid` int(11) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
+  `image` longtext,
   `price` float DEFAULT NULL,
   `proname` varchar(255) DEFAULT NULL,
   `salecount` int(11) DEFAULT NULL,
-  `count` int(11) DEFAULT NULL,
   PRIMARY KEY (`proid`),
   KEY `FK_mqqegagq33hjarpb035mit3o7` (`csorid`),
-  CONSTRAINT `FK_mqqegagq33hjarpb035mit3o7` FOREIGN KEY (`csorid`) REFERENCES `csort` (`csorid`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+  KEY `FK_c8qg49cfxrfeooxj8yvfm4x9p` (`enid`),
+  KEY `FK_c078y007ogacgwp17ob2eh7hn` (`grid`),
+  CONSTRAINT `FK_c078y007ogacgwp17ob2eh7hn` FOREIGN KEY (`grid`) REFERENCES `grou` (`gid`),
+  CONSTRAINT `FK_c8qg49cfxrfeooxj8yvfm4x9p` FOREIGN KEY (`enid`) REFERENCES `entry` (`entryid`),
+  CONSTRAINT `FK_mqqegagq33hjarpb035mit3o7` FOREIGN KEY (`csorid`) REFERENCES `sort2` (`s2id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product
 -- ----------------------------
-INSERT INTO `product` VALUES ('1', null, 'happy baby 儿童安全座椅', '1', '../images/img/img.jpg', '1320', '保护儿童行车安全', '0', '999999');
-INSERT INTO `product` VALUES ('2', null, '买一送一   鲜活直达', '1', '../images/img/img3.jpg', '196', '阳澄湖大闸蟹', '0', '999999');
-INSERT INTO `product` VALUES ('4', null, '最IN进口面膜敷起来', '1', '../images/img/img2.jpg', '1320', '韩后919爱购节', '0', '999999');
-INSERT INTO `product` VALUES ('5', '1', '进口天然乳胶床垫弹簧1.51.8米双人软硬席梦思 椰梦维棕垫', null, '/shopGGL/images/img/img39.jpg', '222', '进口天然乳胶床垫弹簧1.51.8米双人软硬席梦思 椰梦维棕垫', '0', '999999');
-INSERT INTO `product` VALUES ('6', '1', '进口天然乳胶床垫弹簧1.51.8米双人软硬席梦思 椰梦维棕垫', null, '/shopGGL/images/img/img39.jpg', '222', '进口天然乳胶床垫弹簧1.51.8米双人软硬席梦思 椰梦维棕垫', '0', '999999');
-INSERT INTO `product` VALUES ('7', '2', '进口天然乳胶床垫弹簧1.51.8米双人软硬席梦思 椰梦维棕垫', null, '/shopGGL/images/img/img39.jpg', '222', '进口天然乳胶床垫弹簧1.51.8米双人软硬席梦思 椰梦维棕垫', '0', '999999');
-INSERT INTO `product` VALUES ('8', '2', '进口天然乳胶床垫弹簧1.51.8米双人软硬席梦思 椰梦维棕垫', null, '/shopGGL/images/img/img39.jpg', '222', '进口天然乳胶床垫弹簧1.51.8米双人软硬席梦思 椰梦维棕垫', '0', '999999');
-INSERT INTO `product` VALUES ('9', '2', '进口天然乳胶床垫弹簧1.51.8米双人软硬席梦思 椰梦维棕垫', null, '/shopGGL/images/img/img39.jpg', '222', '进口天然乳胶床垫弹簧1.51.8米双人软硬席梦思 椰梦维棕垫', '0', '999999');
-INSERT INTO `product` VALUES ('10', '3', '进口天然乳胶床垫弹簧1.51.8米双人软硬席梦思 椰梦维棕垫', null, '/shopGGL/images/img/img39.jpg', '222', '进口天然乳胶床垫弹簧1.51.8米双人软硬席梦思 椰梦维棕垫', '0', '999999');
 
 -- ----------------------------
 -- Table structure for sort
@@ -151,7 +152,7 @@ CREATE TABLE `sort` (
   `sorimg` varchar(255) DEFAULT NULL,
   `sorname` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`sorid`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sort
@@ -159,13 +160,13 @@ CREATE TABLE `sort` (
 INSERT INTO `sort` VALUES ('1', 'li01', '功能产品1');
 INSERT INTO `sort` VALUES ('2', 'li02', '功能产品2');
 INSERT INTO `sort` VALUES ('3', 'li03', '功能产品3');
-INSERT INTO `sort` VALUES ('10', 'li04', '功能产品4');
-INSERT INTO `sort` VALUES ('11', 'li05', '功能产品5');
-INSERT INTO `sort` VALUES ('12', 'li06', '功能产品6');
-INSERT INTO `sort` VALUES ('13', 'li07', '功能产品7');
-INSERT INTO `sort` VALUES ('14', 'li08', '功能产品8');
-INSERT INTO `sort` VALUES ('15', 'li09', '功能产品9');
-INSERT INTO `sort` VALUES ('16', 'li10', '功能产品10');
+INSERT INTO `sort` VALUES ('4', 'li04', '功能产品4');
+INSERT INTO `sort` VALUES ('5', 'li05', '功能产品5');
+INSERT INTO `sort` VALUES ('6', 'li06', '功能产品6');
+INSERT INTO `sort` VALUES ('7', 'li07', '功能产品7');
+INSERT INTO `sort` VALUES ('8', 'li08', '功能产品8');
+INSERT INTO `sort` VALUES ('9', 'li09', '功能产品9');
+INSERT INTO `sort` VALUES ('10', 'li10', '功能产品10');
 
 -- ----------------------------
 -- Table structure for sort2
@@ -178,7 +179,7 @@ CREATE TABLE `sort2` (
   PRIMARY KEY (`s2id`),
   KEY `FK_ayed43imva7mxv44qjta8xhdy` (`csid`),
   CONSTRAINT `FK_ayed43imva7mxv44qjta8xhdy` FOREIGN KEY (`csid`) REFERENCES `csort` (`csorid`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sort2
@@ -187,14 +188,23 @@ INSERT INTO `sort2` VALUES ('1', '1', '家纺（1）');
 INSERT INTO `sort2` VALUES ('2', '1', '家纺（2）');
 INSERT INTO `sort2` VALUES ('3', '1', '家纺（3）');
 INSERT INTO `sort2` VALUES ('4', '1', '家纺（4）');
-INSERT INTO `sort2` VALUES ('5', '2', '生活用品（2）');
-INSERT INTO `sort2` VALUES ('6', '2', '生活用品（2）');
-INSERT INTO `sort2` VALUES ('7', '2', '生活用品（2）');
-INSERT INTO `sort2` VALUES ('8', '2', '生活用品（2）');
-INSERT INTO `sort2` VALUES ('9', '3', '家具（3）');
-INSERT INTO `sort2` VALUES ('10', '3', '家具（3）');
-INSERT INTO `sort2` VALUES ('11', '3', '家具（3）');
-INSERT INTO `sort2` VALUES ('12', '3', '家具（3）');
+INSERT INTO `sort2` VALUES ('5', '1', '家纺（5）');
+INSERT INTO `sort2` VALUES ('6', '1', '家纺（6）');
+INSERT INTO `sort2` VALUES ('7', '1', '家纺（7）');
+INSERT INTO `sort2` VALUES ('8', '2', '生活用品（1）');
+INSERT INTO `sort2` VALUES ('9', '2', '生活用品（2）');
+INSERT INTO `sort2` VALUES ('10', '2', '生活用品（3）');
+INSERT INTO `sort2` VALUES ('11', '2', '生活用品（4）');
+INSERT INTO `sort2` VALUES ('12', '2', '生活用品（5）');
+INSERT INTO `sort2` VALUES ('13', '2', '生活用品（6）');
+INSERT INTO `sort2` VALUES ('14', '2', '生活用品（7）');
+INSERT INTO `sort2` VALUES ('15', '3', '家具（1）');
+INSERT INTO `sort2` VALUES ('16', '3', '家具（2）');
+INSERT INTO `sort2` VALUES ('17', '3', '家具（3）');
+INSERT INTO `sort2` VALUES ('18', '3', '家具（4）');
+INSERT INTO `sort2` VALUES ('19', '3', '家具（5）');
+INSERT INTO `sort2` VALUES ('20', '3', '家具（6）');
+INSERT INTO `sort2` VALUES ('21', '3', '家具（7）');
 
 -- ----------------------------
 -- Table structure for users
@@ -212,9 +222,8 @@ CREATE TABLE `users` (
   `username` varchar(255) DEFAULT NULL,
   `zip` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', '广东省深圳市xxxxxxxxxxx', '/shopGGL/images/1.png', '123456', '123456', '钦差大臣', '新官人', 'Y', 'admin', '441716');
