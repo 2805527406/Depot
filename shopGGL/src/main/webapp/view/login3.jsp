@@ -76,14 +76,8 @@ $(".registerform").Validform({
 
 
 <div class="header">
-  <h1 class="headerLogo"><a title="系统管理" target="_blank" href="#"><img alt="logo" src="/shopGGL/images/logo.gif"></a></h1>
-	<div class="headerNav">
-		<a target="_blank" href="#">华软官网</a>
-		<a target="_blank" href="#">关于华软</a>
-		<a target="_blank" href="#">开发团队</a>
-		<a target="_blank" href="#">意见反馈</a>
-		<a target="_blank" href="#">帮助</a>		
-	</div>
+  <h1 class="headerLogo"><a title="系统管理" target="_blank" href="#"><img alt="logo" src="/shopGGL/images/logo.jpg"></a></h1>
+
 </div>
 
 <div class="banner">
@@ -111,6 +105,9 @@ $(".registerform").Validform({
 	   <input type="text" value="输入验证码" maxlength="100" id="yzm" class="i-text yzm" nullmsg="请输入验证码！" >    
        <div class="ui-form-explain"><a href="javascript:changeCaptcha()" ><img id="changeCaptcha" src="/shopGGL/captcha/getCaptchaCode.sw" class="yzm-img"></a></div>
   </div>
+  <div>
+     <label for="logonId" class="form-label">还没有账号？点击<a href="/shopGGL/view/reg.html">注册</a></label>
+  </div>
   <div class="fm-item">
 	   <label for="logonId" class="form-label"></label>
 	   <input type="button" onclick="checkCaptcha()" tabindex="4" id="send-btn" class="btn-login"/>
@@ -124,8 +121,8 @@ $(".registerform").Validform({
 
 	<div class="bd">
 		<ul>
-			<li style="background:url(/shopGGL/themes/theme-pic1.jpg) #CCE1F3 center 0 no-repeat;"><a target="_blank" href="#"></a></li>
-			<li style="background:url(/shopGGL/themes/theme-pic2.jpg) #BCE0FF center 0 no-repeat;"><a target="_blank" href="#"></a></li>
+			<li style="background:url(/shopGGL/themes/111.jpg) #CCE1F3 center 0 no-repeat;"><a target="_blank" href="#"></a></li>
+			<li style="background:url(/shopGGL/themes/222.jpg) #BCE0FF center 0 no-repeat;"><a target="_blank" href="#"></a></li>
 		</ul>
 	</div>
 

@@ -39,7 +39,7 @@
     <input type="text" name="rolename" ng-model="rolename" id="rolename"class="abc input-default" placeholder="" value="">&nbsp;&nbsp;<br>
  类别1：<select ng-model="sdo" ng-options="v.sorid as v.sorname for v in sort" ng-click="csor()"><option value="0" >请选择</></select>&nbsp;  类别2：<select ng-options="v.gid as v.gname for v in grou" ng-model="sdo2"><option value="0">请选择</></select>&nbsp;
   <br> 类别3：<select ng-model="sdo3" ng-options="v.csorid as v.csorname for v in csort" ng-click="csor2()"><option value="0">请选择</></select>&nbsp;  类别4：<select ng-options="v.s2id as v.s2name for v in sort2" ng-model="sdo4"><option value="0">请选择</></select>&nbsp;
-     <input type="button" class="btn btn-primary" ng-click="mhcx()" value="查询">&nbsp;&nbsp; <button type="button" class="btn btn-success" id="addnew">新增机构</button>
+     <input type="button" class="btn btn-primary" ng-click="mhcx()" value="查询">&nbsp;&nbsp; <button type="button" class="btn btn-success" id="addnew">新增商品</button>
 </form>
 
 <div>
@@ -218,8 +218,6 @@ app.controller("proController",function($scope,Service){
 		Service.pro($scope);
 	}
 	
-	///*分页*********************************************************
-	 //测试数据  
    
 });
 

@@ -45,31 +45,32 @@
     <tr>
         <th>编号</th>
         <th>订单编号</th>
-        <th>数量</th>
         <th>下单时间</th>
-        <th>应付价钱</th>
-        <th>实付价钱</th>
+        <th>下单人</th>
+        <th>购买价钱</th>
         <th>收货人地址</th>
         <th>收货人姓名</th>
         <th>收货人电话</th>
         <th>收货人邮编</th>
         <th>商品名称</th>
         <th>订单状态</th>
+        <th>操作</th>
     </tr>
     </thead>
 	     <tr ng-repeat="p in dingdan">
             <td>{{$index+1}}</td>
             <td>{{p.orderno}}</td>
-            <td>{{p.count}}</td>
             <td>{{p.createtime}}</td>
-            <td>{{p.payment}}</td>
+            <td>{{p.or.users.username}}</td>
             <td>{{p.paymoney}}</td>
             <td>{{p.or.sendaddress}}</td>
             <td>{{p.or.sendname}}</td>
             <td>{{p.or.sendphone}}</td>
             <td>{{p.or.zip}}</td>
+            
             <td><p ng-repeat="vs in p.pro_en">{{vs.proname}}</p></td>
-            <td>{{ p.price=="2"? "货到付款":p.price=="1"?"已发货":"未发货"}}</td>
+            <td>{{ p.price=="2"? "货到付款":p.price=="1"?"已付款":p.price=="3"?"已发货":"未付款"}}</td>
+             <td><select ng-change="zt(x,p.entryid)" ng-model="x"><option value="0" selected="selected">改变订单状态</option><option value="1">已付款</option><option value="2">货到付款</option><option value="3">已发货</option><option value="4">未付款</option></select></td>
         </tr></table>
 		</body>
 		</html>
@@ -101,14 +102,28 @@
 				 console.log("ERROR:" , response);
 			 });
 	   }
+	   
+	   this.stuts=function(id,entryid){
+		   return $http.get("/shopGGL/admin/stuts.sw",{params: {  
+		        "id":id ,"entryid":entryid
+		    }} );
+	   }
    });
 
    myapp.controller("orderController",function($scope,Service){
 	   Service.cxen($scope);//全部查询
-	   
 	   $scope.encx=function(){//模糊查询
 		   Service.cxen($scope);
 		}
+	   
+	   $scope.x="0";
+	   
+	   $scope.zt=function(id,entryid){
+		   if(id!="0"){
+			   Service.stuts(id,entryid).then(function(response){ Service.cxen($scope);},function(response){console.log("Error:",response)});
+		   }	
+	   }
+	   
 	  
    });
    

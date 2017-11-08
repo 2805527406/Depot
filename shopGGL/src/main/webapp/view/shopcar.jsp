@@ -69,8 +69,8 @@
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="go_tb">
          <tr>
            <td width="20%"><a href="/shopGGL/view/index.jsp" class="go_buy">继续购物</a></td>
-           <td width="63%">&nbsp;</td>
-           <td width="17%" align="right"><a href="/shopGGL/jump3.sw" class="code">结 算</a></td>
+           <td width="50%">&nbsp;</td>
+           <td width="30%" align="right"><a href="/shopGGL/clearCart.sw" class="code">清空购物车</a>&nbsp;<a href="javascript:void(0)" onclick="code()" class="code">结 算</a></td>
          </tr>
         </table>
         <div class="clear"></div>
@@ -204,6 +204,16 @@ function jian(pid){
 	var ntotal=total-price;//计算后的总计
 	$("#total").html(ntotal);
 	$.get("/shopGGL/editCart.sw",{count:to,proid:pid,total:ntotal})
+}
+
+function code(){
+	var s='<%=session.getAttribute("cart")==null ?"":"aa"%>';
+	if(s){
+		window.location.href="/shopGGL/jump3.sw";
+	}else{
+		alert("购物车空空的，先去购物吧！");
+	}
+	
 }
 
 </script>

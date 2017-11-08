@@ -51,7 +51,6 @@
         <th>用户地址</th>
         <th>邮编</th>
         <th>黑名单</th>
-        <th>操作</th>
     </tr>
     </thead>
 	     <tr ng-repeat="u in useryh">
@@ -65,9 +64,6 @@
         <td>
         <a  href="javascript:void(0)" ng-click="hmd(u.userid)"> {{u.userlean=="Y"? "用户正常":"用户黑名单"}}</a>
       	</td>
-            <td>
-                <a href="edit.html">编辑</a>                
-            </td>
         </tr>	
 </table>
 

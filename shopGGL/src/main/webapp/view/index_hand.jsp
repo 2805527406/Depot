@@ -7,8 +7,8 @@
 		<div class="left">您好，欢迎光临易易城！<a href="/shopGGL/view/login3.jsp">[登录]</a> <a href="/shopGGL/view/reg.html">[注册]</a></div>
 	</c:if>
 	<c:if test="${not empty qianlogin }">
-	<div class="left">您好，欢迎光临易易城！<a href="/shopGGL/view/member.html">[${qianlogin.realname}]</a> <a href="/shopGGL/removelogin.sw">[退出]</a></div>
-        <div class="right"><a href="/shopGGL/view/member.html">我的会员中心</a>|<a href="#">收藏夹</a>|<a href="#">服务中心</a>|<a href="#">在线客服</a>|<a href="shopcar.jsp">购物车<b>0</b>件</a></div>
+	<div class="left">您好，欢迎光临易易城！<a href="/shopGGL/view/member.jsp">[${qianlogin.realname}]</a> <a href="/shopGGL/removelogin.sw">[退出]</a></div>
+        <div class="right"><a href="/shopGGL/view/member.jsp">我的会员中心</a>|<a href="#">收藏夹</a>|<a href="#">服务中心</a>|<a href="#">在线客服</a>|<a href="shopcar.jsp">购物车<b>0</b>件</a></div>
         <div class="clear"></div></c:if>
     </div>	
 </div>
@@ -17,7 +17,7 @@
 	<div class="w1200">
     	<div class="logo"><a href="#"></a></div>
         <div class="search">
-        	<form action="#" class="form">
+        	<form action="/shopGGL/cx.sw" class="form">
         		<input type="text" value="输入商品关键字" name="keyword" class="txt" onfocus="if(value=='输入商品关键字') {value=''}" onblur="if(value=='') {value='输入商品关键字'}"/>
                 <input type="submit" value="搜索" class="sub"/>
             </form>

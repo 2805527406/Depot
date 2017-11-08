@@ -98,13 +98,23 @@ public class Sort_2 {
 //	public void setEn(Entry en) {
 //		this.en = en;
 //	}
+	
+	
 
 	@Override
 	public String toString() {
 		return "Sort_2 [s2id=" + s2id + ", s2name=" + s2name + ", csid=" + csid + ", parent_csort=" + parent_csort
 				+ "]";
 	}
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((csid == null) ? 0 : csid.hashCode());
+		return result;
+	}
+
 	
 	
 }

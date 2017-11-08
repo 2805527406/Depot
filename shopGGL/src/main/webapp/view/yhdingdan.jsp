@@ -1,82 +1,41 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="myApp">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>会员中心</title>
+<title>订单详情</title>
 <link href="/shopGGL/css/style.css" type="text/css" rel="stylesheet" />
+<link href="/shopGGL/css/style2.css" type="text/css" rel="stylesheet" />
+<link href="/shopGGL/css/demo.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" src="/shopGGL/js/jquery1.42.min.js"></script>
+<script type="text/javascript" src="/shopGGL/js/jquery.SuperSlide.js"></script>
 <script src="/shopGGL/js/jquery-1.7.min.js" type="text/javascript"></script>
-<script src="/shopGGL/js/common.js"  type="text/javascript"></script>
+<script type="text/javascript" src="/shopGGL/js/Validform_v5.3.2_min.js"></script>
 
+<script src="/shopGGL/js/common.js"  type="text/javascript"></script>
+<style>
+.Validform_checktip{margin:4px 0 12px 92px;}
+.formsub label{display:inline-block; width:70px;}
+.action{padding-left:92px;}
+</style>
 </head>
-<body class="index">
+<body class="index"  ng-controller="yhdingdanController">
 <div class="top_ad"><div class="w1200"><a href="#" id="close"></a></div></div>
 
-<div class="top">
-	<div class="w1200">
-		<div class="left">您好，欢迎光临易易城！<a href="#">[登录]</a> <a href="#">[注册]</a></div>
-        <div class="right"><a href="#">我的会员中心</a>|<a href="#">收藏夹</a>|<a href="#">服务中心</a>|<a href="#">在线客服</a>|<a href="#">购物车<b>0</b>件</a></div>
-        <div class="clear"></div>
-    </div>
-</div>
-
-<div class="head">
-	<div class="w1200">
-    	<div class="logo"><a href="#"></a></div>
-        <div class="search">
-        	<form action="#" class="form">
-        		<input type="text" value="输入商品关键字" name="keyword" class="txt" onfocus="if(value=='输入商品关键字') {value=''}" onblur="if(value=='') {value='输入商品关键字'}"/>
-                <input type="submit" value="搜索" class="sub"/>
-            </form>
-        	<p><a href="#">iphone6s</a>|<a href="#">面膜</a>|<a href="#">婚庆床品</a>|<a href="#">运动鞋</a>|<a href="#">眼霜</a>|<a href="#">月饼</a>|<a href="#">智能手机</a>|<a href="#">连衣裙</a></p>
-        </div>
-        <div class="s_r">
-        	<dl>
-            	<dt><p>购物车<span>0</span></p></dt>
-                <dd>客服电话：<b>400-0139-038</b></dd>
-            </dl>
-        </div>
-        <div class="clear"></div>
-    </div>
-</div>
-
-<div class="menu">
-	<div class="w1200">
-    	<div class="item" id="nav"><a href="#" class="nav">全部商品分类</a>
-        	<div class="nav_son">
-            	<ul>
-                	<li class="li01"><a href="#">功能产品</a></li>
-                    <li class="li02"><a href="#">服装箱包</a></li>
-                    <li class="li03"><a href="#">美妆护肤</a></li>
-                    <li class="li04"><a href="#">珠宝饰品</a></li>
-                    <li class="li05"><a href="#">数码家电</a></li>
-                    <li class="li06"><a href="#">食品茶酒</a></li>
-                    <li class="li07"><a href="#">运动体育</a></li>
-                    <li class="li08"><a href="#">家居家纺</a></li>
-                    <li class="li09"><a href="#">生活服务</a></li>
-                    <li class="li10"><a href="#">其他</a></li>
-                </ul>
-            </div>
-        </div>
-    	<div class="item"><a href="#" class="home">商城首页</a></div>
-        <div class="item"><a href="#">易易特色</a></div>
-        <div class="item"><a href="#">热销产品</a></div>
-        <div class="item"><a href="#">新品上市</a></div>
-        <div class="item"><a href="#">精品推荐</a></div>
-        <div class="item"><a href="#">生活服务</a></div>
-    </div>
-</div>
+<%@ include file="index_hand.jsp" %>
 
 
 <div class="w1200">
-	<div class="position"><a href="#">首页</a> > <a href="#">会员中心</a> > <a href="#">个人资料</a></div>
+	<div class="position"><a href="/shopGGL/view/index.jsp">首页</a> > <a href="#">会员中心</a> > <a href="#">个人资料</a></div>
     
     <div class="m_d">
     	<div class="left">
         	<dl><dt>账户管理</dt>
             <dd>
-            	<a href="#" class="on">个人资料</a>
-                <a href="/shopGGL/view/pwd.html">修改密码</a>
-                <a href="#">绑定会员卡</a>
+            	<a href="/shopGGL/view/member.jsp">个人资料</a>
+                <a href="/shopGGL/view/pwd.jsp" class="on">修改密码</a>
+                <a href="#">订单详情</a>
                 <a href="#">绑定银行卡</a>
                 <a href="#">升级管理</a>
                 <a href="#">账单列表</a>
@@ -95,7 +54,7 @@
         </div>
         <div class="right">
         	<dl class="dl01">
-            	<dt><img src="/shopGGL/images/ico04.jpg"/></dt>
+            	<dt><img src="images/ico04.jpg"/></dt>
                 <dd>
 					<table width="725" border="0" cellpadding="0" cellspacing="0">
                       <tr>
@@ -113,32 +72,42 @@
                         <td><span>0.000元</span></td>
                       </tr>
                     </table>
-                    <img src="${qianlogin.img}" width=117 height=118/>
+                    <img src="${qianlogin.img}"/>
                 </dd>
             </dl>
             <dl class="dl02">
             	<dt>
-                	<span>个人资料</span>
+                	<span>订单详情</span>
                 </dt>
                 <dd>
-                	<div class="item"><span><font>*</font>用户真实姓名：</span><input type="tex" class="txt"/></div>
-                    <div class="item"><span><font>*</font>用户身份证号码：</span><input type="tex" class="txt"/></div>
-                    <div class="item"><span><font>*</font>性别：</span><input type="radio" value="" name="sex"/> 男&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" value="" name="sex"/> 女</div>
-                	<div class="item"><span style="float:left"><font>*</font>开户行：</span>
-                     <div class="xlc"><input name="aaa" class="txt-xl li01" value="储蓄卡|213213"/><span>更换银行 V</span>
-                          <ul>
-                              <li class="li01">储蓄卡|111111</li>
-                              <li class="li02">储蓄卡|222222</li>
-                              <li class="li03">储蓄卡|213213</li>
-                          </ul>
-                      </div>
-                      <div class="clear"></div>
-                     </div>
-                     <div class="item"><span><font>*</font>开户人姓名：</span><input type="tex" class="txt"/></div>
-                     <div class="item"><span><font>*</font>银行卡号：</span><input type="tex" class="txt"/></div>
-                     <div class="item"><span><font>*</font>电子邮箱：</span><input type="tex" class="txt"/> <em>请输入邮箱地址，邮箱将用于找回密码。</em></div>
-                     <div class="item"><span><font>*</font>联系地址：</span><select><option value="广东省">广东省</option></select><select><option value="深圳市">深圳市</option></select><input type="tex" class="txt"/></div>
-                     <div class="item"><input type="submit" class="sub" value="保存"/></div>
+                <table width=100% border="1" cellpadding="0" cellspacing="0">
+        <tr>
+        <th>编号</th>
+        <th>订单编号</th>
+ 
+        <th>下单时间</th>
+        <th>购买价钱</th>
+        <th>收货人地址</th>
+        <th>收货人姓名</th>
+        <th>收货人电话</th>
+        <th>商品名称</th>
+        <th>订单状态</th>
+        <th>操作</th>
+    </tr>
+         <tr ng-repeat="p in yhdingdan">
+            <td>{{$index+1}}</td>
+            <td>{{p.orderno}}</td>
+            <td>{{p.createtime}}</td>
+            <td>{{p.paymoney}}</td>
+            <td>{{p.or.sendaddress}}</td>
+            <td>{{p.or.sendname}}</td>
+            <td>{{p.or.sendphone}}</td>
+            <td><p ng-repeat="vs in p.pro_en">{{vs.proname}}</p></td>
+            <td>{{p.price=="2"? "货到付款":p.price=="1"?"已付款":p.price=="3"?"已发货":"未付款"}}</td>
+            <td >
+             <a href="javascript:void(0)"  ng-click="qxdd(p.entryid)" >取消订单</a></td>
+        </tr>
+                </table>
                 </dd>
             </dl>
         </div>
@@ -234,7 +203,84 @@
         <li><a href="#" class="a04"></a></li>
     </ul>
 </div>
-
+<script>
+$(function(){
+	//$(".registerform").Validform();  //就这一行代码！;
+		
+	$(".registerform").Validform({
+		tiptype:function(msg,o,cssctl){
+			//msg：提示信息;
+			//o:{obj:*,type:*,curform:*}, obj指向的是当前验证的表单元素（或表单对象），type指示提示的状态，值为1、2、3、4， 1：正在检测/提交数据，2：通过验证，3：验证失败，4：提示ignore状态, curform为当前form对象;
+			//cssctl:内置的提示信息样式控制函数，该函数需传入两个参数：显示提示信息的对象 和 当前提示的状态（既形参o中的type）;
+			if(!o.obj.is("form")){//验证表单元素时o.obj为该表单元素，全部验证通过提交表单时o.obj为该表单对象;
+				var objtip=o.obj.siblings(".Validform_checktip");
+				cssctl(objtip,o.type);
+				objtip.text(msg);
+			}
+		}
+	});
+})
+</script>
 
 </body>
+
+ <script src="/shopGGL/angular.min.js"></script>
+   <script src="/shopGGL/angular-ui-router.min.js"></script>
+ <script type="text/javascript">
+   var myapp=angular.module("myApp",[]);
+   
+   myapp.service("Service",function($http){
+	   postCfg = {
+			    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			    transformRequest: function (data) {
+			        return $.param(data);
+			    }
+			};
+	   //删除订单
+	   this.qx=function(eid){
+		   return $http.get("/shopGGL/view/qxyhdd.sw",{params: {  
+			   "eid":eid
+		    }});
+	   }
+	   this.cxyhdd=function($scope,s){
+		 //  alert($scope.realname);
+		   $http.post("/shopGGL/view/yhdingdan.sw",{ 
+		        "userid": s
+		    },postCfg).then(function(response){
+				 $scope.yhdingdan = response.data;
+			 }, function(response){
+				 console.log("ERRORwd:" , response);
+			 });
+	   }
+   });
+
+   myapp.controller("yhdingdanController",function($scope,Service){
+	   var s='${qianlogin.userid}';
+	   console.log('用户id',s)
+	   $scope.yhdingdan=[];
+	   Service.cxyhdd($scope,s);//全部查询
+	   
+	   $scope.qxdd=function(eid){//用户修改
+		   Service.qx(eid).then(function(response){
+			   var s2=response.data.result;
+			   if(s2=="yes"){
+				   Service.cxyhdd($scope,s);//全部查询
+			   }else{
+				   alert("订单已发货，不能取消订单");
+				   Service.cxyhdd($scope,s);//全部查询
+			   }
+		   },function(response){console.log("ERROR:",response)});
+		}
+	  
+   });
+   
+
+   
+</script>
 </html>
+
+
+  
+
+
+

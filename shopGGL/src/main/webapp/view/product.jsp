@@ -35,8 +35,8 @@
     <div class="clear"></div>
     </div>
     <div class="pro_cont" id="asdf">
-    <c:forEach items="${pro}" var="p" begin="${pagebean.startindex}" end="${pagebean.endindex}">
-    	<a href="/shopGGL/jump2.sw?proid=${p.proid }"><div class='item'><dt><img src='${p.image }' height=230 width=215/></dt></dl><p class='p01'><font>￥</font><font>${p.price }</font></p><p class='p02'><a href='#'>${p.proname }</a></p></div></a>
+    <c:forEach items="${pro}" var="p">
+    	<a href="/shopGGL/jump2.sw?proid=${p.proid }"><div class='item'><dt><img src='${p.image }' height=230 width=215/></dt></dl><p class='p01'><font>￥</font><font>${p.price }</font></p><p class='p02'><a href='#'>${p.proname }</a></p><p>${p.decript }</p></div></a>
 
        </c:forEach>
         <div class="clear"></div>

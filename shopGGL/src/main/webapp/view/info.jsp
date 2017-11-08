@@ -125,7 +125,7 @@
         </dl>
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="go_tb">
          <tr>
-           <td width="20%"><a href="index.jsp" class="go_buy">继续购物</a></td>
+           <td width="20%"><a href="/shopGGL/view/index.jsp" class="go_buy">继续购物</a></td>
            <td width="63%">&nbsp;</td>
            <td width="17%" align="right"><a href="javascript:void(0)" onclick="subor()" class="code">结 算</a></td>
          </tr>

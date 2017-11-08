@@ -24,25 +24,28 @@
        <dl>
         	<dt><span>请选择您的支付方式</span></dt>
             <dd>
-            	<div class="title"><input type="radio" value="" name="zhifu" checked="checked"/>在线支付</div>
+            	<div class="title"><input type="radio" value="1" name="zhifu" checked="checked"/>在线支付</div>
         		<div class="card">
                 	<p>银行或第三方支付机构</p>
                     <ul>
-                    	<li><input type="radio" value="" checked="checked" name="pay" id="zfb"/><label for="zfb"><img src="images/ico15.jpg"/></label></li>
-                        <li><input type="radio" value="" name="pay" id="gs"/><label for="gs"><img src="images/ico14.jpg"/></label></li>
-                        <li><input type="radio" value="" name="pay" id="wx"/><label for="wx"><img src="images/ico16.jpg"/></label></li>
-                        <li><input type="radio" value="" name="pay" id="ny"/><label for="ny"><img src="images/ico17.jpg"/></label></li>
-                        <li><input type="radio" value="" name="pay" id="zg"/><label for="zg"><img src="images/ico18.jpg"/></label></li>
-                        <li><input type="radio" value="" name="pay" id="js"/><label for="js"><img src="images/ico19.jpg"/></label></li>
-                        <li><input type="radio" value="" name="pay" id="xy"/><label for="xy"><img src="images/ico20.jpg"/></label></li>
-                        <li><input type="radio" value="" name="pay" id="zs"/><label for="zs"><img src="images/ico21.jpg"/></label></li>
+                    	<li><input type="radio" value="" checked="checked" name="pay" id="zfb"/><label for="zfb"><img src="/shopGGL/images/ico15.jpg"/></label></li>
+                        <li><input type="radio" value="" name="pay" id="gs"/><label for="gs"><img src="/shopGGL/images/ico14.jpg"/></label></li>
+                        <li><input type="radio" value="" name="pay" id="wx"/><label for="wx"><img src="/shopGGL/images/ico16.jpg"/></label></li>
+                        <li><input type="radio" value="" name="pay" id="ny"/><label for="ny"><img src="/shopGGL/images/ico17.jpg"/></label></li>
+                        <li><input type="radio" value="" name="pay" id="zg"/><label for="zg"><img src="/shopGGL/images/ico18.jpg"/></label></li>
+                        <li><input type="radio" value="" name="pay" id="js"/><label for="js"><img src="/shopGGL/images/ico19.jpg"/></label></li>
+                        <li><input type="radio" value="" name="pay" id="xy"/><label for="xy"><img src="/shopGGL/images/ico20.jpg"/></label></li>
+                        <li><input type="radio" value="" name="pay" id="zs"/><label for="zs"><img src="/shopGGL/images/ico21.jpg"/></label></li>
                     </ul>
                     <div class="clear"></div>
                 </div>
-                <div class="title"><input type="radio" name="zhifu" value=""/>货到付款</div>
+                <div class="title"><input type="radio" name="zhifu" value="2"/>货到付款</div>
             </dd>
+           
         </dl>
+         <a href="javascript:void(0)" onclick="shop()" style=" background-color: #4CAF50;border: none;color: white;padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;margin: 4px 2px; cursor: pointer;">购买</a>
         <div class="clear"></div>
+        
     </div>
 </div>
 
@@ -134,7 +137,23 @@
         <li><a href="#" class="a04"></a></li>
     </ul>
 </div>
+<script>
+function shop(){
+	var s="${ddss}";
+	var zhifu=$("input:radio[name='zhifu']:checked").val();
+	console.log(s);
+	$.get("/shopGGL/shopover.sw",{orderno:s,zf:zhifu},function(data){
+		if(data=="ok"){
+			alert("支付成功");
+			window.location.href="index.jsp";
+		}else{
+			alert("支付失败");
+		}
+	})
+	
+}
 
+</script>
 
 </body>
 </html>

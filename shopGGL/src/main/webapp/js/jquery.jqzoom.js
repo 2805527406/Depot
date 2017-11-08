@@ -34,7 +34,10 @@
 		    var imageLeft = $(this).offset().left;                
 		    var imageTop = $(this).offset().top;
 
-               
+//		    	 var imageLeft = $(this).offset().left;
+//		         var imageRight = $(this).offset().right;
+//		         var imageTop = $(this).offset().top;
+
 		    var imageWidth = $(this).children('img').get(0).offsetWidth;
 		    var imageHeight = $(this).children('img').get(0).offsetHeight;
 

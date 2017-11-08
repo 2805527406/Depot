@@ -3,32 +3,28 @@ package com.shop.web;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
-import javax.persistence.Table;
-import javax.persistence.criteria.From;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
-import org.hibernate.loader.custom.EntityFetchReturn;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.shop.bean.Csort;
 import com.shop.bean.Entry;
 import com.shop.bean.Order;
 import com.shop.bean.Product;
 import com.shop.bean.Sort;
+import com.shop.bean.Sort_2;
 import com.shop.bean.Users;
 import com.shop.service.BaseService;
 import com.shop.vo.Cart;
@@ -84,14 +80,14 @@ public class ShopController {
 	@RequestMapping(value="/jump")
 	public String jump(Csort cs,
 			HttpServletRequest request){
-		String hql="select cs from Csort cs where cs.sid="+cs.getSid();
+		String hql="select cs from Csort cs where cs.sid="+cs.getSid()+" order by cs.csorid";
 		String hql2="select p from Product p left join p.csort cs2 left join p.csort.parent_csort cs left join p.csort.parent_csort.sort s where cs.sid="+cs.getSid();
-		request.setAttribute("product",bs.findAll(hql,null));
+		List<Csort> list2=bs.findAll(hql,null);
+		request.setAttribute("product",list2);
 		if(cs.getCsorid()!=null&&!cs.getCsorid().equals("")){
 			hql2+=" and p.csorid="+cs.getCsorid();
 		}
 		List list=bs.findAll(hql2, null);
-		/***以下是分页信息***-/-//********************************************************/
 		request.setAttribute("pro",list);
 		return "forward:view/product.jsp";
 	}
@@ -194,7 +190,6 @@ public class ShopController {
 	//�������
 	@RequestMapping(value="/code")
 	public String code(Integer orderid,HttpSession session){
-		System.out.println("id我应该得到了 啊："+orderid);
 		Order or=(Order) bs.find(Order.class, orderid);
 		RandomCharData r=new RandomCharData();
 		String str=orderid+r.createRandomCharData(15);
@@ -206,12 +201,14 @@ public class ShopController {
 		en.setCreatetime(new Date());
 		en.setOr(or);
 		bs.add(en);
-		
-		 
+		/********************************/
+		List list=  bs.findAll("from Entry en where en.orderno='"+str+"'",null);
+		Entry en2=(Entry) list.get(0);
 		for (Map.Entry<Integer, CartItem> entry : getCart(session).getCart().entrySet()) {
 		Product p=(Product) bs.find(Product.class, entry.getKey());
+		en2.getPro_en().add(p);
 		CartItem ci=entry.getValue();
-		p.setEn_pro(en);
+		p.getEntrys().add(en2);
 		p.setSalecount(ci.getCount());
 		bs.update(p);
 		}
@@ -282,6 +279,88 @@ public class ShopController {
 		u2.setPassword(password);
 		bs.update(u2);
 		return "redirect:view/login3.jsp";
+	}
+	
+	@RequestMapping(value="/shopover")
+	@ResponseBody
+	public Object shopover(@RequestParam(name="orderno")String orderno,@RequestParam(name="zf")Float zf,HttpSession session){
+		System.out.println(orderno+","+zf);
+		List list=bs.findAll("select e from Entry e where e.orderno='"+orderno+"'", null);
+		Entry en=(Entry) list.get(0);
+		en.setPrice(zf);
+		Cart cart=getCart(session);
+		cart.CleanCart();
+		bs.update(en);
+		return "ok";
+	}
+	
+	//根据用户id来查询订单
+	///订单的查询
+	@RequestMapping(value="/view/yhdingdan")
+	@ResponseBody
+	public Object finddingdan(Integer userid){
+		System.out.println("yonghuid:"+userid);
+		String hql="select e from Entry e where e.or.userid="+userid;
+		System.out.println(hql);
+		return bs.findAll(hql,null);
+	}		
+	
+	//取消用户订单1已经付款2货到付款3已发货4未付款
+	@RequestMapping(value="/view/qxyhdd")
+	@ResponseBody
+	public Object removedd(@RequestParam(name="eid")Integer eid){
+		System.out.println("我要修改订单");
+		Entry entry=(Entry) bs.find(Entry.class, eid);//得到订单，还要商品
+		Set<Product> products=entry.getPro_en();
+			entry.getPro_en().removeAll(products);
+		Map<String , Object> map=new HashMap<String, Object>();
+		if(entry.getPrice()!=null){
+			System.out.println("不是空的啊");
+			Integer i = Math.round(entry.getPrice());
+			if(i==3) {
+				map.put("result", "no");
+			}else{
+				bs.del(entry);
+				map.put("result", "yes");
+			}
+		}else{
+			System.out.println("我要删除啦");
+			bs.del(entry);
+			map.put("result", "yes");
+		}
+		return map;
+	}
+	
+	@RequestMapping(value="/cx")
+	public String cx(String keyword,HttpServletRequest request){//得到模糊查询的关键字
+		//查询类别   既然这样为何2个不都得到呢 我查询所有商品不都行了吗 
+		/*
+		 * 1.根据参数查询类别，吧类别下的商品得到2.根据关键之模糊查询商品，这样得到的就是所有商品
+		 * 
+		 * */
+		//查询商品名称
+		List<Product> list1=new ArrayList<Product>();//根据小分类查询到的商品
+		List<Product> list2=new ArrayList<Product>();//商品模糊查询
+		if(keyword!=null&&!keyword.equals("")){
+			list1=bs.findAll("select p from Product p left join p.csort s2 where s2.s2name like '%"+keyword+"%'",null);
+			System.out.println("分类查出来的商品："+list1);
+			list2=bs.findAll("select p from Product p where p.proname like '%"+keyword+"%'",null);
+			System.out.println("模糊查询的商品："+list2);
+			list1.addAll(list2);
+			System.out.println("合并后的集合："+list1);
+			HashSet h = new HashSet(list1);   
+			list1.clear();
+			list1.addAll(h);
+			System.out.println("去重复后的集合："+list1);
+		}
+		request.setAttribute("pro",list1);
+		return "forward:view/product.jsp";
+	}
+	
+	@RequestMapping(value="/clearCart")
+	public String clearCart(HttpSession session){
+		getCart(session).CleanCart();
+		return "redirect:view/shopcar.jsp";
 	}
 	
 }

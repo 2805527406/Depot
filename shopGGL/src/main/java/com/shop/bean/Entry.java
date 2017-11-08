@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -21,7 +23,6 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="entry")
@@ -40,12 +41,12 @@ public class Entry {//�����İ��
 	
 	@Column(insertable=false,updatable=false)
 	private Integer orid;
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="orid")
 	private Order or;
 	
-	@OneToMany(mappedBy="en_pro",fetch=FetchType.EAGER)
-	
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name="pro_ent",joinColumns=@JoinColumn(name="eid"),inverseJoinColumns=@JoinColumn(name="pid"))
 	private Set<Product> pro_en=new HashSet<Product>();
 	
 	

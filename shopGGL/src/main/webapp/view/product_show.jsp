@@ -39,7 +39,7 @@ return true;
                     <!--放大镜-->
                 	<div class="pro_detail">
                         <div class="pro_detail_left">
-                            <div class="jqzoom"><img src="${ppp.image}" class="fs" alt="" jqimg="<img src='images/img/img39.jpg' height='800' width='800'>" id="bigImg"/></div>
+                            <div class="jqzoom"><img src="${ppp.image}" class="fs" alt="" jqimg='${ppp.image}' id="bigImg"/></div>
              
                         </div>
                     </div>

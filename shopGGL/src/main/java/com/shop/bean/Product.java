@@ -1,5 +1,6 @@
 package com.shop.bean;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -46,26 +49,18 @@ public class Product {
 	@JoinColumn(name="grid")
 	private Grou grou;
 	
-	@Column(insertable=false,updatable=false)
-	private Integer enid;
-	@ManyToOne
-	@JoinColumn(name="enid")
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name="pro_ent",joinColumns=@JoinColumn(name="pid"),inverseJoinColumns=@JoinColumn(name="eid"))
 	@JsonIgnore
-	private Entry en_pro;
+	private Set<Entry> entrys=new HashSet<Entry>();
 	
 	
 	
-	public Integer getEnid() {
-		return enid;
+	public Set<Entry> getEntrys() {
+		return entrys;
 	}
-	public void setEnid(Integer enid) {
-		this.enid = enid;
-	}
-	public Entry getEn_pro() {
-		return en_pro;
-	}
-	public void setEn_pro(Entry en_pro) {
-		this.en_pro = en_pro;
+	public void setEntrys(Set<Entry> entrys) {
+		this.entrys = entrys;
 	}
 	public Integer getProid() {
 		return proid;

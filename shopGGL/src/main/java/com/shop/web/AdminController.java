@@ -161,9 +161,9 @@ public class AdminController {
 				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 				String sr=sdf.format(new Date());
 				String str=proname+sr+"."+suffix;
-				String path="D:/java ee/eclipse/workspace/Depot/shopGGL/src/main/webapp/images/product/"+str;
+				String path="D:\\资源\\三期项目图片路径\\images\\"+str;
 				Base.generateImage(image, path);
-				pro.setImage("/product/"+str);
+				pro.setImage("/img/"+str);
 				pro.setPrice(price);
 				pro.setProname(proname);
 				pro.setCount(count);
@@ -225,9 +225,9 @@ public class AdminController {
 					SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 					String sr=sdf.format(new Date());
 					String str=proname+sr+"."+suffix;
-					String path="D:/java ee/eclipse/workspace/Depot/shopGGL/src/main/webapp/images/product/"+str;
+					String path="D:\\资源\\三期项目图片路径\\images\\"+str;
 					
-					pro.setImage("/product/"+str);
+					pro.setImage("/img/"+str);
 					Base.generateImage(image, path);
 				}
 				
@@ -335,5 +335,17 @@ public class AdminController {
 					System.out.println(hql);
 					System.out.println("商品输出："+bs.findAll(hql, list.toArray()));
 					return bs.findAll(hql, list.toArray());
-				}		
+				}	
+				
+				
+				@RequestMapping(value="/admin/stuts")
+				@ResponseBody
+				public Object stuts(@RequestParam(name="id")Float id,@RequestParam(name="entryid")Integer entryid){
+					Entry en=(Entry) bs.find(Entry.class, entryid);
+					en.setPrice(id);
+					bs.update(en);
+					Map<String,Object> map=new HashMap<String, Object>();
+					map.put("reulst", "ok");
+					return map;
+				}
 }

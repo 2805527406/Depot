@@ -4,38 +4,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml" ng-app="app">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>修改密码</title>
+<title>会员中心</title>
 <link href="/shopGGL/css/style.css" type="text/css" rel="stylesheet" />
-<link href="/shopGGL/css/style2.css" type="text/css" rel="stylesheet" />
-<link href="/shopGGL/css/demo.css" rel="stylesheet" rev="stylesheet" type="text/css" media="all" />
-<script type="text/javascript" src="/shopGGL/js/jquery1.42.min.js"></script>
-<script type="text/javascript" src="/shopGGL/js/jquery.SuperSlide.js"></script>
 <script src="/shopGGL/js/jquery-1.7.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="/shopGGL/js/Validform_v5.3.2_min.js"></script>
-
 <script src="/shopGGL/js/common.js"  type="text/javascript"></script>
-<style>
-.Validform_checktip{margin:4px 0 12px 92px;}
-.formsub label{display:inline-block; width:70px;}
-.action{padding-left:92px;}
-</style>
+
 </head>
 <body class="index" ng-controller="sonController">
 <div class="top_ad"><div class="w1200"><a href="#" id="close"></a></div></div>
 
 <%@ include file="index_hand.jsp" %>
 
-
 <div class="w1200">
-	<div class="position"><a href="/shopGGL/view/index.jsp">首页</a> > <a href="#">会员中心</a> > <a href="#">个人资料</a></div>
+	<div class="position"><a href="index.jsp">首页</a> > <a href="#">会员中心</a> > <a href="#">个人资料</a></div>
     
     <div class="m_d">
     	<div class="left">
         	<dl><dt>账户管理</dt>
             <dd>
-            	<a href="/shopGGL/view/member.jsp">个人资料</a>
-                <a href="#" class="on">修改密码</a>
-                <a href="yhdingdan.jsp">订单详情</a>
+            	<a href="#" class="on">个人资料</a>
+                <a href="/shopGGL/view/pwd.jsp">修改密码</a>
+                <a href="/shopGGL/view/yhdingdan.jsp">订单详情</a>
                 <a href="#">绑定银行卡</a>
                 <a href="#">升级管理</a>
                 <a href="#">账单列表</a>
@@ -54,7 +43,7 @@
         </div>
         <div class="right">
         	<dl class="dl01">
-            	<dt><img src="images/ico04.jpg"/></dt>
+            	<dt><img src="/shopGGL/images/ico04.jpg"/></dt>
                 <dd>
 					<table width="725" border="0" cellpadding="0" cellspacing="0">
                       <tr>
@@ -72,22 +61,32 @@
                         <td><span>0.000元</span></td>
                       </tr>
                     </table>
-                    <img src="${qianlogin.img}"/>
+                    <img src="${qianlogin.img}" width=117 height=118/>
                 </dd>
             </dl>
             <dl class="dl02">
             	<dt>
-                	<span>修改密码</span>
+                	<span>个人资料</span>
                 </dt>
                 <dd>
-                 <form class="registerform" method="post"  action="/shopGGL/updatepass.sw">
-                	<div class="item"><span><font>*</font>原密码：</span><input type="text" value="" name="name" class="inputxt" datatype="s5-18" nullmsg="请输入密码" ajaxurl="/shopGGL/boolpass.sw"  errormsg="昵称至少5个字符,最多18个字符！" />
-                        <div class="Validform_checktip">昵称为5~18个字符</div></div>
-                    <div class="item"><span><font>*</font>新密码：</span><input type="password" value="" name="userpassword" class="inputxt" datatype="*6-16" nullmsg="请设置密码！" errormsg="密码范围在6~16位之间！" />
-                        <div class="Validform_checktip">密码范围在6~16位之间</div></div>
-                    <div class="item"><span><font>*</font>确认密码：</span><input type="password" value="" name="userpassword2" class="inputxt" datatype="*" recheck="userpassword" nullmsg="请再输入一次密码！" errormsg="您两次输入的账号密码不一致！" />
-                        <div class="Validform_checktip">两次输入密码需一致</div></div>
-                    <div class="item"><input type="submit" class="sub" value="确认修改"/></div></form>
+                	<div class="item"><span><font>*</font>用户真实姓名：</span><input type="tex" class="txt"/></div>
+                    <div class="item"><span><font>*</font>用户身份证号码：</span><input type="tex" class="txt"/></div>
+                    <div class="item"><span><font>*</font>性别：</span><input type="radio" value="" name="sex"/> 男&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" value="" name="sex"/> 女</div>
+                	<div class="item"><span style="float:left"><font>*</font>开户行：</span>
+                     <div class="xlc"><input name="aaa" class="txt-xl li01" value="储蓄卡|213213"/><span>更换银行 V</span>
+                          <ul>
+                              <li class="li01">储蓄卡|111111</li>
+                              <li class="li02">储蓄卡|222222</li>
+                              <li class="li03">储蓄卡|213213</li>
+                          </ul>
+                      </div>
+                      <div class="clear"></div>
+                     </div>
+                     <div class="item"><span><font>*</font>开户人姓名：</span><input type="tex" class="txt"/></div>
+                     <div class="item"><span><font>*</font>银行卡号：</span><input type="tex" class="txt"/></div>
+                     <div class="item"><span><font>*</font>电子邮箱：</span><input type="tex" class="txt"/> <em>请输入邮箱地址，邮箱将用于找回密码。</em></div>
+                     <div class="item"><span><font>*</font>联系地址：</span><select><option value="广东省">广东省</option></select><select><option value="深圳市">深圳市</option></select><input type="tex" class="txt"/></div>
+                     <div class="item"><input type="submit" class="sub" value="保存"/></div>
                 </dd>
             </dl>
         </div>
@@ -183,24 +182,7 @@
         <li><a href="#" class="a04"></a></li>
     </ul>
 </div>
-<script>
-$(function(){
-	//$(".registerform").Validform();  //就这一行代码！;
-		
-	$(".registerform").Validform({
-		tiptype:function(msg,o,cssctl){
-			//msg：提示信息;
-			//o:{obj:*,type:*,curform:*}, obj指向的是当前验证的表单元素（或表单对象），type指示提示的状态，值为1、2、3、4， 1：正在检测/提交数据，2：通过验证，3：验证失败，4：提示ignore状态, curform为当前form对象;
-			//cssctl:内置的提示信息样式控制函数，该函数需传入两个参数：显示提示信息的对象 和 当前提示的状态（既形参o中的type）;
-			if(!o.obj.is("form")){//验证表单元素时o.obj为该表单元素，全部验证通过提交表单时o.obj为该表单对象;
-				var objtip=o.obj.siblings(".Validform_checktip");
-				cssctl(objtip,o.type);
-				objtip.text(msg);
-			}
-		}
-	});
-})
-</script>
+
 
 </body>
 </html>
