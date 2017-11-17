@@ -207,11 +207,11 @@ function jian(pid){
 }
 
 function code(){
-	var s='<%=session.getAttribute("cart")==null ?"":"aa"%>';
-	if(s){
-		window.location.href="/shopGGL/jump3.sw";
-	}else{
+	var s="${cart.cart}";
+	if(s == "{}"){
 		alert("购物车空空的，先去购物吧！");
+	}else{
+		window.location.href="/shopGGL/jump3.sw";
 	}
 	
 }

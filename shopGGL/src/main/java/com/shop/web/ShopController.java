@@ -1,5 +1,6 @@
 package com.shop.web;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,6 +30,7 @@ import com.shop.bean.Sort;
 import com.shop.bean.Sort_2;
 import com.shop.bean.Users;
 import com.shop.service.BaseService;
+import com.shop.vo.Base;
 import com.shop.vo.Cart;
 import com.shop.vo.CartItem;
 import com.shop.vo.RandomCharData;
@@ -264,8 +268,8 @@ public class ShopController {
 		Users u=new Users();
 		u.setUsername(name);
 		u.setPassword(password);
-		u.setImg("/shopGGL/images/face.jpg");
 		u.setPhone(mobile);
+		u.setImg("/shopGGL/images/face.jpg");
 		u.setRealname("易易用户");
 		u.setUserlean("Y");
 		bs.add(u);
@@ -332,15 +336,9 @@ public class ShopController {
 	}
 	
 	@RequestMapping(value="/cx")
-	public String cx(String keyword,HttpServletRequest request){//得到模糊查询的关键字
-		//查询类别   既然这样为何2个不都得到呢 我查询所有商品不都行了吗 
-		/*
-		 * 1.根据参数查询类别，吧类别下的商品得到2.根据关键之模糊查询商品，这样得到的就是所有商品
-		 * 
-		 * */
-		//查询商品名称
-		List<Product> list1=new ArrayList<Product>();//根据小分类查询到的商品
-		List<Product> list2=new ArrayList<Product>();//商品模糊查询
+	public String cx(String keyword,HttpServletRequest request){
+		List<Product> list1=new ArrayList<Product>();
+		List<Product> list2=new ArrayList<Product>();
 		if(keyword!=null&&!keyword.equals("")){
 			list1=bs.findAll("select p from Product p left join p.csort s2 where s2.s2name like '%"+keyword+"%'",null);
 			System.out.println("分类查出来的商品："+list1);
@@ -362,5 +360,61 @@ public class ShopController {
 		getCart(session).CleanCart();
 		return "redirect:view/shopcar.jsp";
 	}
+	
+	//个人资料修改
+		//准备修改个人资料   加载个人资料
+			@RequestMapping(value="/view/toupdateuser")
+			@ResponseBody
+			public Object toupdate(@RequestParam(name="userid") int userid){
+				return bs.find(Users.class, userid);
+			}
+			
+	  //修改个人资料
+			@RequestMapping(value="/view/updateuser")
+			@ResponseBody
+			public Object update(HttpServletRequest request){
+				String realname=request.getParameter("realname");
+				String img=request.getParameter("image");
+				String userid=request.getParameter("userid");
+				String address=request.getParameter("address");
+				String zip=request.getParameter("zip");
+				String phone=request.getParameter("phone");
+				if(realname!=null&&realname!="0"&&!realname.equals("")&&
+								address!=null&&!address.equals("")&&
+										userid!=null&&userid!="0"&&!userid.equals("")&&
+												zip!=null&&!zip.equals("")&&
+														phone!=null&&phone!="0"&&!phone.equals("")){
+					System.out.println("我现在可以修改了");
+				Integer i=Integer.parseInt(userid);
+				Users u = (Users)bs.find(Users.class,i);
+				u.setRealname(realname);
+				u.setPhone(phone);
+				u.setAddress(address);
+				u.setZip(zip);
+				System.out.println(img);
+				if(img!=null&&!img.equals("")&&!img.equals("null")&&!img.equals("undefined")){
+					System.out.println("我要修改图片");
+					String image = img.substring(img.indexOf(",") + 1);//获取开始截取的位置
+					String[] strings=img.split(",");
+					String[] strings2=strings[0].split("/|;");
+					String suffix=strings2[1];
+					SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
+					String sr=sdf.format(new Date());
+					String str=sr+"."+suffix;
+					String path="D:\\资源\\三期项目图片路径\\images\\users\\"+str;
+					
+					u.setImg("/img/users/"+str);
+					Base.generateImage(image, path);
+				}
+				request.getSession().setAttribute("qianlogin", u);
+				bs.update(u);
+				
+				Map<String , Object> map=new HashMap<String, Object>();
+				return map;
+				
+				}else{
+					return "ok";
+				}
+			}
 	
 }

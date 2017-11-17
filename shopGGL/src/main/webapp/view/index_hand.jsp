@@ -8,7 +8,7 @@
 	</c:if>
 	<c:if test="${not empty qianlogin }">
 	<div class="left">您好，欢迎光临易易城！<a href="/shopGGL/view/member.jsp">[${qianlogin.realname}]</a> <a href="/shopGGL/removelogin.sw">[退出]</a></div>
-        <div class="right"><a href="/shopGGL/view/member.jsp">我的会员中心</a>|<a href="#">收藏夹</a>|<a href="#">服务中心</a>|<a href="#">在线客服</a>|<a href="shopcar.jsp">购物车<b>0</b>件</a></div>
+        <div class="right"><a href="/shopGGL/view/member.jsp">我的会员中心</a>|<a href="#">收藏夹</a>|<a href="#">服务中心</a>|<a href="#">在线客服</a>|<a href="/shopGGL/view/shopcar.jsp">购物车<b>0</b>件</a></div>
         <div class="clear"></div></c:if>
     </div>	
 </div>

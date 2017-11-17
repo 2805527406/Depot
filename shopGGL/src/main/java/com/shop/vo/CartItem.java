@@ -1,11 +1,11 @@
 package com.shop.vo;
 
 import com.shop.bean.Product;
-
+//购物车
 public class CartItem {
-	private Product product;
-	private Double subtatal;
-	private Integer count;
+	private Product product;//商品
+	private double subtatal;//小计
+	private Integer count;//数量
 	
 	public CartItem(Product product, Integer count) {
 		super();
@@ -19,8 +19,8 @@ public class CartItem {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-	public Double getSubtatal() {
-		return (double) (product.getPrice()*count);
+	public double getSubtatal() {
+		return product.getPrice()*count;
 	}
 	
 	public Integer getCount() {

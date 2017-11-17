@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+    //该页面只有登录成功的用户才可访问
+	if(session.getAttribute("houlogin")==null){
+		response.sendRedirect(request.getContextPath() +"/backstage/Public/login.jsp");
+		return;
+	}
+%>
 <!DOCTYPE HTML>
 <html>
  <head>
